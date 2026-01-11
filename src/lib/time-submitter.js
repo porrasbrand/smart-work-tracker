@@ -135,6 +135,50 @@ class TimeSubmitter {
     };
   }
 
+  async createTask(segment, taskName) {
+    try {
+      const response = await axios.post(
+        `${this.apiUrl}/api/v1/projects/${segment.activecollab_project_id}/tasks`,
+        {
+          name: taskName,
+          assignee_id: this.userId
+        },
+        {
+          headers: {
+            'X-Angie-AuthApiToken': this.apiToken,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      const task = response.data.single;
+
+      this.logger.info('Task created in ActiveCollab', {
+        segmentId: segment.id,
+        taskId: task.id,
+        taskName: task.name,
+        projectId: segment.activecollab_project_id
+      });
+
+      return {
+        success: true,
+        taskId: task.id,
+        taskName: task.name
+      };
+    } catch (err) {
+      this.logger.error('Failed to create task in ActiveCollab', {
+        segmentId: segment.id,
+        taskName: taskName,
+        error: err.response?.data?.message || err.message
+      });
+
+      return {
+        success: false,
+        error: err.response?.data?.message || err.message
+      };
+    }
+  }
+
   async submitSegment(segment) {
     // Use adjusted duration if available, otherwise use actual duration
     const durationMinutes = segment.adjusted_duration_minutes || segment.duration_minutes;
@@ -158,6 +202,34 @@ class TimeSubmitter {
       }
     }
 
+    // Create task in ActiveCollab (if not already created)
+    let taskId = segment.ac_task_id;
+
+    if (!taskId) {
+      // Build task name with (st) suffix
+      const taskName = `${summary.substring(0, 100)} (st)`;
+
+      const taskResult = await this.createTask(segment, taskName);
+
+      if (!taskResult.success) {
+        // If task creation fails, log error and continue without task
+        this.logger.warn('Continuing time submission without task', {
+          segmentId: segment.id,
+          error: taskResult.error
+        });
+      } else {
+        taskId = taskResult.taskId;
+
+        // Store task ID in database
+        await this.db.run(`
+          UPDATE segments
+          SET ac_task_id = ?,
+              updated_at = CURRENT_TIMESTAMP
+          WHERE id = ?
+        `, [taskId, segment.id]);
+      }
+    }
+
     const payload = {
       value: hours.toFixed(2),
       user_id: this.userId,
@@ -166,6 +238,11 @@ class TimeSubmitter {
       billable_status: this.billableByDefault ? 1 : 0,
       summary: summary
     };
+
+    // Add task_id if we have one
+    if (taskId) {
+      payload.task_id = taskId;
+    }
 
     try {
       const response = await axios.post(
@@ -194,7 +271,8 @@ class TimeSubmitter {
 
       return {
         success: true,
-        timeRecordId: timeRecord.id
+        timeRecordId: timeRecord.id,
+        taskId: taskId
       };
     } catch (err) {
       // Log error to database
