@@ -1,0 +1,42 @@
+{
+  "name": "smart-work-tracker",
+  "version": "0.1.0",
+  "description": "Automated work tracking system for Claude Code sessions with ActiveCollab integration",
+  "main": "src/index.js",
+  "bin": {
+    "smart-work-tracker": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration",
+    "migrate": "node src/index.js migrate",
+    "migrate:down": "node src/index.js migrate down"
+  },
+  "keywords": [
+    "claude-code",
+    "activecollab",
+    "time-tracking",
+    "work-tracker",
+    "automation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "dotenv-expand": "^11.0.7",
+    "sqlite3": "^5.1.7",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  }
+}
