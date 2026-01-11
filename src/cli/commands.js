@@ -184,6 +184,20 @@ async function executeCommand(command, flags, { db, logger, config }) {
       }
       break;
 
+    case 'link-tasks':
+      const TaskLogAnalyzer = require('../lib/task-log-analyzer');
+      const taskAnalyzer = new TaskLogAnalyzer(db, logger, config);
+
+      console.log('Analyzing task logs and linking to segments...\n');
+
+      const linkResult = await taskAnalyzer.analyzeAndLink();
+
+      console.log(`\n✓ Task Analysis Complete:`);
+      console.log(`  Total tasks found: ${linkResult.totalTasks}`);
+      console.log(`  Task-to-project matches: ${linkResult.taskMatches}`);
+      console.log(`  Segments linked: ${linkResult.segmentsLinked}`);
+      break;
+
     default:
       console.error(`Unknown command: ${command}`);
       console.log('Run "smart-work-tracker help" for usage information.');

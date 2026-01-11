@@ -88,11 +88,43 @@ class Attributor {
   calculateConfidence(segment, project) {
     let confidence = 0;
 
+    // RULE 6: Task log matching (HIGHEST PRIORITY)
+    // Check if this segment has task context with matched projects
+    if (segment.task_context) {
+      try {
+        const taskContext = JSON.parse(segment.task_context);
+        if (taskContext.matchedProjects) {
+          const taskMatch = taskContext.matchedProjects.find(p => p.id === project.id);
+          if (taskMatch) {
+            // Task log match found - return immediately with high confidence
+            this.logger.debug('Task log match found', {
+              segmentId: segment.id,
+              projectId: project.id,
+              taskConfidence: taskMatch.confidence,
+              taskCount: taskMatch.taskCount
+            });
+            return taskMatch.confidence; // 0.6-0.95 from task analysis
+          }
+        }
+      } catch (err) {
+        this.logger.warn('Failed to parse task_context', {
+          segmentId: segment.id,
+          error: err.message
+        });
+      }
+    }
+
     if (!segment.cwd) {
       return 0; // No CWD = no attribution
     }
 
     const cwdLower = segment.cwd.toLowerCase();
+
+    // Parse files and commands
+    const filesTouched = segment.files_touched ? JSON.parse(segment.files_touched) : [];
+    const commandsRun = segment.commands_run ? JSON.parse(segment.commands_run) : [];
+    const filesText = filesTouched.join(' ').toLowerCase();
+    const commandsText = commandsRun.join(' ').toLowerCase();
 
     // Rule 1: Exact CWD match
     if (project.cwd_patterns) {
@@ -116,7 +148,7 @@ class Attributor {
       }
     }
 
-    // Rule 3 & 4: Keyword matching
+    // Rule 3 & 4: Keyword matching in CWD
     if (project.keywords) {
       let keywordMatches = 0;
 
@@ -129,6 +161,28 @@ class Attributor {
       if (keywordMatches > 0) {
         const keywordConfidence = Math.min(1.0, 0.7 * keywordMatches);
         confidence = Math.max(confidence, keywordConfidence);
+      }
+    }
+
+    // Rule 5: Keyword matching in files/commands (NEW)
+    if (project.keywords && (filesText || commandsText)) {
+      let fileKeywordMatches = 0;
+      let commandKeywordMatches = 0;
+
+      for (const keyword of project.keywords) {
+        if (filesText.includes(keyword)) {
+          fileKeywordMatches++;
+        }
+        if (commandsText.includes(keyword)) {
+          commandKeywordMatches++;
+        }
+      }
+
+      // If we find keywords in files/commands, give it strong confidence
+      if (fileKeywordMatches > 0 || commandKeywordMatches > 0) {
+        const totalMatches = fileKeywordMatches + commandKeywordMatches;
+        const fileCommandConfidence = Math.min(0.95, 0.6 + (0.1 * totalMatches));
+        confidence = Math.max(confidence, fileCommandConfidence);
       }
     }
 
