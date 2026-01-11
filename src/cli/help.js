@@ -12,13 +12,16 @@ COMMANDS:
   migrate down      Rollback the most recent migration
   status            Show current database status
   parse [dir]       Parse Claude Code session logs (default: ~/.claude/projects)
+  sync-projects     Sync ActiveCollab projects to local database
+  attribute         Run project attribution on pending segments
 
 EXAMPLES:
   smart-work-tracker help
   smart-work-tracker migrate
   smart-work-tracker status
   smart-work-tracker parse
-  smart-work-tracker parse /path/to/.claude/projects
+  smart-work-tracker sync-projects
+  smart-work-tracker attribute
 
 For more information, visit the documentation in docs/
 `);

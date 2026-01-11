@@ -102,6 +102,31 @@ async function executeCommand(command, flags, { db, logger, config }) {
       console.log(`Total time tracked: ${hours}h ${mins}m`);
       break;
 
+    case 'sync-projects':
+      const ActiveCollabSync = require('../lib/activecollab-sync');
+      const sync = new ActiveCollabSync(config, db, logger);
+
+      console.log('Syncing ActiveCollab projects...\n');
+      const count = await sync.syncProjects();
+      console.log(`✓ Synced ${count} projects to database`);
+      break;
+
+    case 'attribute':
+      const Attributor = require('../lib/attributor');
+      const attributor = new Attributor(db, logger, config);
+
+      console.log('Running project attribution...\n');
+      const result = await attributor.attributeSegments();
+
+      console.log(`✓ Attributed: ${result.attributed} segments`);
+      if (result.ambiguous > 0) {
+        console.log(`⚠ Ambiguous: ${result.ambiguous} segments (multiple matches)`);
+      }
+      if (result.noMatch > 0) {
+        console.log(`✗ No match: ${result.noMatch} segments`);
+      }
+      break;
+
     default:
       console.error(`Unknown command: ${command}`);
       console.log('Run "smart-work-tracker help" for usage information.');

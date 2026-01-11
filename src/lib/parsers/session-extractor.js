@@ -23,39 +23,36 @@ class SessionExtractor {
         }
       }
 
-      // Extract cwd from tool_use events
-      if (event.type === 'tool_use' && event.cwd) {
-        metadata.cwd = metadata.cwd || event.cwd;
+      // Extract cwd and git branch from event (they're at the top level)
+      if (event.cwd && !metadata.cwd) {
+        metadata.cwd = event.cwd;
+      }
+      if (event.gitBranch && !metadata.gitBranch) {
+        metadata.gitBranch = event.gitBranch;
       }
 
-      // Extract git branch from Bash tool results
-      if (event.type === 'tool_result' && event.tool === 'Bash') {
-        // Look for "On branch X" in git status output
-        const content = this.extractText(event.content);
-        if (content) {
-          const branchMatch = content.match(/On branch ([^\s\n]+)/);
-          if (branchMatch) {
-            metadata.gitBranch = branchMatch[1];
-          }
-        }
-      }
+      // Extract tool uses from message content
+      if (event.message?.content && Array.isArray(event.message.content)) {
+        for (const contentItem of event.message.content) {
+          if (contentItem.type === 'tool_use') {
+            const toolName = contentItem.name;
+            const toolInput = contentItem.input || {};
 
-      // Extract files touched (Read, Write, Edit operations)
-      if (event.type === 'tool_use') {
-        if (['Read', 'Write', 'Edit', 'NotebookEdit'].includes(event.tool)) {
-          if (event.params) {
-            const filePath = event.params.file_path || event.params.notebook_path;
-            if (filePath) {
-              metadata.filesTouched.add(filePath);
+            // Extract files touched (Read, Write, Edit operations)
+            if (['Read', 'Write', 'Edit', 'NotebookEdit'].includes(toolName)) {
+              const filePath = toolInput.file_path || toolInput.notebook_path;
+              if (filePath) {
+                metadata.filesTouched.add(filePath);
+              }
+            }
+
+            // Extract commands run (Bash operations)
+            if (toolName === 'Bash' && toolInput.command) {
+              // Truncate long commands
+              const cmd = toolInput.command.substring(0, 200);
+              metadata.commandsRun.add(cmd);
             }
           }
-        }
-
-        // Extract commands run (Bash operations)
-        if (event.tool === 'Bash' && event.params?.command) {
-          // Truncate long commands
-          const cmd = event.params.command.substring(0, 200);
-          metadata.commandsRun.add(cmd);
         }
       }
     }
