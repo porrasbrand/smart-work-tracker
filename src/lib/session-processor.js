@@ -14,8 +14,8 @@ class SessionProcessor {
     this.extractor = new SessionExtractor();
     this.segmenter = new SessionSegmenter(config);
 
-    // Date cutoff: 2026-01-09 00:00:00 UTC
-    this.dateCutoff = new Date('2026-01-09T00:00:00Z');
+    // Date cutoff: 2025-12-20 00:00:00 UTC (temporarily adjusted for historical import)
+    this.dateCutoff = new Date('2025-12-20T00:00:00Z');
   }
 
   async processSessionFile(filePath) {

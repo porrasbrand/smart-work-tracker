@@ -7,7 +7,7 @@ class TaskLogAnalyzer {
     this.logger = logger;
     this.config = config;
     this.taskLogDir = '/home/mp/awesome/super-agent/tasks/responses/archive';
-    this.dateCutoff = new Date('2026-01-09T00:00:00Z');
+    this.dateCutoff = new Date('2025-12-20T00:00:00Z');
     this.timeWindowMinutes = 30; // Link tasks within ±30 min of segment
   }
 
