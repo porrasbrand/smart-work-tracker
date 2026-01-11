@@ -40,9 +40,66 @@ async function executeCommand(command, flags, { db, logger, config }) {
         console.log(`Sources: ${sourcesCount.count}`);
         const segmentsCount = await db.get('SELECT COUNT(*) as count FROM segments');
         console.log(`Segments: ${segmentsCount.count}`);
+
+        // Show total tracked time
+        const totalTime = await db.get(`
+          SELECT SUM(duration_minutes) as total FROM segments WHERE status = 'pending'
+        `);
+        if (totalTime && totalTime.total) {
+          const hours = Math.floor(totalTime.total / 60);
+          const mins = totalTime.total % 60;
+          console.log(`Total tracked time: ${hours}h ${mins}m`);
+        }
       } catch (err) {
         console.log('Database not initialized. Run "npm run migrate" first.');
       }
+      break;
+
+    case 'parse':
+      const SessionProcessor = require('../lib/session-processor');
+      const processor = new SessionProcessor(db, logger, config);
+
+      // Get Claude projects directory
+      const claudeDir = flags[0] || path.join(process.env.HOME, '.claude', 'projects');
+
+      logger.info('Discovering session files', { claudeDir });
+      console.log(`Discovering session files in: ${claudeDir}\n`);
+
+      const sessionFiles = await processor.discoverSessionFiles(claudeDir);
+      logger.info('Found session files', { count: sessionFiles.length });
+      console.log(`Found ${sessionFiles.length} session files\n`);
+
+      // Process each file
+      let processed = 0;
+      let skipped = 0;
+      let totalDuration = 0;
+
+      for (const file of sessionFiles) {
+        try {
+          const result = await processor.processSessionFile(file);
+          if (result.skipped) {
+            skipped++;
+            console.log(`⊘ ${path.basename(file)} - ${result.reason}`);
+          } else if (result.success) {
+            processed++;
+            totalDuration += result.totalDuration || 0;
+            console.log(`✓ ${path.basename(file)} - ${result.segmentCount} segments (${result.totalDuration}m)`);
+          }
+        } catch (err) {
+          logger.error('Failed to process session file', {
+            file,
+            error: err.message,
+            stack: err.stack
+          });
+          console.error(`✗ ${path.basename(file)} - ERROR: ${err.message}`);
+        }
+      }
+
+      const hours = Math.floor(totalDuration / 60);
+      const mins = totalDuration % 60;
+
+      console.log(`\n✓ Processed ${processed} sessions, skipped ${skipped}`);
+      console.log(`Total time tracked: ${hours}h ${mins}m`);
       break;
 
     default:
