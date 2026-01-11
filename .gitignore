@@ -38,3 +38,7 @@ build/
 tmp/
 temp/
 *.tmp
+
+# SQLite temporary files
+*.db-shm
+*.db-wal
