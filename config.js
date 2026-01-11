@@ -12,6 +12,9 @@ module.exports = {
   activeCollab: {
     apiUrl: process.env.AC_API_URL,
     apiToken: process.env.AC_API_TOKEN,
+    userId: parseInt(process.env.AC_USER_ID) || 1,
+    jobTypeId: parseInt(process.env.AC_JOB_TYPE_ID) || 1,
+    billableByDefault: process.env.AC_BILLABLE_BY_DEFAULT !== 'false',
   },
   ai: {
     provider: process.env.AI_PROVIDER || 'none',

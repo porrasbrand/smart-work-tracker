@@ -198,6 +198,69 @@ async function executeCommand(command, flags, { db, logger, config }) {
       console.log(`  Segments linked: ${linkResult.segmentsLinked}`);
       break;
 
+    case 'adjust-durations':
+      const DurationAdjuster = require('../lib/duration-adjuster');
+      const adjuster = new DurationAdjuster(db, logger, config);
+
+      // Parse flags
+      const force = flags.includes('--force');
+      const showSummaryAdj = flags.includes('--summary');
+
+      if (showSummaryAdj) {
+        const summaryAdj = await adjuster.getAdjustmentSummary();
+        console.log('\n=== Duration Adjustment Summary ===\n');
+        console.log(`Total segments: ${summaryAdj.totalSegments}`);
+        console.log(`Original time: ${summaryAdj.originalHours}h`);
+        console.log(`Adjusted time: ${summaryAdj.adjustedHours}h`);
+        console.log(`Difference: +${summaryAdj.differenceHours}h`);
+        console.log(`Unadjusted: ${summaryAdj.unadjustedCount} segments`);
+        break;
+      }
+
+      console.log('Adjusting durations to 30-minute increments...\n');
+      console.log('Strategy: Round up with 30-minute minimum\n');
+
+      const adjustResult = await adjuster.adjustAllDurations({ force });
+
+      console.log(`\n✓ Duration Adjustment Complete:`);
+      console.log(`  Adjusted: ${adjustResult.adjusted} segments`);
+      console.log(`  Original total: ${adjustResult.totalOriginal}h`);
+      console.log(`  Adjusted total: ${adjustResult.totalAdjusted}h`);
+      console.log(`  Difference: +${adjustResult.difference}h (${((parseFloat(adjustResult.difference) / parseFloat(adjustResult.totalOriginal)) * 100).toFixed(1)}%)`);
+      break;
+
+    case 'submit-time':
+      const TimeSubmitter = require('../lib/time-submitter');
+      const submitter = new TimeSubmitter(db, logger, config);
+
+      // Parse flags
+      const dryRun = flags.includes('--dry-run');
+      const showSummary = flags.includes('--summary');
+
+      if (showSummary) {
+        const summary = await submitter.getSubmissionSummary();
+        console.log('\n=== Time Submission Summary ===\n');
+        console.log(`Total segments: ${summary.totalSegments}`);
+        console.log(`Already submitted: ${summary.submitted} (${summary.submittedHours}h)`);
+        console.log(`Ready to submit: ${summary.readyToSubmit} (${summary.pendingHours}h)`);
+        console.log(`Unattributed: ${summary.unattributed}`);
+        break;
+      }
+
+      console.log(dryRun ? 'DRY RUN - Time submission preview...\n' : 'Submitting time records to ActiveCollab...\n');
+
+      const submitResult = await submitter.submitTimeRecords({ dryRun });
+
+      console.log(`\n✓ Time Submission Complete:`);
+      console.log(`  Submitted: ${submitResult.submitted} records (${submitResult.totalHours}h)`);
+      if (submitResult.failed > 0) {
+        console.log(`  Failed: ${submitResult.failed} records`);
+      }
+      if (submitResult.skipped > 0) {
+        console.log(`  Skipped (dry run): ${submitResult.skipped} records`);
+      }
+      break;
+
     default:
       console.error(`Unknown command: ${command}`);
       console.log('Run "smart-work-tracker help" for usage information.');
