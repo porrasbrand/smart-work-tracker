@@ -14,6 +14,7 @@ COMMANDS:
   parse [dir]       Parse Claude Code session logs (default: ~/.claude/projects)
   sync-projects     Sync ActiveCollab projects to local database
   attribute         Run project attribution on pending segments
+  detect            Detect task types and generate descriptions
 
 EXAMPLES:
   smart-work-tracker help
@@ -22,6 +23,7 @@ EXAMPLES:
   smart-work-tracker parse
   smart-work-tracker sync-projects
   smart-work-tracker attribute
+  smart-work-tracker detect
 
 For more information, visit the documentation in docs/
 `);

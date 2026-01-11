@@ -127,6 +127,63 @@ async function executeCommand(command, flags, { db, logger, config }) {
       }
       break;
 
+    case 'detect':
+      const TaskDetector = require('../lib/task-detector');
+      const detector = new TaskDetector(config, logger);
+
+      console.log('Running task detection...\n');
+
+      // Get all pending segments without task descriptions
+      const segments = await db.all(`
+        SELECT * FROM segments
+        WHERE status = 'pending' AND (task_description IS NULL OR task_description = '')
+      `);
+
+      logger.info('Found segments to detect', { count: segments.length });
+      console.log(`Found ${segments.length} segments to detect\n`);
+
+      let detected = 0;
+      let lowConfidence = 0;
+
+      for (const segment of segments) {
+        const detection = detector.detectTaskType(segment);
+
+        // Only update if confidence is above threshold
+        if (detection.confidence >= 0.6) {
+          await db.run(`
+            UPDATE segments
+            SET task_description = ?,
+                confidence_score = CASE
+                  WHEN confidence_score IS NULL THEN ?
+                  ELSE confidence_score
+                END,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+          `, [detection.description, detection.confidence, segment.id]);
+
+          detected++;
+          logger.debug('Task detected', {
+            segmentId: segment.id,
+            type: detection.type,
+            description: detection.description,
+            confidence: detection.confidence
+          });
+        } else {
+          lowConfidence++;
+          logger.debug('Low confidence detection', {
+            segmentId: segment.id,
+            type: detection.type,
+            confidence: detection.confidence
+          });
+        }
+      }
+
+      console.log(`✓ Detected: ${detected} segments`);
+      if (lowConfidence > 0) {
+        console.log(`⚠ Low confidence: ${lowConfidence} segments (manual review needed)`);
+      }
+      break;
+
     default:
       console.error(`Unknown command: ${command}`);
       console.log('Run "smart-work-tracker help" for usage information.');

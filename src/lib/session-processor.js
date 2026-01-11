@@ -135,18 +135,24 @@ class SessionProcessor {
 
     // Save segments to database
     for (const segment of segments) {
+      // Convert Sets to arrays for JSON storage
+      const filesTouched = segment.filesTouched ? Array.from(segment.filesTouched) : [];
+      const commandsRun = segment.commandsRun ? Array.from(segment.commandsRun) : [];
+
       await this.db.run(
         `INSERT INTO segments (
           source_id, start_time, end_time, duration_minutes,
-          cwd, git_branch, status
-        ) VALUES (?, ?, ?, ?, ?, ?, 'pending')`,
+          cwd, git_branch, files_touched, commands_run, status
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')`,
         [
           sourceId,
           segment.startTime.toISOString(),
           segment.endTime.toISOString(),
           segment.durationMinutes,
           segment.cwd,
-          segment.gitBranch
+          segment.gitBranch,
+          JSON.stringify(filesTouched),
+          JSON.stringify(commandsRun)
         ]
       );
     }

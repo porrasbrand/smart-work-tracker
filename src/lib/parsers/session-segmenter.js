@@ -45,6 +45,9 @@ class SessionSegmenter {
           currentSegment.endTime = eventTime;
         }
       }
+
+      // Track files and commands in this segment
+      this.addEventMetadata(currentSegment, event);
     }
 
     // Save final segment
@@ -58,12 +61,40 @@ class SessionSegmenter {
     return segments;
   }
 
+  addEventMetadata(segment, event) {
+    // Extract files and commands from this event
+    if (event.message?.content && Array.isArray(event.message.content)) {
+      for (const contentItem of event.message.content) {
+        if (contentItem.type === 'tool_use') {
+          const toolName = contentItem.name;
+          const toolInput = contentItem.input || {};
+
+          // Track files touched
+          if (['Read', 'Write', 'Edit', 'NotebookEdit'].includes(toolName)) {
+            const filePath = toolInput.file_path || toolInput.notebook_path;
+            if (filePath) {
+              segment.filesTouched.add(filePath);
+            }
+          }
+
+          // Track commands run
+          if (toolName === 'Bash' && toolInput.command) {
+            const cmd = toolInput.command.substring(0, 200); // Truncate long commands
+            segment.commandsRun.add(cmd);
+          }
+        }
+      }
+    }
+  }
+
   createSegment(startTime, metadata) {
     return {
       startTime,
       endTime: startTime,
       cwd: metadata.cwd || null,
       gitBranch: metadata.gitBranch || null,
+      filesTouched: new Set(),
+      commandsRun: new Set(),
       durationMinutes: 0
     };
   }
