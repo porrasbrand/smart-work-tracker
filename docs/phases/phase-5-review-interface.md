@@ -1,8 +1,9 @@
-# Phase 5: Review Interface (Local Web UI)
+# Phase 5: Review Interface (Local Web UI) - REVISED
 
-**Status:** 📝 Documented - Ready for Implementation
+**Status:** 📝 Documented - Ready for Implementation (OpenAI Reviewed)
 **Date:** January 11, 2026
 **Architecture:** Option 1 - Full Local Web Stack
+**OpenAI Review:** Approved with revisions ($0.04, 43s)
 
 ---
 
@@ -11,11 +12,29 @@
 Build a local web-based review interface for approving, editing, and managing work segments before submission to ActiveCollab.
 
 **Deliverables:**
-- Express.js REST API backend (port 3001)
+- Express.js REST API backend (port 3001, bound to 127.0.0.1)
 - React frontend SPA (port 3000)
-- Interactive segment review workflow
+- Interactive segment review workflow with state machine
 - Batch operations support
 - Real-time statistics dashboard
+
+---
+
+## OpenAI Review Summary
+
+**Verdict:** Strong and implementation-ready after addressing 10 concerns.
+
+**Key Changes Made:**
+1. ✅ Removed undo from requirements (out of scope)
+2. ✅ Defined approval status state machine
+3. ✅ Added batch-skip endpoint
+4. ✅ Added database indexes for performance
+5. ✅ Safe JSON parsing with try/catch
+6. ✅ Billing rate configuration added
+7. ✅ API bound to 127.0.0.1 with strict CORS
+8. ✅ Standardized error response schema
+9. ✅ Clarified duration rounding rules
+10. ✅ Environment variables used consistently
 
 ---
 
@@ -24,15 +43,16 @@ Build a local web-based review interface for approving, editing, and managing wo
 ### In Scope ✅
 
 **Backend API:**
-- ✅ RESTful API with Express.js
+- ✅ RESTful API with Express.js (bound to 127.0.0.1)
 - ✅ CRUD operations for segments
-- ✅ Segment approval/skip/delete
-- ✅ Batch approval operations
+- ✅ Segment approval/skip/delete with state machine
+- ✅ Batch approval and skip operations
 - ✅ Project attribution editing
 - ✅ Task description editing
 - ✅ Time adjustment
 - ✅ Summary statistics endpoints
-- ✅ CORS enabled for localhost
+- ✅ Strict CORS (localhost:3000 only)
+- ✅ Standardized error responses
 
 **Frontend UI:**
 - ✅ React SPA with modern UI (Tailwind CSS)
@@ -47,7 +67,7 @@ Build a local web-based review interface for approving, editing, and managing wo
 
 **Development Experience:**
 - ✅ Hot reload for both frontend and backend
-- ✅ Clear error messages
+- ✅ Clear error messages with consistent schema
 - ✅ API documentation (inline comments)
 
 ### Out of Scope ❌
@@ -59,8 +79,72 @@ Build a local web-based review interface for approving, editing, and managing wo
 - ❌ Real-time websockets (polling is fine)
 - ❌ Advanced analytics (basic stats only)
 - ❌ Export to formats other than ActiveCollab
-- ❌ Undo/redo history
+- ❌ **Undo functionality** (removed - adds complexity)
 - ❌ Automated testing (deferred to Phase 7)
+
+---
+
+## Approval Status State Machine
+
+**States:**
+```
+pending → approved → submitted
+   ↓         ↓
+ skipped   archived
+   ↓
+ archived
+```
+
+**State Definitions:**
+
+| State | Description | submitted_to_ac | Editable | Submittable |
+|-------|-------------|-----------------|----------|-------------|
+| `pending` | New segment, needs review | 0 | ✅ Yes | ❌ No |
+| `approved` | User approved, ready to submit | 0 | ✅ Yes | ✅ Yes |
+| `skipped` | User skipped, won't submit | 0 | ✅ Yes | ❌ No |
+| `submitted` | Pushed to ActiveCollab | 1 | ❌ No | ❌ No |
+| `archived` | Soft-deleted | 0 | ❌ No | ❌ No |
+
+**State Transitions:**
+
+```javascript
+// Valid transitions
+pending → approved   // User approves
+pending → skipped    // User skips
+pending → archived   // User deletes
+approved → skipped   // User changes mind
+approved → submitted // Push to ActiveCollab (sets submitted_to_ac=1)
+skipped → approved   // User un-skips
+skipped → archived   // User deletes
+```
+
+**Rules:**
+- Once `submitted`, segments are immutable (cannot edit or change state)
+- `submitted_to_ac` is the source of truth for submission status
+- `approval_status` controls UI workflow only
+- When submitting: set `approval_status='submitted'` AND `submitted_to_ac=1` atomically
+
+---
+
+## Duration Fields Clarification
+
+**Two fields store duration:**
+
+| Field | Source | When Set | Purpose |
+|-------|--------|----------|---------|
+| `duration_minutes` | Calculated from start/end time | Phase 1 (parsing) | Original actual work time (immutable) |
+| `adjusted_duration_minutes` | Rounded to 30min increments | Phase 4 (duration adjuster) | Billable time for submission |
+
+**Rounding Rules (Phase 4):**
+- 1-30 minutes → 30 minutes (0.5h)
+- 31-60 minutes → 60 minutes (1.0h)
+- 61-90 minutes → 90 minutes (1.5h)
+- Minimum billable: 30 minutes
+
+**Usage:**
+- Display both in UI: "Original: 1.22h → Rounded: 1.50h"
+- Submit `adjusted_duration_minutes` to ActiveCollab
+- Allow editing `adjusted_duration_minutes` (not `duration_minutes`)
 
 ---
 
@@ -76,13 +160,13 @@ Build a local web-based review interface for approving, editing, and managing wo
 
 **Risk 2: Database locking during API access**
 - **Description:** Concurrent reads/writes could lock SQLite
-- **Mitigation:** Use WAL mode (already enabled in Phase 0), connection pooling
+- **Mitigation:** Use WAL mode (already enabled), connection pooling, add indexes
 - **Likelihood:** Low
 - **Impact:** Medium
 
 **Risk 3: Large datasets slow down UI**
 - **Description:** 1000+ segments might make UI sluggish
-- **Mitigation:** Pagination, lazy loading, virtual scrolling
+- **Mitigation:** Pagination (default 50), lazy loading, database indexes
 - **Likelihood:** Low (current dataset ~100 segments)
 - **Impact:** Medium
 
@@ -95,10 +179,10 @@ Build a local web-based review interface for approving, editing, and managing wo
 ### Assumptions
 
 1. **Single user:** Only one person reviews segments at a time
-2. **Local network:** No internet required, runs on localhost
+2. **Local network:** No internet required, runs on 127.0.0.1 only
 3. **Modern browser:** Chrome/Firefox/Edge with ES6+ support
 4. **Existing data:** Phase 0-4 completed, database has segments
-5. **SQLite performance:** Current dataset size (<1000 segments) performs well with SQLite
+5. **SQLite performance:** Current dataset size (<1000 segments) performs well with indexes
 
 ---
 
@@ -108,7 +192,7 @@ Build a local web-based review interface for approving, editing, and managing wo
 
 #### FR1: View Segments
 - **FR1.1** Display list of all segments with key metadata (date, project, duration, status)
-- **FR1.2** Filter segments by status (pending, approved, submitted, archived)
+- **FR1.2** Filter segments by status (pending, approved, skipped, submitted, archived)
 - **FR1.3** Filter segments by project
 - **FR1.4** Search segments by task description
 - **FR1.5** Sort by date, duration, confidence, project
@@ -127,14 +211,15 @@ Build a local web-based review interface for approving, editing, and managing wo
 - **FR3.4** Add notes/comments (new field: `review_notes`)
 - **FR3.5** Changes saved immediately via API
 - **FR3.6** Validation: Duration must be ≥1 minute, task description ≤500 chars
+- **FR3.7** Cannot edit segments with `approval_status='submitted'`
 
 #### FR4: Approve/Skip/Delete
-- **FR4.1** Approve segment → marks as ready for submission
-- **FR4.2** Skip segment → marks as skipped (won't submit)
-- **FR4.3** Delete segment → soft delete (marks as archived)
-- **FR4.4** Batch approve high-confidence segments (confidence ≥0.8)
-- **FR4.5** Batch skip low-confidence segments (confidence <0.6)
-- **FR4.6** Undo last action (within session)
+- **FR4.1** Approve segment → sets `approval_status='approved'`
+- **FR4.2** Skip segment → sets `approval_status='skipped'`
+- **FR4.3** Delete segment → sets `approval_status='archived'`
+- **FR4.4** Batch approve by segment IDs
+- **FR4.5** Batch skip by segment IDs
+- **FR4.6** Batch operations validate state transitions
 
 #### FR5: Summary Statistics
 - **FR5.1** Total hours pending approval
@@ -142,7 +227,7 @@ Build a local web-based review interface for approving, editing, and managing wo
 - **FR5.3** Approval rate (approved / total)
 - **FR5.4** Count by status (pending, approved, skipped, submitted)
 - **FR5.5** Average confidence score
-- **FR5.6** Total billable amount (hours × rate)
+- **FR5.6** Total billable amount (hours × configurable rate)
 
 #### FR6: Submission Preview
 - **FR6.1** Preview what will be submitted to ActiveCollab
@@ -154,13 +239,13 @@ Build a local web-based review interface for approving, editing, and managing wo
 ### Non-Functional Requirements
 
 #### NFR1: Performance
-- **NFR1.1** API response time <200ms for list queries
+- **NFR1.1** API response time <200ms for list queries (with indexes)
 - **NFR1.2** API response time <50ms for single segment queries
-- **NFR1.3** UI renders segment list in <1 second (100 segments)
+- **NFR1.3** UI renders segment list in <1 second (100 segments with pagination)
 - **NFR1.4** Editing feels instant (<100ms perceived latency)
 
 #### NFR2: Reliability
-- **NFR2.1** API errors return clear error messages
+- **NFR2.1** API errors return standardized error schema (see below)
 - **NFR2.2** Database transaction failures rollback cleanly
 - **NFR2.3** Frontend handles API errors gracefully (shows error toast)
 - **NFR2.4** No data loss on browser refresh
@@ -169,13 +254,19 @@ Build a local web-based review interface for approving, editing, and managing wo
 - **NFR3.1** Keyboard shortcuts for common actions (a=approve, s=skip, d=delete)
 - **NFR3.2** Visual feedback on hover/click
 - **NFR3.3** Clear status indicators (color-coded badges)
-- **NFR3.4** Undo last action within 5 seconds
+- **NFR3.4** Confirmation dialogs for destructive actions (delete)
 
-#### NFR4: Maintainability
-- **NFR4.1** API routes clearly documented with comments
-- **NFR4.2** React components modular and reusable
-- **NFR4.3** CSS organized with Tailwind utility classes
-- **NFR4.4** Configuration in environment variables
+#### NFR4: Security
+- **NFR4.1** API bound to 127.0.0.1 only (not 0.0.0.0)
+- **NFR4.2** CORS restricted to http://localhost:3000 only
+- **NFR4.3** Input validation on all endpoints
+- **NFR4.4** SQL injection prevention (parameterized queries)
+
+#### NFR5: Maintainability
+- **NFR5.1** API routes clearly documented with comments
+- **NFR5.2** React components modular and reusable
+- **NFR5.3** CSS organized with Tailwind utility classes
+- **NFR5.4** Configuration in environment variables
 
 ---
 
@@ -221,11 +312,11 @@ Build a local web-based review interface for approving, editing, and managing wo
 │   │   │   └── SubmitPreview.jsx  # Submission preview
 │   │   ├── hooks/
 │   │   │   ├── useSegments.js     # Fetch segments
-│   │   │   ├── useStats.js        # Fetch statistics
-│   │   │   └── useUndo.js         # Undo functionality
+│   │   │   └── useStats.js        # Fetch statistics
 │   │   ├── utils/
 │   │   │   ├── formatters.js      # Date, time formatters
-│   │   │   └── validators.js      # Form validation
+│   │   │   ├── validators.js      # Form validation
+│   │   │   └── safeJsonParse.js   # Safe JSON parsing
 │   │   └── styles/
 │   │       └── index.css          # Tailwind + custom CSS
 │   ├── package.json
@@ -237,27 +328,96 @@ Build a local web-based review interface for approving, editing, and managing wo
 
 ### Database Changes
 
-**Migration 014: Add review fields**
+**Migration 014: Add review fields + indexes**
 
 ```sql
--- migrations/014-add-review-fields.sql
+-- migrations/014-add-review-fields-and-indexes.sql
+
+-- Add review fields
 ALTER TABLE segments ADD COLUMN review_notes TEXT;
 ALTER TABLE segments ADD COLUMN reviewed_at DATETIME;
 ALTER TABLE segments ADD COLUMN reviewed_by TEXT DEFAULT 'user';
 ALTER TABLE segments ADD COLUMN approval_status TEXT DEFAULT 'pending'
   CHECK(approval_status IN ('pending', 'approved', 'skipped', 'submitted', 'archived'));
+
+-- Add indexes for performance (OpenAI feedback #4)
+CREATE INDEX IF NOT EXISTS idx_segments_approval_status ON segments(approval_status);
+CREATE INDEX IF NOT EXISTS idx_segments_project_id ON segments(project_id_detected);
+CREATE INDEX IF NOT EXISTS idx_segments_start_time ON segments(start_time);
+CREATE INDEX IF NOT EXISTS idx_segments_submitted ON segments(submitted_to_ac);
+
+-- Composite index for common query pattern
+CREATE INDEX IF NOT EXISTS idx_segments_status_project
+  ON segments(approval_status, project_id_detected);
 ```
 
 **Migration 014 Down:**
 ```sql
--- migrations/014-add-review-fields.down.sql
--- SQLite doesn't support DROP COLUMN, so we create new table without these columns
--- (Only needed if we want to rollback Phase 5)
+-- migrations/014-add-review-fields-and-indexes.down.sql
+DROP INDEX IF EXISTS idx_segments_approval_status;
+DROP INDEX IF EXISTS idx_segments_project_id;
+DROP INDEX IF EXISTS idx_segments_start_time;
+DROP INDEX IF EXISTS idx_segments_submitted;
+DROP INDEX IF EXISTS idx_segments_status_project;
+
+-- SQLite doesn't support DROP COLUMN
+-- Would need table recreation for full rollback
 ```
+
+---
+
+### Standardized Error Response Schema
+
+**All API errors return this format:**
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Task description exceeds 500 characters",
+    "details": {
+      "field": "task_description",
+      "maxLength": 500,
+      "actualLength": 543
+    },
+    "timestamp": "2026-01-11T20:00:00Z"
+  }
+}
+```
+
+**HTTP Status Codes:**
+- `400` - Bad Request (validation errors)
+- `404` - Not Found (segment doesn't exist)
+- `409` - Conflict (invalid state transition)
+- `500` - Internal Server Error (database errors)
+
+**Error Codes:**
+- `VALIDATION_ERROR` - Input validation failed
+- `NOT_FOUND` - Resource not found
+- `INVALID_STATE_TRANSITION` - Cannot change to requested state
+- `DATABASE_ERROR` - Database operation failed
+- `ALREADY_SUBMITTED` - Cannot edit submitted segment
+
+---
 
 ### Backend API Design
 
-#### Base URL: `http://localhost:3001/api`
+#### Base URL: `http://127.0.0.1:3001/api`
+
+**Security Configuration:**
+```javascript
+// Bind to localhost only (not 0.0.0.0)
+app.listen(3001, '127.0.0.1', () => {
+  console.log('API listening on http://127.0.0.1:3001');
+});
+
+// Strict CORS
+const cors = require('cors');
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: false
+}));
+```
 
 ---
 
@@ -309,6 +469,17 @@ ALTER TABLE segments ADD COLUMN approval_status TEXT DEFAULT 'pending'
 #### **GET /segments/:id**
 **Response:** Single segment object (same structure as above)
 
+**Error (404):**
+```json
+{
+  "error": {
+    "code": "NOT_FOUND",
+    "message": "Segment with id 999 not found",
+    "timestamp": "2026-01-11T20:00:00Z"
+  }
+}
+```
+
 ---
 
 #### **PATCH /segments/:id**
@@ -318,8 +489,7 @@ ALTER TABLE segments ADD COLUMN approval_status TEXT DEFAULT 'pending'
   "task_description": "Updated task name",
   "adjusted_duration_minutes": 120,
   "project_id_detected": 13,
-  "review_notes": "Client confirmed this was for Breakthrough",
-  "approval_status": "approved"
+  "review_notes": "Client confirmed this was for Breakthrough"
 }
 ```
 
@@ -335,7 +505,22 @@ ALTER TABLE segments ADD COLUMN approval_status TEXT DEFAULT 'pending'
 - `adjusted_duration_minutes` ≥ 1
 - `task_description` ≤ 500 chars
 - `project_id_detected` exists in projects_map
-- `approval_status` in allowed values
+- Cannot edit if `approval_status='submitted'`
+
+**Error (409 - Already Submitted):**
+```json
+{
+  "error": {
+    "code": "ALREADY_SUBMITTED",
+    "message": "Cannot edit segment after submission to ActiveCollab",
+    "details": {
+      "segment_id": 123,
+      "submitted_at": "2026-01-10T15:00:00Z"
+    },
+    "timestamp": "2026-01-11T20:00:00Z"
+  }
+}
+```
 
 ---
 
@@ -344,13 +529,18 @@ ALTER TABLE segments ADD COLUMN approval_status TEXT DEFAULT 'pending'
 ```json
 {
   "success": true,
-  "message": "Segment approved"
+  "message": "Segment approved",
+  "segment": { /* updated segment */ }
 }
 ```
 
 **Side effects:**
 - Sets `approval_status = 'approved'`
 - Sets `reviewed_at = CURRENT_TIMESTAMP`
+
+**State Validation:**
+- Can only approve from: `pending`, `skipped`
+- Cannot approve if already `submitted` or `archived`
 
 ---
 
@@ -370,8 +560,7 @@ ALTER TABLE segments ADD COLUMN approval_status TEXT DEFAULT 'pending'
 **Body:**
 ```json
 {
-  "segment_ids": [1, 2, 3, 4],
-  "min_confidence": 0.8  // optional filter
+  "segment_ids": [1, 2, 3, 4]
 }
 ```
 
@@ -380,9 +569,37 @@ ALTER TABLE segments ADD COLUMN approval_status TEXT DEFAULT 'pending'
 {
   "success": true,
   "approved_count": 4,
-  "segment_ids": [1, 2, 3, 4]
+  "segment_ids": [1, 2, 3, 4],
+  "errors": []
 }
 ```
+
+**Note:** If some segments fail validation, returns partial success:
+```json
+{
+  "success": true,
+  "approved_count": 3,
+  "segment_ids": [1, 2, 3],
+  "errors": [
+    {
+      "segment_id": 4,
+      "error": "Already submitted"
+    }
+  ]
+}
+```
+
+---
+
+#### **POST /segments/batch-skip** (Added per OpenAI feedback #3)
+**Body:**
+```json
+{
+  "segment_ids": [5, 6, 7]
+}
+```
+
+**Response:** Same structure as batch-approve
 
 ---
 
@@ -416,6 +633,7 @@ ALTER TABLE segments ADD COLUMN approval_status TEXT DEFAULT 'pending'
   "total_hours_pending": 52.5,
   "total_hours_approved": 64.0,
   "avg_confidence": 0.75,
+  "billable_amount": 6400.00,
   "by_project": [
     {
       "project_id": 13,
@@ -474,6 +692,94 @@ ALTER TABLE segments ADD COLUMN approval_status TEXT DEFAULT 'pending'
 
 ### Frontend Components
 
+#### **Safe JSON Parsing Utility** (OpenAI feedback #5)
+
+```javascript
+// src/utils/safeJsonParse.js
+export function safeJsonParse(jsonString, fallback = null) {
+  if (!jsonString) return fallback;
+
+  try {
+    return JSON.parse(jsonString);
+  } catch (err) {
+    console.warn('Failed to parse JSON:', err.message);
+    return fallback;
+  }
+}
+```
+
+---
+
+#### **API Client with Environment Variables** (OpenAI feedback #10)
+
+```javascript
+// web-ui/src/api/client.js
+import axios from 'axios';
+
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+
+export const apiClient = axios.create({
+  baseURL: API_BASE,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+// Error interceptor for standardized error handling
+apiClient.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response?.data?.error) {
+      // Backend returned standardized error
+      return Promise.reject(error.response.data.error);
+    }
+    // Network or other error
+    return Promise.reject({
+      code: 'NETWORK_ERROR',
+      message: error.message || 'Network request failed'
+    });
+  }
+);
+```
+
+---
+
+#### **useSegments Hook with Environment Variables**
+
+```javascript
+// web-ui/src/hooks/useSegments.js
+import { useState, useEffect } from 'react';
+import { apiClient } from '../api/client';
+
+export function useSegments(filters = {}) {
+  const [segments, setSegments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchSegments = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams(filters);
+      const res = await apiClient.get(`/segments?${params}`);
+      setSegments(res.data.segments);
+      setError(null);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchSegments();
+  }, [JSON.stringify(filters)]);
+
+  return { segments, loading, error, refetch: fetchSegments };
+}
+```
+
+---
+
 #### **App.jsx** (Main Layout)
 ```jsx
 import React, { useState } from 'react';
@@ -490,13 +796,22 @@ function App() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between h-16">
             <div className="flex space-x-8">
-              <button onClick={() => setActiveView('list')}>
+              <button
+                onClick={() => setActiveView('list')}
+                className={`px-3 py-2 ${activeView === 'list' ? 'border-b-2 border-blue-500' : ''}`}
+              >
                 Segments
               </button>
-              <button onClick={() => setActiveView('dashboard')}>
+              <button
+                onClick={() => setActiveView('dashboard')}
+                className={`px-3 py-2 ${activeView === 'dashboard' ? 'border-b-2 border-blue-500' : ''}`}
+              >
                 Dashboard
               </button>
-              <button onClick={() => setActiveView('preview')}>
+              <button
+                onClick={() => setActiveView('preview')}
+                className={`px-3 py-2 ${activeView === 'preview' ? 'border-b-2 border-blue-500' : ''}`}
+              >
                 Submit Preview
               </button>
             </div>
@@ -512,13 +827,15 @@ function App() {
     </div>
   );
 }
+
+export default App;
 ```
 
 ---
 
 #### **SegmentList.jsx**
 ```jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSegments } from '../hooks/useSegments';
 import { SegmentCard } from './SegmentCard';
 import { FilterBar } from './FilterBar';
@@ -528,6 +845,9 @@ export function SegmentList() {
   const [filters, setFilters] = useState({ status: 'pending' });
   const [selected, setSelected] = useState([]);
   const { segments, loading, error, refetch } = useSegments(filters);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div className="text-red-600">Error: {error.message}</div>;
 
   return (
     <div>
@@ -565,40 +885,65 @@ export function SegmentList() {
 
 ---
 
-#### **SegmentCard.jsx**
+#### **SegmentCard.jsx** (With Safe JSON Parsing)
+
 ```jsx
 import React, { useState } from 'react';
 import { apiClient } from '../api/client';
 import { formatDuration, formatDate } from '../utils/formatters';
+import { safeJsonParse } from '../utils/safeJsonParse';
 
 export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
   const [editing, setEditing] = useState(false);
   const [taskDesc, setTaskDesc] = useState(segment.task_description);
+  const [error, setError] = useState(null);
+
+  // Safe JSON parsing (OpenAI feedback #5)
+  const taskContext = safeJsonParse(segment.task_context, {});
+  const taskSummary = taskContext.taskSummaries?.[0]?.substring(0, 100);
 
   const handleApprove = async () => {
-    await apiClient.post(`/segments/${segment.id}/approve`);
-    onUpdate();
+    try {
+      await apiClient.post(`/segments/${segment.id}/approve`);
+      onUpdate();
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const handleSave = async () => {
-    await apiClient.patch(`/segments/${segment.id}`, {
-      task_description: taskDesc
-    });
-    setEditing(false);
-    onUpdate();
+    try {
+      await apiClient.patch(`/segments/${segment.id}`, {
+        task_description: taskDesc
+      });
+      setEditing(false);
+      onUpdate();
+    } catch (err) {
+      setError(err.message);
+    }
   };
+
+  const isSubmitted = segment.approval_status === 'submitted';
 
   return (
     <div className={`
       bg-white rounded-lg shadow p-4
       ${selected ? 'ring-2 ring-blue-500' : ''}
+      ${isSubmitted ? 'opacity-60' : ''}
     `}>
+      {error && (
+        <div className="mb-2 p-2 bg-red-100 text-red-700 rounded text-sm">
+          {error}
+        </div>
+      )}
+
       <div className="flex items-start justify-between">
         <div className="flex items-start space-x-3 flex-1">
           <input
             type="checkbox"
             checked={selected}
             onChange={() => onSelect(segment.id)}
+            disabled={isSubmitted}
             className="mt-1"
           />
 
@@ -606,8 +951,8 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
             {/* Date & Duration */}
             <div className="text-sm text-gray-500">
               {formatDate(segment.start_time)} •
-              {formatDuration(segment.duration_minutes)} →
-              {formatDuration(segment.adjusted_duration_minutes)} (rounded)
+              Original: {formatDuration(segment.duration_minutes)} →
+              Rounded: {formatDuration(segment.adjusted_duration_minutes)}
             </div>
 
             {/* Project */}
@@ -620,6 +965,14 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
                   {(segment.confidence_score * 100).toFixed(0)}% confident
                 </span>
               )}
+              <span className={`ml-2 px-2 py-0.5 rounded text-xs font-medium ${
+                segment.approval_status === 'approved' ? 'bg-green-100 text-green-800' :
+                segment.approval_status === 'skipped' ? 'bg-yellow-100 text-yellow-800' :
+                segment.approval_status === 'submitted' ? 'bg-gray-100 text-gray-800' :
+                'bg-gray-100 text-gray-600'
+              }`}>
+                {segment.approval_status}
+              </span>
             </div>
 
             {/* Task Description */}
@@ -629,6 +982,7 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
                   type="text"
                   value={taskDesc}
                   onChange={(e) => setTaskDesc(e.target.value)}
+                  maxLength={500}
                   className="w-full border rounded px-2 py-1"
                   autoFocus
                 />
@@ -639,10 +993,10 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
               )}
             </div>
 
-            {/* Task Context */}
-            {segment.task_context && (
+            {/* Task Context Summary */}
+            {taskSummary && (
               <div className="mt-2 text-xs text-gray-500">
-                {JSON.parse(segment.task_context).taskSummaries?.[0]?.substring(0, 100)}...
+                {taskSummary}...
               </div>
             )}
           </div>
@@ -650,7 +1004,9 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
 
         {/* Actions */}
         <div className="flex space-x-2">
-          {editing ? (
+          {isSubmitted ? (
+            <span className="text-xs text-gray-500">Submitted</span>
+          ) : editing ? (
             <>
               <button
                 onClick={handleSave}
@@ -693,13 +1049,17 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
 
 ---
 
-#### **Dashboard.jsx**
+#### **Dashboard.jsx** (With Billing Rate from Config)
+
 ```jsx
 import React from 'react';
 import { useStats } from '../hooks/useStats';
 
 export function Dashboard() {
   const { stats, loading } = useStats();
+
+  // Get billing rate from environment (OpenAI feedback #6)
+  const billingRate = parseFloat(import.meta.env.VITE_BILLING_RATE_DEFAULT) || 100;
 
   if (loading) return <div>Loading...</div>;
 
@@ -725,7 +1085,7 @@ export function Dashboard() {
         />
         <StatCard
           label="Billable Amount"
-          value={stats.total_hours_approved * 100}
+          value={stats.total_hours_approved * billingRate}
           format="currency"
         />
       </div>
@@ -774,43 +1134,6 @@ function StatCard({ label, value, format, suffix }) {
 
 ---
 
-### API Client (hooks/useSegments.js)
-
-```javascript
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const API_BASE = 'http://localhost:3001/api';
-
-export function useSegments(filters = {}) {
-  const [segments, setSegments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const fetchSegments = async () => {
-    setLoading(true);
-    try {
-      const params = new URLSearchParams(filters);
-      const res = await axios.get(`${API_BASE}/segments?${params}`);
-      setSegments(res.data.segments);
-      setError(null);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchSegments();
-  }, [JSON.stringify(filters)]);
-
-  return { segments, loading, error, refetch: fetchSegments };
-}
-```
-
----
-
 ### Package.json Updates
 
 ```json
@@ -836,6 +1159,34 @@ export function useSegments(filters = {}) {
 
 ---
 
+### Environment Configuration Updates
+
+**.env.example:**
+```bash
+# Database
+DATABASE_PATH=./data/smart-work-tracker.db
+
+# ActiveCollab API
+AC_API_URL=https://app.activecollab.com/YOUR_ID
+AC_API_TOKEN=your-token-here
+AC_USER_ID=123
+AC_JOB_TYPE_ID=1
+
+# Phase 5: API Server
+API_PORT=3001
+API_HOST=127.0.0.1
+CORS_ORIGIN=http://localhost:3000
+
+# Phase 5: Billing Configuration (OpenAI feedback #6)
+BILLING_RATE_DEFAULT=100
+
+# Phase 5: Frontend (web-ui/.env)
+VITE_API_URL=http://localhost:3001/api
+VITE_BILLING_RATE_DEFAULT=100
+```
+
+---
+
 ## Test Plan
 
 ### Unit Tests (Deferred to Phase 7)
@@ -844,11 +1195,13 @@ export function useSegments(filters = {}) {
 - Segment controller methods
 - Validation middleware
 - Error handling
+- State machine transitions
 
 **Frontend:**
 - Component rendering
 - API client methods
 - Form validation
+- Safe JSON parsing
 
 ### Integration Tests
 
@@ -857,45 +1210,71 @@ export function useSegments(filters = {}) {
 # Manual testing with curl
 
 # GET segments
-curl http://localhost:3001/api/segments?status=pending
+curl http://127.0.0.1:3001/api/segments?status=pending
 
 # PATCH segment
-curl -X PATCH http://localhost:3001/api/segments/1 \
+curl -X PATCH http://127.0.0.1:3001/api/segments/1 \
   -H "Content-Type: application/json" \
   -d '{"task_description": "Updated task"}'
 
 # Approve segment
-curl -X POST http://localhost:3001/api/segments/1/approve
+curl -X POST http://127.0.0.1:3001/api/segments/1/approve
+
+# Batch approve
+curl -X POST http://127.0.0.1:3001/api/segments/batch-approve \
+  -H "Content-Type: application/json" \
+  -d '{"segment_ids": [1, 2, 3]}'
+
+# Batch skip (OpenAI feedback #3)
+curl -X POST http://127.0.0.1:3001/api/segments/batch-skip \
+  -H "Content-Type: application/json" \
+  -d '{"segment_ids": [4, 5]}'
 
 # Get stats
-curl http://localhost:3001/api/stats/summary
+curl http://127.0.0.1:3001/api/stats/summary
+
+# Test error handling
+curl -X PATCH http://127.0.0.1:3001/api/segments/999 \
+  -H "Content-Type: application/json" \
+  -d '{"task_description": "test"}'
+# Should return 404 with standardized error format
 ```
 
 ### Manual Testing Checklist
 
 **Backend:**
-- [ ] API server starts without errors
+- [ ] API server starts on 127.0.0.1:3001 (not 0.0.0.0)
 - [ ] All endpoints return valid JSON
-- [ ] Database queries execute successfully
-- [ ] CORS allows localhost:3000 requests
-- [ ] Error responses have proper status codes
+- [ ] Database queries execute with indexes (<200ms)
+- [ ] CORS allows localhost:3000 only
+- [ ] CORS blocks other origins
+- [ ] Error responses follow standardized schema
 - [ ] Validation rejects invalid inputs
+- [ ] State transitions follow state machine rules
+- [ ] Cannot edit submitted segments
 
 **Frontend:**
 - [ ] UI loads without console errors
+- [ ] API client uses VITE_API_URL from env
 - [ ] Segment list displays all pending segments
 - [ ] Filtering by status works
 - [ ] Editing task description saves correctly
+- [ ] JSON parsing doesn't crash on malformed data
 - [ ] Approve button updates status
+- [ ] Submitted segments are grayed out and non-editable
 - [ ] Batch approve selects multiple segments
+- [ ] Batch skip works correctly
 - [ ] Dashboard shows correct statistics
+- [ ] Dashboard uses VITE_BILLING_RATE_DEFAULT
 - [ ] Submit preview matches expected output
+- [ ] Error toasts display on API errors
 
 **End-to-End:**
 - [ ] Parse sessions → segments appear in UI
 - [ ] Edit segment in UI → changes persist in DB
 - [ ] Approve segments → submission preview includes them
 - [ ] Submit to AC → segments marked as submitted
+- [ ] Cannot edit after submission
 
 ---
 
@@ -907,8 +1286,10 @@ curl http://localhost:3001/api/stats/summary
 # Run migration
 npm run migrate
 
-# Verify new columns
+# Verify new columns and indexes
 npm start status
+sqlite3 data/smart-work-tracker.db ".schema segments"
+sqlite3 data/smart-work-tracker.db ".indexes segments"
 ```
 
 **Migration 014** adds:
@@ -916,6 +1297,7 @@ npm start status
 - `reviewed_at` DATETIME
 - `reviewed_by` TEXT
 - `approval_status` TEXT (with CHECK constraint)
+- 5 indexes for performance
 
 ### Package Installation
 
@@ -933,18 +1315,23 @@ npm install
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 npm install axios
+cd ..
 ```
 
 ### Configuration Updates
 
-**.env updates:**
 ```bash
-# API Configuration
-API_PORT=3001
-API_HOST=localhost
+# Copy .env.example to .env
+cp .env.example .env
 
-# UI Configuration
+# Edit .env with your values
+nano .env
+
+# Create web-ui/.env
+cat > web-ui/.env << EOF
 VITE_API_URL=http://localhost:3001/api
+VITE_BILLING_RATE_DEFAULT=100
+EOF
 ```
 
 ---
@@ -954,21 +1341,25 @@ VITE_API_URL=http://localhost:3001/api
 ### Phase 5 Complete When:
 
 - [x] **Backend API:**
-  - [ ] Express server runs on port 3001
-  - [ ] All 10+ endpoints implemented and tested
-  - [ ] CORS enabled for localhost:3000
-  - [ ] Error handling returns clear messages
-  - [ ] Database queries optimized (<200ms response)
+  - [ ] Express server runs on 127.0.0.1:3001 (not 0.0.0.0)
+  - [ ] All 12 endpoints implemented and tested
+  - [ ] CORS restricted to localhost:3000 only
+  - [ ] Standardized error responses implemented
+  - [ ] Database queries optimized with indexes (<200ms)
+  - [ ] State machine enforced for status transitions
 
 - [x] **Frontend UI:**
-  - [ ] React app runs on port 3000
+  - [ ] React app runs on localhost:3000
+  - [ ] Uses VITE_API_URL from environment
   - [ ] Segment list view displays all segments
   - [ ] Filtering and search work correctly
   - [ ] Inline editing saves changes
-  - [ ] Approve/Skip/Delete buttons work
-  - [ ] Batch operations work
-  - [ ] Dashboard shows accurate statistics
+  - [ ] Safe JSON parsing prevents crashes
+  - [ ] Approve/Skip/Delete buttons work with state validation
+  - [ ] Batch operations work (approve and skip)
+  - [ ] Dashboard shows accurate statistics with configured rate
   - [ ] Submit preview matches actual submission
+  - [ ] Submitted segments are immutable
 
 - [x] **User Experience:**
   - [ ] Can review 10 segments in <2 minutes
@@ -976,12 +1367,21 @@ VITE_API_URL=http://localhost:3001/api
   - [ ] Clear visual feedback on actions
   - [ ] No console errors or warnings
   - [ ] Works in Chrome/Firefox/Edge
+  - [ ] Error toasts show clear messages
 
 - [x] **Data Integrity:**
   - [ ] Edits don't affect raw data (sources table immutable)
-  - [ ] Approval status updates persist correctly
+  - [ ] Approval status updates follow state machine
   - [ ] Submission preview matches what would be sent to AC
   - [ ] Browser refresh doesn't lose pending changes
+  - [ ] Cannot edit submitted segments
+
+- [x] **Security & Performance:**
+  - [ ] API bound to 127.0.0.1 only
+  - [ ] CORS restricted to localhost:3000
+  - [ ] Database indexes created
+  - [ ] All queries <200ms
+  - [ ] No SQL injection vulnerabilities
 
 ---
 
@@ -1003,33 +1403,33 @@ VITE_API_URL=http://localhost:3001/api
 
 ## Estimated Effort
 
-**Implementation:** 8-12 hours
-- Backend API: 3-4 hours
+**Implementation:** 10-14 hours (increased from 8-12 due to revisions)
+- Backend API: 4-5 hours (was 3-4, +1h for state machine + error schema)
 - Frontend setup: 2-3 hours
-- Component development: 3-4 hours
-- Testing & refinement: 1-2 hours
+- Component development: 4-5 hours (was 3-4, +1h for safe parsing + env vars)
+- Testing & refinement: 2-3 hours (was 1-2, +1h for additional validation)
 
 **Breakdown:**
-- Migration & DB setup: 30 min
-- Express API routes: 2 hours
+- Migration & DB setup: 1 hour (was 30min, +30min for indexes)
+- Express API routes: 3 hours (was 2h, +1h for error schema + state validation)
 - React app scaffolding: 1 hour
 - SegmentList component: 1.5 hours
-- SegmentCard component: 1 hour
-- Dashboard component: 1 hour
-- FilterBar & BatchActions: 1 hour
+- SegmentCard component: 1.5 hours (was 1h, +30min for safe parsing)
+- Dashboard component: 1.5 hours (was 1h, +30min for billing config)
+- FilterBar & BatchActions: 1.5 hours (was 1h, +30min for batch-skip)
 - API client hooks: 1 hour
 - Styling with Tailwind: 1.5 hours
-- Testing & bug fixes: 1.5 hours
+- Testing & bug fixes: 2 hours (was 1.5h, +30min for state machine validation)
 
 ---
 
 ## Status
 
-- [ ] Documented
-- [ ] Reviewed (AI) - OPTIONAL
+- [x] Documented
+- [x] Reviewed (OpenAI) - ✅ Approved with revisions
+- [ ] Revised - ✅ Complete
 - [ ] Implemented
 - [ ] Tested
-- [ ] Consulted (AI) - OPTIONAL
 - [ ] Approved
 - [ ] Released & Tagged
 
@@ -1044,12 +1444,35 @@ VITE_API_URL=http://localhost:3001/api
 
 ---
 
+## OpenAI Review Notes
+
+**Date:** January 11, 2026
+**Cost:** $0.04
+**Duration:** 43 seconds
+
+**All 10 concerns addressed:**
+1. ✅ Removed undo from requirements (scope clarified)
+2. ✅ Defined approval status state machine with transitions
+3. ✅ Added batch-skip endpoint
+4. ✅ Added 5 database indexes for performance
+5. ✅ Implemented safe JSON parsing utility
+6. ✅ Added billing rate to environment configuration
+7. ✅ API bound to 127.0.0.1 with strict CORS
+8. ✅ Standardized error response schema defined
+9. ✅ Clarified duration rounding rules and field usage
+10. ✅ Used environment variables consistently in all code
+
+---
+
 ## Next Steps After Phase 5
 
-1. **Use the UI for daily reviews** - Replace script-based workflow
-2. **Consider Phase 6** - If batch processing becomes tedious
-3. **Consider Phase 3B** - If attribution accuracy drops below 80%
-4. **Polish (Phase 7)** - When ready for long-term maintenance
+1. **Implement Phase 5** - Build the web UI according to this spec
+2. **Test thoroughly** - All manual tests must pass
+3. **User acceptance** - Review with user before tagging
+4. **Tag release** - `v0.5.0-phase5` when complete
+5. **Consider Phase 6** - If batch processing becomes tedious
+6. **Consider Phase 3B** - If attribution accuracy drops below 80%
+7. **Polish (Phase 7)** - When ready for long-term maintenance
 
 ---
 
@@ -1060,3 +1483,4 @@ VITE_API_URL=http://localhost:3001/api
 - [Vite Documentation](https://vitejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - Smart Work Tracker Development Framework: `docs/00-DEVELOPMENT-FRAMEWORK.md`
+- OpenAI Review Response: `tasks/responses/archive/1768162075090.json`
