@@ -28,10 +28,12 @@ class Attributor {
       return { attributed: 0, ambiguous: 0, noMatch: segments.length };
     }
 
-    // Parse JSON fields
+    // Parse JSON fields and normalize
     projects.forEach(p => {
       p.keywords = p.keywords ? JSON.parse(p.keywords) : [];
       p.cwd_patterns = p.cwd_patterns ? JSON.parse(p.cwd_patterns) : [];
+      p.name = p.activecollab_project_name; // Normalize for easier access
+      p.id = p.activecollab_project_id; // Normalize project ID
     });
 
     let attributed = 0;
@@ -88,15 +90,52 @@ class Attributor {
   calculateConfidence(segment, project) {
     let confidence = 0;
 
-    // RULE 6: Task log matching (HIGHEST PRIORITY)
-    // Check if this segment has task context with matched projects
+    // RULE 0: Summary matching (HIGHEST PRIORITY - User's actual messages!)
+    // Check if task_context contains summaries with project mentions
     if (segment.task_context) {
       try {
         const taskContext = JSON.parse(segment.task_context);
-        if (taskContext.matchedProjects) {
+
+        // Check if it's an array of summaries (new format)
+        if (Array.isArray(taskContext)) {
+          const summariesText = taskContext
+            .filter(s => s && typeof s === 'string')
+            .join(' ').toLowerCase();
+
+          // Check project name match
+          if (project.name && summariesText.includes(project.name.toLowerCase())) {
+            this.logger.debug('Project name found in summaries', {
+              segmentId: segment.id,
+              projectName: project.name
+            });
+            return 0.98; // Very high confidence from user messages!
+          }
+
+          // Check project keywords in summaries
+          if (project.keywords) {
+            let keywordMatches = 0;
+            for (const keyword of project.keywords) {
+              if (summariesText.includes(keyword.toLowerCase())) {
+                keywordMatches++;
+              }
+            }
+
+            if (keywordMatches >= 2) {
+              this.logger.debug('Multiple keywords found in summaries', {
+                segmentId: segment.id,
+                projectName: project.name,
+                matches: keywordMatches
+              });
+              return 0.95; // Multiple keyword matches in user messages
+            } else if (keywordMatches === 1) {
+              confidence = Math.max(confidence, 0.85); // Single keyword match
+            }
+          }
+        }
+        // Old format: Task log matching
+        else if (taskContext.matchedProjects) {
           const taskMatch = taskContext.matchedProjects.find(p => p.id === project.id);
           if (taskMatch) {
-            // Task log match found - return immediately with high confidence
             this.logger.debug('Task log match found', {
               segmentId: segment.id,
               projectId: project.id,

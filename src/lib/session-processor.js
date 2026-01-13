@@ -148,12 +148,16 @@ class SessionProcessor {
       // Convert Sets to arrays for JSON storage
       const filesTouched = segment.filesTouched ? Array.from(segment.filesTouched) : [];
       const commandsRun = segment.commandsRun ? Array.from(segment.commandsRun) : [];
+      const summaries = segment.summaries ? Array.from(segment.summaries) : [];
+
+      // Create task context from summaries (user messages and high-level context)
+      const taskContext = summaries.length > 0 ? JSON.stringify(summaries) : null;
 
       await this.db.run(
         `INSERT INTO segments (
           source_id, start_time, end_time, duration_minutes,
-          cwd, git_branch, files_touched, commands_run, status
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')`,
+          cwd, git_branch, files_touched, commands_run, task_context, status
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')`,
         [
           sourceId,
           segment.startTime.toISOString(),
@@ -162,7 +166,8 @@ class SessionProcessor {
           segment.cwd,
           segment.gitBranch,
           JSON.stringify(filesTouched),
-          JSON.stringify(commandsRun)
+          JSON.stringify(commandsRun),
+          taskContext
         ]
       );
     }

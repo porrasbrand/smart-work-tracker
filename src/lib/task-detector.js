@@ -8,9 +8,11 @@ class TaskDetector {
     // Parse JSON fields
     const filesTouched = segment.files_touched ? JSON.parse(segment.files_touched) : [];
     const commandsRun = segment.commands_run ? JSON.parse(segment.commands_run) : [];
+    const summaries = segment.task_context ? JSON.parse(segment.task_context) : [];
 
     // Collect signals from different sources
     const signals = {
+      summaries: this.analyzeSummaries(summaries), // HIGHEST priority signal!
       branchName: this.analyzeBranchName(segment.git_branch),
       fileOps: this.analyzeFileOperations(filesTouched),
       commands: this.analyzeCommands(commandsRun)
@@ -19,8 +21,8 @@ class TaskDetector {
     // Determine task type from signals
     const taskType = this.selectTaskType(signals);
 
-    // Generate description
-    const description = this.generateDescription(segment, filesTouched, commandsRun, taskType);
+    // Generate description (summaries are now primary source)
+    const description = this.generateDescription(segment, filesTouched, commandsRun, taskType, summaries);
 
     // Calculate confidence
     const confidence = this.calculateConfidence(signals);
@@ -31,6 +33,88 @@ class TaskDetector {
       confidence,
       signals
     };
+  }
+
+  analyzeSummaries(summaries) {
+    if (!summaries || !Array.isArray(summaries) || summaries.length === 0) {
+      return { type: 'unknown', confidence: 0, description: null, projects: [] };
+    }
+
+    // Combine all summaries into context
+    const combinedText = summaries.filter(s => s && typeof s === 'string').join(' ').toLowerCase();
+
+    // Extract project names mentioned
+    const projects = this.extractProjectNames(summaries);
+
+    // Detect task type from summary text
+    let taskType = 'existing_task';
+    let confidence = 0.9; // High confidence when we have user messages
+
+    // Keywords indicating new tasks
+    if (combinedText.match(/\b(create|build|implement|add|generate|setup|initialize)\b/)) {
+      taskType = 'new_task';
+      confidence = 0.95;
+    }
+    // Keywords indicating bug fixes
+    else if (combinedText.match(/\b(fix|debug|repair|resolve|bug|error|issue)\b/)) {
+      taskType = 'bug_fix';
+      confidence = 0.95;
+    }
+    // Keywords indicating refactoring
+    else if (combinedText.match(/\b(refactor|cleanup|reorganize|improve|optimize)\b/)) {
+      taskType = 'refactoring';
+      confidence = 0.95;
+    }
+
+    // Use first non-technical summary as description
+    const description = this.extractBestSummary(summaries);
+
+    return {
+      type: taskType,
+      confidence,
+      description,
+      projects
+    };
+  }
+
+  extractProjectNames(summaries) {
+    const projects = new Set();
+
+    for (const summary of summaries) {
+      // Look for common project name patterns
+      const matches = summary.match(/\b([\w-]+(?:-[\w-]+)*)\s+(?:project|tracker|system|service|report|site|app)/gi);
+      if (matches) {
+        matches.forEach(match => {
+          const projectName = match.split(/\s+/)[0];
+          if (projectName.length > 3) {
+            projects.add(projectName);
+          }
+        });
+      }
+    }
+
+    return Array.from(projects);
+  }
+
+  extractBestSummary(summaries) {
+    // Filter out technical/noise summaries
+    const meaningful = summaries.filter(s => {
+      const lower = s.toLowerCase();
+      // Skip very short or technical summaries
+      if (s.length < 10) return false;
+      // Skip generic phrases
+      if (lower.match(/^(processing|analyzing|checking|reading|writing)/)) return false;
+      return true;
+    });
+
+    // Return first meaningful summary (user's actual request)
+    if (meaningful.length > 0) {
+      // Truncate if too long
+      const summary = meaningful[0];
+      return summary.length > 150 ? summary.substring(0, 147) + '...' : summary;
+    }
+
+    return null;
   }
 
   analyzeBranchName(gitBranch) {
@@ -140,7 +224,12 @@ class TaskDetector {
   }
 
   selectTaskType(signals) {
-    // Branch name has highest priority
+    // Summaries (user messages) have HIGHEST priority!
+    if (signals.summaries.confidence >= 0.9) {
+      return signals.summaries.type;
+    }
+
+    // Branch name has second highest priority
     if (signals.branchName.confidence >= 1.0) {
       return signals.branchName.type;
     }
@@ -153,7 +242,7 @@ class TaskDetector {
     }
 
     // Use strongest signal
-    const allSignals = [signals.branchName, signals.fileOps, signals.commands];
+    const allSignals = [signals.summaries, signals.branchName, signals.fileOps, signals.commands];
     const strongest = allSignals.reduce((max, signal) =>
       signal.confidence > max.confidence ? signal : max
     );
@@ -161,7 +250,16 @@ class TaskDetector {
     return strongest.type;
   }
 
-  generateDescription(segment, filesTouched, commandsRun, taskType) {
+  generateDescription(segment, filesTouched, commandsRun, taskType, summaries) {
+    // If we have a summary description from user messages, USE IT!
+    if (summaries && summaries.length > 0) {
+      const bestSummary = this.extractBestSummary(summaries);
+      if (bestSummary) {
+        return bestSummary;
+      }
+    }
+
+    // Fallback to old method if no good summaries
     // Extract project name from CWD
     const projectName = this.extractProjectName(segment.cwd);
 
@@ -215,20 +313,22 @@ class TaskDetector {
   }
 
   calculateConfidence(signals) {
-    // Weight the signals
+    // Weight the signals (summaries are most important!)
     const weights = {
-      branchName: 0.5,  // Branch name is strongest signal
-      fileOps: 0.3,     // File operations are moderate
-      commands: 0.2     // Commands are weakest
+      summaries: 0.6,   // User messages are strongest signal!
+      branchName: 0.2,  // Branch name is second
+      fileOps: 0.1,     // File operations are moderate
+      commands: 0.1     // Commands are weakest
     };
 
     const weightedConfidence =
+      (signals.summaries.confidence * weights.summaries) +
       (signals.branchName.confidence * weights.branchName) +
       (signals.fileOps.confidence * weights.fileOps) +
       (signals.commands.confidence * weights.commands);
 
     // If all signals agree on same type, boost confidence
-    const types = [signals.branchName.type, signals.fileOps.type, signals.commands.type]
+    const types = [signals.summaries.type, signals.branchName.type, signals.fileOps.type, signals.commands.type]
       .filter(t => t !== 'unknown');
 
     if (types.length >= 2) {

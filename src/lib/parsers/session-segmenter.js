@@ -62,6 +62,43 @@ class SessionSegmenter {
   }
 
   addEventMetadata(segment, event) {
+    // Capture event summary (high-level context)
+    if (event.summary && typeof event.summary === 'string') {
+      const cleanSummary = event.summary.trim();
+      if (cleanSummary.length > 0 && cleanSummary.length < 500) {
+        segment.summaries.add(cleanSummary);
+      }
+    }
+
+    // Capture USER messages (the most important signal!)
+    if (event.type === 'user' && event.message) {
+      let userText = null;
+
+      // Handle different user message formats
+      if (typeof event.message.content === 'string') {
+        // Simple string format
+        userText = event.message.content;
+      } else if (Array.isArray(event.message.content)) {
+        // Array format - look for text content
+        for (const item of event.message.content) {
+          if (item.type === 'text' && item.text) {
+            userText = item.text;
+            break;
+          } else if (typeof item === 'string') {
+            userText = item;
+            break;
+          }
+        }
+      }
+
+      // Add user message to summaries if found
+      if (userText && userText.trim().length > 10) {
+        // Truncate very long messages but keep meaningful ones
+        const truncated = userText.length > 300 ? userText.substring(0, 297) + '...' : userText;
+        segment.summaries.add(truncated.trim());
+      }
+    }
+
     // Extract files and commands from this event
     if (event.message?.content && Array.isArray(event.message.content)) {
       for (const contentItem of event.message.content) {
@@ -95,6 +132,7 @@ class SessionSegmenter {
       gitBranch: metadata.gitBranch || null,
       filesTouched: new Set(),
       commandsRun: new Set(),
+      summaries: new Set(), // User messages and task context
       durationMinutes: 0
     };
   }
