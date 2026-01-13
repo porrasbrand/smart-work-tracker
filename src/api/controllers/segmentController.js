@@ -46,7 +46,7 @@ async function listSegments(req, res, next) {
         s.*,
         p.activecollab_project_name as project_name
       FROM segments s
-      LEFT JOIN projects_map p ON s.project_id_detected = p.id
+      LEFT JOIN projects_map p ON s.project_id_final = p.activecollab_project_id
       WHERE 1=1
     `;
     const params = [];
@@ -59,7 +59,7 @@ async function listSegments(req, res, next) {
 
     // Filter by project
     if (project_id) {
-      query += ` AND s.project_id_detected = ?`;
+      query += ` AND s.project_id_final = ?`;
       params.push(parseInt(project_id, 10));
     }
 
@@ -112,7 +112,7 @@ async function getSegment(req, res, next) {
         s.*,
         p.activecollab_project_name as project_name
       FROM segments s
-      LEFT JOIN projects_map p ON s.project_id_detected = p.id
+      LEFT JOIN projects_map p ON s.project_id_final = p.activecollab_project_id
       WHERE s.id = ?
     `, [id]);
 
@@ -133,7 +133,7 @@ async function getSegment(req, res, next) {
 async function updateSegment(req, res, next) {
   const { db } = req.app.locals;
   const { id } = req.params;
-  const { task_description, adjusted_duration_minutes, project_id_detected, review_notes } = req.body;
+  const { task_description, adjusted_duration_minutes, project_id_final, review_notes } = req.body;
 
   try {
     // Check if segment exists and get current state
@@ -165,17 +165,17 @@ async function updateSegment(req, res, next) {
       params.push(adjusted_duration_minutes);
     }
 
-    if (project_id_detected !== undefined) {
+    if (project_id_final !== undefined) {
       // Validate project exists
-      const project = await db.get('SELECT id FROM projects_map WHERE id = ?', [project_id_detected]);
+      const project = await db.get('SELECT activecollab_project_id FROM projects_map WHERE activecollab_project_id = ?', [project_id_final]);
       if (!project) {
-        return next(new APIError('VALIDATION_ERROR', `Project with id ${project_id_detected} not found`, {
-          field: 'project_id_detected',
-          value: project_id_detected
+        return next(new APIError('VALIDATION_ERROR', `Project with id ${project_id_final} not found`, {
+          field: 'project_id_final',
+          value: project_id_final
         }));
       }
-      updates.push('project_id_detected = ?');
-      params.push(project_id_detected);
+      updates.push('project_id_final = ?');
+      params.push(project_id_final);
     }
 
     if (review_notes !== undefined) {
