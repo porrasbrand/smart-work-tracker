@@ -25,11 +25,11 @@ async function getPreview(req, res, next) {
         s.adjusted_duration_minutes,
         s.task_description,
         s.task_context,
-        p.id as project_id,
+        p.activecollab_project_id as project_id,
         p.activecollab_project_id,
         p.activecollab_project_name as project_name
       FROM segments s
-      INNER JOIN projects_map p ON s.project_id_detected = p.id
+      INNER JOIN projects_map p ON s.project_id_final = p.activecollab_project_id
       WHERE s.approval_status = ?
         AND s.submitted_to_ac = 0
       ORDER BY s.start_time DESC
