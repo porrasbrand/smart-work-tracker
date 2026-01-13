@@ -265,6 +265,7 @@ class TimeSubmitter {
         SET submitted_to_ac = 1,
             ac_time_record_id = ?,
             submitted_at = CURRENT_TIMESTAMP,
+            approval_status = 'submitted',
             submission_error = NULL,
             updated_at = CURRENT_TIMESTAMP
         WHERE id = ?
