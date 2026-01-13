@@ -127,6 +127,15 @@ async function executeCommand(command, flags, { db, logger, config }) {
       }
       break;
 
+    case 'ai-attribute':
+      const aiAttributeCommand = require('./ai-attribute');
+      const aiResult = await aiAttributeCommand({ db, logger, config });
+
+      if (aiResult.attributed > 0) {
+        console.log(`\n💡 Tip: Run 'attribute' again to catch any remaining segments`);
+      }
+      break;
+
     case 'detect':
       const TaskDetector = require('../lib/task-detector');
       const detector = new TaskDetector(config, logger);
