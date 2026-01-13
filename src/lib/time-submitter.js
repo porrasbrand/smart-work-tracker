@@ -34,9 +34,10 @@ class TimeSubmitter {
         p.activecollab_project_id,
         p.activecollab_project_name
       FROM segments s
-      INNER JOIN projects_map p ON s.project_id_detected = p.id
+      INNER JOIN projects_map p ON s.project_id_final = p.activecollab_project_id
       WHERE s.submitted_to_ac = 0
-        AND s.project_id_detected IS NOT NULL
+        AND s.project_id_final IS NOT NULL
+        AND s.approval_status = 'approved'
     `;
 
     const params = [];
@@ -297,10 +298,10 @@ class TimeSubmitter {
       SELECT
         COUNT(*) as total_segments,
         SUM(CASE WHEN submitted_to_ac = 1 THEN 1 ELSE 0 END) as submitted,
-        SUM(CASE WHEN submitted_to_ac = 0 AND project_id_detected IS NOT NULL THEN 1 ELSE 0 END) as ready_to_submit,
-        SUM(CASE WHEN submitted_to_ac = 0 AND project_id_detected IS NULL THEN 1 ELSE 0 END) as unattributed,
+        SUM(CASE WHEN submitted_to_ac = 0 AND project_id_final IS NOT NULL AND approval_status = 'approved' THEN 1 ELSE 0 END) as ready_to_submit,
+        SUM(CASE WHEN submitted_to_ac = 0 AND project_id_final IS NULL THEN 1 ELSE 0 END) as unattributed,
         SUM(CASE WHEN submitted_to_ac = 1 THEN COALESCE(adjusted_duration_minutes, duration_minutes) ELSE 0 END) as submitted_minutes,
-        SUM(CASE WHEN submitted_to_ac = 0 AND project_id_detected IS NOT NULL THEN COALESCE(adjusted_duration_minutes, duration_minutes) ELSE 0 END) as pending_minutes
+        SUM(CASE WHEN submitted_to_ac = 0 AND project_id_final IS NOT NULL AND approval_status = 'approved' THEN COALESCE(adjusted_duration_minutes, duration_minutes) ELSE 0 END) as pending_minutes
       FROM segments
       WHERE status != 'archived'
     `);
