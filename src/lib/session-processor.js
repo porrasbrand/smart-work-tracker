@@ -41,6 +41,16 @@ class SessionProcessor {
       return { skipped: true, reason: 'already_processed', sessionId };
     }
 
+    // Log when reprocessing due to file changes
+    if (existing && existing.file_hash !== fileHash) {
+      this.logger.info('Session file has changed, reprocessing', {
+        sessionId,
+        oldHash: existing.file_hash.substring(0, 12) + '...',
+        newHash: fileHash.substring(0, 12) + '...',
+        fileSize
+      });
+    }
+
     // Parse events
     const events = [];
     let errorCount = 0;
@@ -181,7 +191,7 @@ class SessionProcessor {
   }
 
   async discoverSessionFiles(claudeProjectsDir) {
-    // Discover all .jsonl files in ~/.claude/projects/
+    // Discover all .jsonl files in ~/.claude/projects/ (recursively includes subagents)
     const sessionFiles = [];
 
     try {
@@ -201,11 +211,8 @@ class SessionProcessor {
         if (!stat.isDirectory()) continue;
 
         try {
-          const files = await fs.readdir(projectPath);
-          const jsonlFiles = files
-            .filter(f => f.endsWith('.jsonl'))
-            .map(f => path.join(projectPath, f));
-
+          // Recursively scan this project directory for all .jsonl files
+          const jsonlFiles = await this._findJsonlFilesRecursive(projectPath);
           sessionFiles.push(...jsonlFiles);
         } catch (err) {
           // Skip if can't read directory
@@ -221,6 +228,32 @@ class SessionProcessor {
     }
 
     return sessionFiles;
+  }
+
+  async _findJsonlFilesRecursive(dir) {
+    // Recursively find all .jsonl files in a directory tree
+    const files = [];
+
+    try {
+      const entries = await fs.readdir(dir, { withFileTypes: true });
+
+      for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+
+        if (entry.isDirectory()) {
+          // Recursively scan subdirectories (e.g., subagents/)
+          const subFiles = await this._findJsonlFilesRecursive(fullPath);
+          files.push(...subFiles);
+        } else if (entry.isFile() && entry.name.endsWith('.jsonl')) {
+          files.push(fullPath);
+        }
+      }
+    } catch (err) {
+      // Skip directories we can't read
+      this.logger.debug('Cannot read directory', { dir, error: err.message });
+    }
+
+    return files;
   }
 }
 
