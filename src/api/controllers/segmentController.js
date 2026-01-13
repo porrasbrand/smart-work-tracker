@@ -475,6 +475,64 @@ async function batchSkip(req, res, next) {
   }
 }
 
+/**
+ * POST /api/segments/submit-approved
+ * Submit all approved segments to ActiveCollab
+ */
+async function submitApproved(req, res, next) {
+  const { db, logger, config } = req.app.locals;
+  const { dryRun = false } = req.body;
+
+  try {
+    const TimeSubmitter = require('../../lib/time-submitter');
+    const submitter = new TimeSubmitter(db, logger, config);
+
+    logger.info('API: Starting time submission', { dryRun });
+
+    const result = await submitter.submitTimeRecords({ dryRun });
+
+    res.json({
+      success: true,
+      dryRun,
+      result: {
+        submitted: result.submitted,
+        failed: result.failed,
+        skipped: result.skipped,
+        totalHours: result.totalHours
+      }
+    });
+  } catch (err) {
+    logger.error('API: Time submission failed', { error: err.message });
+    next(new APIError('SUBMISSION_ERROR', err.message));
+  }
+}
+
+/**
+ * GET /api/segments/submit-summary
+ * Get summary of submitted vs pending segments
+ */
+async function getSubmitSummary(req, res, next) {
+  const { db, logger, config } = req.app.locals;
+
+  try {
+    const TimeSubmitter = require('../../lib/time-submitter');
+    const submitter = new TimeSubmitter(db, logger, config);
+
+    const summary = await submitter.getSubmissionSummary();
+
+    res.json({
+      success: true,
+      summary
+    });
+  } catch (err) {
+    const errorMessage = err && err.message ? err.message : String(err);
+    if (logger && logger.error) {
+      logger.error('API: Failed to get submission summary', { error: errorMessage });
+    }
+    next(new APIError('DATABASE_ERROR', errorMessage));
+  }
+}
+
 module.exports = {
   listSegments,
   getSegment,
@@ -483,5 +541,7 @@ module.exports = {
   skipSegment,
   deleteSegment,
   batchApprove,
-  batchSkip
+  batchSkip,
+  submitApproved,
+  getSubmitSummary
 };

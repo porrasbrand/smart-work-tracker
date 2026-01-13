@@ -13,8 +13,20 @@ const cors = require('cors');
 const path = require('path');
 const sqlite3 = require('sqlite3');
 const { open } = require('sqlite');
+const winston = require('winston');
 const config = require('../../config');
 const { errorHandler, formatError } = require('./middleware/errorHandler');
+
+// Initialize logger
+const logger = winston.createLogger({
+  level: config.logging.level || 'info',
+  format: config.logging.format === 'json'
+    ? winston.format.json()
+    : winston.format.simple(),
+  transports: [
+    new winston.transports.Console()
+  ]
+});
 
 const app = express();
 
@@ -94,6 +106,8 @@ async function startServer() {
     // Initialize database
     const db = await initDatabase();
     app.locals.db = db;
+    app.locals.logger = logger;
+    app.locals.config = config;
 
     // Start listening - bound to 127.0.0.1 only
     app.listen(API_PORT, API_HOST, () => {

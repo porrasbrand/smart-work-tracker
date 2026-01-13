@@ -20,6 +20,11 @@ router.get('/',
   segmentController.listSegments
 );
 
+// GET /api/segments/submit-summary - Get submission summary (BEFORE :id route!)
+router.get('/submit-summary',
+  segmentController.getSubmitSummary
+);
+
 // GET /api/segments/:id - Get single segment
 router.get('/:id',
   validateSegmentId,
@@ -61,6 +66,11 @@ router.post('/batch-approve',
 router.post('/batch-skip',
   validateBatchOperation,
   segmentController.batchSkip
+);
+
+// POST /api/segments/submit-approved - Submit approved segments to ActiveCollab
+router.post('/submit-approved',
+  segmentController.submitApproved
 );
 
 module.exports = router;
