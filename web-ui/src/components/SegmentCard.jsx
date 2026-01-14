@@ -6,6 +6,7 @@ import { safeJsonParse } from '../utils/safeJsonParse';
 export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
   const [editing, setEditing] = useState(false);
   const [taskDesc, setTaskDesc] = useState(segment.task_description);
+  const [adjustedMinutes, setAdjustedMinutes] = useState(segment.adjusted_duration_minutes);
   const [error, setError] = useState(null);
 
   // Safe JSON parsing (OpenAI feedback #5)
@@ -33,7 +34,8 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
   const handleSave = async () => {
     try {
       await apiClient.patch(`/segments/${segment.id}`, {
-        task_description: taskDesc
+        task_description: taskDesc,
+        adjusted_duration_minutes: parseInt(adjustedMinutes, 10)
       });
       setEditing(false);
       onUpdate();
@@ -68,10 +70,25 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
 
           <div className="flex-1">
             {/* Date & Duration */}
-            <div className="text-sm text-gray-500">
-              {formatDate(segment.start_time)} •
-              Original: {formatDuration(segment.duration_minutes)} →
-              Rounded: {formatDuration(segment.adjusted_duration_minutes)}
+            <div className="text-sm text-gray-500 flex items-center gap-2">
+              <span>{formatDate(segment.start_time)} •</span>
+              <span>Original: {formatDuration(segment.duration_minutes)} →</span>
+              {editing ? (
+                <div className="flex items-center gap-1">
+                  <span>Adjusted:</span>
+                  <input
+                    type="number"
+                    value={adjustedMinutes}
+                    onChange={(e) => setAdjustedMinutes(e.target.value)}
+                    min="1"
+                    max="600"
+                    className="w-16 border rounded px-2 py-0.5 text-sm"
+                  />
+                  <span>min ({formatDuration(adjustedMinutes)})</span>
+                </div>
+              ) : (
+                <span>Adjusted: {formatDuration(segment.adjusted_duration_minutes)}</span>
+              )}
             </div>
 
             {/* Project */}
@@ -137,6 +154,7 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
                 onClick={() => {
                   setEditing(false);
                   setTaskDesc(segment.task_description);
+                  setAdjustedMinutes(segment.adjusted_duration_minutes);
                 }}
                 className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 text-sm"
               >
