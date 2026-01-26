@@ -1,5 +1,7 @@
 export function formatDuration(minutes) {
-  if (!minutes) return '0h';
+  // Handle null/undefined/0 properly
+  if (minutes === null || minutes === undefined) return 'Not set';
+  if (minutes === 0) return '0h';
 
   const hours = Math.floor(minutes / 60);
   const mins = minutes % 60;

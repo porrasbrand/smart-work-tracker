@@ -78,16 +78,16 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
                   <span>Adjusted:</span>
                   <input
                     type="number"
-                    value={adjustedMinutes}
+                    value={adjustedMinutes ?? segment.duration_minutes}
                     onChange={(e) => setAdjustedMinutes(e.target.value)}
                     min="1"
                     max="600"
                     className="w-16 border rounded px-2 py-0.5 text-sm"
                   />
-                  <span>min ({formatDuration(adjustedMinutes)})</span>
+                  <span>min ({formatDuration(adjustedMinutes ?? segment.duration_minutes)})</span>
                 </div>
               ) : (
-                <span>Adjusted: {formatDuration(segment.adjusted_duration_minutes)}</span>
+                <span>Adjusted: {formatDuration(segment.adjusted_duration_minutes ?? segment.duration_minutes)}</span>
               )}
             </div>
 
