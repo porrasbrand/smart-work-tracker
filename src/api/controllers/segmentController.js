@@ -166,16 +166,20 @@ async function updateSegment(req, res, next) {
     }
 
     if (project_id_final !== undefined) {
-      // Validate project exists
-      const project = await db.get('SELECT activecollab_project_id FROM projects_map WHERE activecollab_project_id = ?', [project_id_final]);
-      if (!project) {
-        return next(new APIError('VALIDATION_ERROR', `Project with id ${project_id_final} not found`, {
-          field: 'project_id_final',
-          value: project_id_final
-        }));
+      // Allow null to clear project, otherwise validate project exists
+      if (project_id_final === null) {
+        updates.push('project_id_final = NULL');
+      } else {
+        const project = await db.get('SELECT activecollab_project_id FROM projects_map WHERE activecollab_project_id = ?', [project_id_final]);
+        if (!project) {
+          return next(new APIError('VALIDATION_ERROR', `Project with id ${project_id_final} not found`, {
+            field: 'project_id_final',
+            value: project_id_final
+          }));
+        }
+        updates.push('project_id_final = ?');
+        params.push(project_id_final);
       }
-      updates.push('project_id_final = ?');
-      params.push(project_id_final);
     }
 
     if (review_notes !== undefined) {

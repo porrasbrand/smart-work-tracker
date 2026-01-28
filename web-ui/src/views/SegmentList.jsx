@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSegments } from '../hooks/useSegments';
+import { useProjects } from '../hooks/useProjects';
 import { SegmentCard } from '../components/SegmentCard';
 import { FilterBar } from '../components/FilterBar';
 import { BatchActions } from '../components/BatchActions';
@@ -8,6 +9,7 @@ export function SegmentList() {
   const [filters, setFilters] = useState({ status: 'pending', limit: 50 });
   const [selected, setSelected] = useState([]);
   const { segments, total, loading, error, refetch } = useSegments(filters);
+  const { projects } = useProjects();
 
   if (loading) {
     return (
@@ -54,6 +56,7 @@ export function SegmentList() {
               <SegmentCard
                 key={seg.id}
                 segment={seg}
+                projects={projects}
                 selected={selected.includes(seg.id)}
                 onSelect={(id) => setSelected(prev =>
                   prev.includes(id)

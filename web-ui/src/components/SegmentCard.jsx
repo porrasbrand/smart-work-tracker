@@ -3,10 +3,11 @@ import { apiClient } from '../api/client';
 import { formatDuration, formatDate } from '../utils/formatters';
 import { safeJsonParse } from '../utils/safeJsonParse';
 
-export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
+export function SegmentCard({ segment, projects = [], selected, onSelect, onUpdate }) {
   const [editing, setEditing] = useState(false);
   const [taskDesc, setTaskDesc] = useState(segment.task_description);
   const [adjustedMinutes, setAdjustedMinutes] = useState(segment.adjusted_duration_minutes);
+  const [selectedProjectId, setSelectedProjectId] = useState(segment.project_id_final || '');
   const [error, setError] = useState(null);
 
   // Safe JSON parsing (OpenAI feedback #5)
@@ -35,7 +36,8 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
     try {
       await apiClient.patch(`/segments/${segment.id}`, {
         task_description: taskDesc,
-        adjusted_duration_minutes: parseInt(adjustedMinutes, 10)
+        adjusted_duration_minutes: parseInt(adjustedMinutes, 10),
+        project_id_final: selectedProjectId ? parseInt(selectedProjectId, 10) : null
       });
       setEditing(false);
       onUpdate();
@@ -92,16 +94,31 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
             </div>
 
             {/* Project */}
-            <div className="mt-1">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                {segment.project_name || 'Unattributed'}
-              </span>
-              {segment.confidence_score && (
-                <span className="ml-2 text-xs text-gray-500">
+            <div className="mt-1 flex items-center flex-wrap gap-2">
+              {editing ? (
+                <select
+                  value={selectedProjectId}
+                  onChange={(e) => setSelectedProjectId(e.target.value)}
+                  className="border rounded px-2 py-1 text-sm bg-white"
+                >
+                  <option value="">-- Select Project --</option>
+                  {projects.map(p => (
+                    <option key={p.activecollab_project_id} value={p.activecollab_project_id}>
+                      {p.activecollab_project_name}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  {segment.project_name || 'Unattributed'}
+                </span>
+              )}
+              {!editing && segment.confidence_score && (
+                <span className="text-xs text-gray-500">
                   {(segment.confidence_score * 100).toFixed(0)}% confident
                 </span>
               )}
-              <span className={`ml-2 px-2 py-0.5 rounded text-xs font-medium ${
+              <span className={`px-2 py-0.5 rounded text-xs font-medium ${
                 segment.approval_status === 'approved' ? 'bg-green-100 text-green-800' :
                 segment.approval_status === 'skipped' ? 'bg-yellow-100 text-yellow-800' :
                 segment.approval_status === 'submitted' ? 'bg-gray-100 text-gray-800' :
@@ -155,6 +172,7 @@ export function SegmentCard({ segment, selected, onSelect, onUpdate }) {
                   setEditing(false);
                   setTaskDesc(segment.task_description);
                   setAdjustedMinutes(segment.adjusted_duration_minutes);
+                  setSelectedProjectId(segment.project_id_final || '');
                 }}
                 className="px-3 py-1 bg-gray-300 rounded hover:bg-gray-400 text-sm"
               >
