@@ -1,0 +1,22 @@
+# Smart Work Tracker - Bash Aliases
+# Add these to your ~/.bashrc or ~/.bash_aliases
+
+# Quick refresh command
+alias refresh-work='cd /home/mp/awesome/smart-work-tracker && ./refresh-work.sh'
+
+# Check today's work
+alias check-work='cd /home/mp/awesome/smart-work-tracker && node check-today.js'
+
+# Check unbilled hours
+alias check-unbilled='cd /home/mp/awesome/smart-work-tracker && node check-unbilled-hours.js'
+
+# Open dashboard in browser (requires xdg-open or similar)
+alias work-dashboard='xdg-open http://localhost:3001 2>/dev/null || echo "Open http://localhost:3001 in browser"'
+
+# To add these aliases:
+# 1. Copy the alias lines above
+# 2. Run: nano ~/.bashrc
+# 3. Paste at the end of the file
+# 4. Save and exit (Ctrl+X, Y, Enter)
+# 5. Run: source ~/.bashrc
+# 6. Now you can just type: refresh-work

@@ -3,7 +3,7 @@
  */
 
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./smart-work-tracker.db');
+const db = new sqlite3.Database('./data/smart-work-tracker.db');
 
 db.all(`
   SELECT
