@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { TaskNamer } = require('./task-namer');
 
 class TimeSubmitter {
   constructor(db, logger, config) {
@@ -10,6 +11,7 @@ class TimeSubmitter {
     this.userId = config.activeCollab.userId;
     this.jobTypeId = config.activeCollab.jobTypeId || 1;
     this.billableByDefault = config.activeCollab.billableByDefault !== false;
+    this.taskNamer = new TaskNamer(logger);
   }
 
   async submitTimeRecords(options = {}) {
@@ -38,6 +40,7 @@ class TimeSubmitter {
       WHERE s.submitted_to_ac = 0
         AND s.project_id_final IS NOT NULL
         AND s.approval_status = 'approved'
+        AND s.project_id_final NOT IN (0)
     `;
 
     const params = [];
@@ -203,12 +206,20 @@ class TimeSubmitter {
       }
     }
 
+    // Client-facing name + sanitized summary. The summary becomes an invoice
+    // line item; raw prompts leaked credentials and AC's WAF 403s bodies
+    // containing OAuth-code URLs, so prompt-like summaries get replaced by the
+    // generated name.
+    const { looksLikeRawPrompt } = require('./task-namer');
+    const clientName = await this.taskNamer.clientFacingName(segment, summary);
+    summary = this.taskNamer.recordSummary(summary, segment);
+    if (looksLikeRawPrompt(summary)) summary = clientName;
+
     // Create task in ActiveCollab (if not already created)
     let taskId = segment.ac_task_id;
 
     if (!taskId) {
-      // Build task name with (st) suffix
-      const taskName = `${summary.substring(0, 100)} (st)`;
+      const taskName = `${clientName} (st)`;
 
       const taskResult = await this.createTask(segment, taskName);
 
