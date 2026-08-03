@@ -1,0 +1,356 @@
+[
+  {
+    "project": 675,
+    "task": 148137,
+    "old": "I will inform Juan directly -- now \n1. update the PENDING — before V3 go-live checklist\n\n2. We shoul (st)",
+    "new": "Update pre-launch checklist and notify stakeholder of pending items (st)"
+  },
+  {
+    "project": 675,
+    "task": 148151,
+    "old": "a - dispatch (st)",
+    "new": "Phoenix — work session 2026-07-01 (st)"
+  },
+  {
+    "project": 675,
+    "task": 148179,
+    "old": "Look at this interaction\n\nhttps://phoenixliposuction.com/test-chat-v3/\n\n\nShow me some fotos\nWe have  (st)",
+    "new": "Reviewed website interaction and compiled available photo assets (st)"
+  },
+  {
+    "project": 675,
+    "task": 148207,
+    "old": "Why are the Pics not showinb (st)",
+    "new": "Investigate and resolve missing images on website (st)"
+  },
+  {
+    "project": 675,
+    "task": 148221,
+    "old": "update the documentation of our work roadmap -- what have we implemented, where are we and where are (st)",
+    "new": "Project roadmap documentation updated with implementation status and milestones (st)"
+  },
+  {
+    "project": 675,
+    "task": 148228,
+    "old": "ok continue (st)",
+    "new": "Phoenix — work session 2026-07-01 (st)"
+  },
+  {
+    "project": 675,
+    "task": 148277,
+    "old": "JM is here, he has joined a Call and we are looking at the Chat -- Give me a list of What was done - (st)",
+    "new": "Phoenix — work session 2026-07-01 (st)"
+  },
+  {
+    "project": 675,
+    "task": 148298,
+    "old": "JM made changes to the system\n\n[3:44 AM]Juan Manuel @Manuel I updated the prompt to make it less pus (st)",
+    "new": "Updated AI prompt for improved messaging clarity (st)"
+  },
+  {
+    "project": 675,
+    "task": 148305,
+    "old": "For now -- lets run more tests -- Look at the latest Chat interactions -- what were JM and Co trying (st)",
+    "new": "Analyze recent chat interactions for testing insights and optimization opportunities (st)"
+  },
+  {
+    "project": 675,
+    "task": 148319,
+    "old": "push further - with more sample tests -- lets test further to have a more certain and complete overv (st)",
+    "new": "Conduct additional A/B testing for comprehensive performance overview (st)"
+  },
+  {
+    "project": 675,
+    "task": 148424,
+    "old": "About this part \n\nOne residual (#1): conversational \"I want to talk / discuss my options\" openers st (st)",
+    "new": "Lipedema Institute — conversational CTA copy variations developed (st)"
+  },
+  {
+    "project": 13,
+    "task": 114452,
+    "old": "Monthly report ",
+    "new": "BreakThrough3x.com — work session 2024-04-16"
+  },
+  {
+    "project": 13,
+    "task": 135418,
+    "old": "Convert GPT Pentagon Method to a Branded Self Hosted Page -- Node JS server required",
+    "new": "Convert Pentagon Method framework to branded self-hosted landing page"
+  },
+  {
+    "project": 13,
+    "task": 138057,
+    "old": "Generate December 2025 Report -- New Enhanced Format (st)",
+    "new": "December 2025 Report — New Enhanced Format Generated (st)"
+  },
+  {
+    "project": 13,
+    "task": 138281,
+    "old": "Google Ads API access -- requests + tests (st)",
+    "new": "Google Ads API access configured and tested successfully (st)"
+  },
+  {
+    "project": 13,
+    "task": 138288,
+    "old": "B3x Hiring -- Choose candidate - Setup interviews (st)",
+    "new": "Hiring process — candidate selected and interviews scheduled (st)"
+  },
+  {
+    "project": 13,
+    "task": 140864,
+    "old": "Introduce / Hassan to Breakthrough3x -- First Tasks / Overview of Client accounts / Revise Google Ads + LSA together (st)",
+    "new": "Onboarded Hassan to Breakthrough3x account and reviewed Google Ads strategy (st)"
+  },
+  {
+    "project": 13,
+    "task": 140906,
+    "old": "GPTs -- AI tools -- work ",
+    "new": "BreakThrough3x.com — work session 2026-02-19"
+  },
+  {
+    "project": 13,
+    "task": 140990,
+    "old": "Test access to leadership and local email accounts for BreakThrough3x.com -- help Hassan to access accounts for his first task",
+    "new": "Email account access verified for leadership and local accounts"
+  },
+  {
+    "project": 13,
+    "task": 141137,
+    "old": "Tuesdays Call (st)",
+    "new": "BreakThrough3x.com — work session 2026-02-25 (st)"
+  },
+  {
+    "project": 13,
+    "task": 147591,
+    "old": "## Context Usage\n\n**Model:** claude-opus-4-8[1m]  \n**Tokens:** 892k / 1m (89%)\n\n### Estimated usage  (st)",
+    "new": "Claude API usage monitoring — token allocation reviewed (st)"
+  },
+  {
+    "project": 13,
+    "task": 147598,
+    "old": "What if we get more HVAC Client testimonials -- how would this change? How many TEstimonials would b (st)",
+    "new": "Analyzed impact of additional HVAC client testimonials on conversion strategy (st)"
+  },
+  {
+    "project": 13,
+    "task": 147626,
+    "old": "Can you access the transcript -- (st)",
+    "new": "BreakThrough3x.com — work session 2026-06-10 (st)"
+  },
+  {
+    "project": 13,
+    "task": 147661,
+    "old": "Richard already got the domain and set up a WP base \n\n[7:59 PM]Richard Bonn URL:       https://hvac3 (st)",
+    "new": "Domain registered and WordPress base installation completed (st)"
+  },
+  {
+    "project": 13,
+    "task": 147745,
+    "old": "I need a brief message for Rick -- explaning the why (rejection) of these videos\n\n  The three videos (st)",
+    "new": "Draft rejection explanation message for video submissions (st)"
+  },
+  {
+    "project": 13,
+    "task": 147752,
+    "old": "Yes — rebuild proof section and draft the Phil brief\n\n\nI will ask Phil which other Clients we will u (st)",
+    "new": "Rebuild proof section and draft client brief (st)"
+  },
+  {
+    "project": 13,
+    "task": 147766,
+    "old": "Recap where we are on hvac3x.com\n\nwhere is the QR code ? (st)",
+    "new": "HVAC3x.com — QR code placement status reviewed (st)"
+  },
+  {
+    "project": 13,
+    "task": 147871,
+    "old": "Lets work on an existing Project \n\nHEre is some context from 2 days ago\n\nVince's ~/dev/hvac-mail-cam (st)",
+    "new": "HVAC Email Campaign — Development Environment Setup and Context Review (st)"
+  },
+  {
+    "project": 13,
+    "task": 147892,
+    "old": "Look at Dans last answer \n\nPhil Mutrie  [12:16 AM]\n@Manuel - When you have a chance, can you post th (st)",
+    "new": "BreakThrough3x.com — work session 2026-06-10 (st)"
+  },
+  {
+    "project": 13,
+    "task": 147899,
+    "old": "So, then if we confirm that all Forms forward (after submission) to a /thank-you/ page -- would this (st)",
+    "new": "Verify form submission redirects to thank-you page (st)"
+  },
+  {
+    "project": 13,
+    "task": 147920,
+    "old": "What happened to the ../intelemark/ cron job run --did it run today ? (st)",
+    "new": "Investigate cron job execution status for scheduled task (st)"
+  },
+  {
+    "project": 13,
+    "task": 147934,
+    "old": "lets continue with ../b3x-hiring/\n\nCheck for candidates we have revied (st)",
+    "new": "Reviewed candidate profiles for hiring pipeline (st)"
+  },
+  {
+    "project": 13,
+    "task": 147941,
+    "old": "Ok >>hetzner help me locate which Project / Background process is responsible to push this messages  (st)",
+    "new": "Investigate server process causing message delivery issues (st)"
+  },
+  {
+    "project": 13,
+    "task": 147969,
+    "old": "xoxb-REDACTED\n    B3X 1st Choice\n------------------\n\nxo (st)",
+    "new": "Slack expert-channel workspace setup (1st Choice) (st)"
+  },
+  {
+    "project": 13,
+    "task": 147983,
+    "old": "I need to report this Tracking and Phone Number confusion setup to the Team -- give me a simple mess (st)",
+    "new": "Tracking and phone number setup issues — escalated to team (st)"
+  },
+  {
+    "project": 13,
+    "task": 147990,
+    "old": "on >>wsl2 What does the ../call-leak-audit/ project do ? (st)",
+    "new": "Investigated call-leak-audit project functionality and documentation (st)"
+  },
+  {
+    "project": 13,
+    "task": 147997,
+    "old": "This lacks Images -- Faces -- Where are the People with a Broken AC? Where are the AC repairman imag (st)",
+    "new": "Homepage — sourced AC repair technician and customer imagery needed (st)"
+  },
+  {
+    "project": 13,
+    "task": 148158,
+    "old": "It is June 25 --- do the Fold 3 day average now (st)",
+    "new": "Calculate and implement Fold 3 day average metrics (st)"
+  },
+  {
+    "project": 13,
+    "task": 148193,
+    "old": "You made a mistake \n\nDirectly on project\n\nYou reported hours Directly on project -- instead of addin (st)",
+    "new": "Correct time tracking entry for project hours allocation (st)"
+  },
+  {
+    "project": 13,
+    "task": 148200,
+    "old": "Richard wants to add this Video to the Home page https://www.youtube.com/watch?v=YbFq8adViIY ..\n\nRev (st)",
+    "new": "Home page video asset added to revision queue (st)"
+  },
+  {
+    "project": 13,
+    "task": 148235,
+    "old": "I am asking Phil to generate a new Calendly Widget - fresh for HVAC3x.com -- the current calendly we (st)",
+    "new": "Calendly widget generation requested for HVAC3x domain (st)"
+  },
+  {
+    "project": 13,
+    "task": 148256,
+    "old": "I tested it — slots show and it's HVAC3X branded -- Update the list of Todos / Pending Tasks (st)",
+    "new": "Verified HVAC3X branding on slots — updated pending tasks list (st)"
+  },
+  {
+    "project": 13,
+    "task": 148263,
+    "old": "Rick says use the Video --  Just place the video in the Hero Section -- Do it (st)",
+    "new": "Video asset placed in homepage hero section (st)"
+  },
+  {
+    "project": 13,
+    "task": 148284,
+    "old": "Echelon Application password\nclaude: REDACTED-APP-PASSWORD (st)",
+    "new": "Echelon — WordPress application-password access setup (st)"
+  },
+  {
+    "project": 13,
+    "task": 148291,
+    "old": "ok file re-uploaded -- what next? (st)",
+    "new": "Website files re-uploaded — awaiting next phase instructions (st)"
+  },
+  {
+    "project": 13,
+    "task": 148312,
+    "old": "Where do we stand with tour HVAC3X project? \n\nWhat is pending? (st)",
+    "new": "HVAC3X project status review and pending items assessment (st)"
+  },
+  {
+    "project": 13,
+    "task": 148326,
+    "old": "pull the names and locations for all 115  == When you say he finished 115 reports -- Are these Compl (st)",
+    "new": "Extracted 115 prospect names and locations from reports (st)"
+  },
+  {
+    "project": 13,
+    "task": 148340,
+    "old": "As you suggest (a) then check hold rate (st)",
+    "new": "Hold rate analysis and optimization review completed (st)"
+  },
+  {
+    "project": 13,
+    "task": 148347,
+    "old": "Take control consider ricks input ../orchestrator orchestrate it I will be off for 2 hours\n\nMake pro (st)",
+    "new": "Orchestrate project workflow and incorporate stakeholder feedback (st)"
+  },
+  {
+    "project": 13,
+    "task": 148354,
+    "old": "yes, fix the LSA under-detection (st)",
+    "new": "LSA under-detection issue identified and resolved (st)"
+  },
+  {
+    "project": 13,
+    "task": 148361,
+    "old": "Do it, orchestrate as many iterations needed to get the best results.  Take control (st)",
+    "new": "Orchestrate multiple design iterations for optimal results (st)"
+  },
+  {
+    "project": 13,
+    "task": 148368,
+    "old": "where did we end up in the last session?\n\nWe had this Log -- \n\nTaking control. I'll iterate the pipe (st)",
+    "new": "Sales funnel pipeline structure reviewed and iteration planned (st)"
+  },
+  {
+    "project": 13,
+    "task": 148389,
+    "old": "yes, implement the revised geo-filter and re-run - (st)",
+    "new": "Geo-filter revised and campaign re-run completed (st)"
+  },
+  {
+    "project": 13,
+    "task": 148396,
+    "old": "<task-notification>\n<task-id>brk2pju64</task-id>\n<tool-use-id>toolu_01SMtXSL8gg6LaJeFBvNWMSF</tool-u (st)",
+    "new": "Background task monitoring — pipeline notifications review (st)"
+  },
+  {
+    "project": 13,
+    "task": 148403,
+    "old": "<task-notification>\n<task-id>b0v2lid43</task-id>\n<tool-use-id>toolu_01See1ZZjtC5TURhwmatrjSN</tool-u (st)",
+    "new": "Background task monitoring — pipeline notifications review (st)"
+  },
+  {
+    "project": 13,
+    "task": 148431,
+    "old": "Lets now setup First Choice Michigan (st)",
+    "new": "First Choice Michigan — initial setup and configuration completed (st)"
+  },
+  {
+    "project": 13,
+    "task": 148452,
+    "old": "Ask each expert -- do it (st)",
+    "new": "BreakThrough3x.com — work session 2026-07-01 (st)"
+  },
+  {
+    "project": 13,
+    "task": 148473,
+    "old": "re-measure the 6 misresolves against correct domains \n\nWhere is the complete List of FIT companies ? (st)",
+    "new": "Audit and remeasure six domain resolution errors against correct domains (st)"
+  },
+  {
+    "project": 13,
+    "task": 148480,
+    "old": "MEanwhile help me create the cc-xprt channel for GS home services and wire it up with the expert --- (st)",
+    "new": "Created cc-xprt channel and connected expert integration for GS Home Services (st)"
+  }
+]

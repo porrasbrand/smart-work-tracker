@@ -23,6 +23,8 @@ const SECRET_PATTERNS = [
   /AIza[\w-]{30,}/g,                   // Google API keys
   /[?&](code|token|key|apikey|api_key|access_token)=[\w./-]+/gi, // creds in URLs
   /\b[A-Za-z0-9+/]{40,}={0,2}\b/g,     // long base64-ish blobs
+  /\b([A-Za-z0-9]{4} ){5}[A-Za-z0-9]{4}\b/g,          // WP application passwords
+  /\b(password|passwort|pwd|pass)\s*[:=]\s*\S+/gi,    // "password: xyz"
 ];
 
 function sanitizeText(text) {
@@ -40,7 +42,8 @@ function looksLikeRawPrompt(t) {
   if (t.length < 15) return true;
   if (/[?]{1,}\s*$|^\s*(ok|yes|no|great|so|wait|check|why|what|how|do|can|lets|let's)\b/i.test(t)) return true;
   if (/\[(redacted|url)\]/.test(t)) return true;
-  if (/--|\.\.\.|\bplease\b|\byou\b/i.test(t)) return true;
+  if (/--|\.\.\.|\bplease\b|(?<!thank-)\byou\b/i.test(t)) return true;
+  if (/\btoolu_|\btask-id\b|\btask-notification\b/i.test(t)) return true;
   return false;
 }
 
@@ -89,12 +92,16 @@ class TaskNamer {
         const name = sanitizeText(response.content[0].text).replace(/^["'\s]+|["'\s]+$/g, '');
         if (name.length >= 10 && name.length <= 120 && !looksLikeRawPrompt(name)) return name;
         this.logger.warn && this.logger.warn('TaskNamer: model output rejected, using fallback', { segmentId: segment.id, name });
+        // A model refusal signals the content is junk — never fall back to the
+        // sanitized input here (it once preserved a leaked password verbatim).
+        return this.fallbackName(segment);
       } catch (err) {
         this.logger.warn && this.logger.warn('TaskNamer: AI naming failed, using fallback', { segmentId: segment.id, error: err.message });
+        return this.fallbackName(segment);
       }
     }
 
-    // No AI (or AI failed): use the sanitized text only if it reads like a label.
+    // No AI available: use the sanitized text only if it reads like a label.
     if (!looksLikeRawPrompt(clean)) return clean.slice(0, 100);
     return this.fallbackName(segment);
   }
