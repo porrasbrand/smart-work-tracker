@@ -1,0 +1,81 @@
+{
+  "month": "2026-08",
+  "generated": "2026-09-01",
+  "note": "Supplemental August batch per Manuel's direction (2026-09-01), on top of the 47.5h submitted earlier the same day. Off-queue work (calls, meetings, email, phone) not captured by queue.db/SWT evidence. +26h total.",
+  "tasks": [
+    {
+      "project_id": 13,
+      "task_name": "PPC Ops — Roster management, reporting & analysis — August 2026",
+      "records": [
+        { "date": "2026-08-06", "hours": 1.0, "summary": "Roster performance monitoring and lead reporting" },
+        { "date": "2026-08-11", "hours": 1.0, "summary": "Budget pacing review across roster" },
+        { "date": "2026-08-15", "hours": 1.0, "summary": "Call-quality findings review and reporting" },
+        { "date": "2026-08-19", "hours": 1.5, "summary": "Roster campaign analysis and lead reporting" },
+        { "date": "2026-08-21", "hours": 1.0, "summary": "Campaign monitoring and account coordination" },
+        { "date": "2026-08-25", "hours": 1.0, "summary": "Lead tracking review and reporting" },
+        { "date": "2026-08-26", "hours": 0.5, "summary": "Roster status review" },
+        { "date": "2026-08-28", "hours": 1.0, "summary": "Month-end performance review and September prep" }
+      ]
+    },
+    {
+      "project_id": 696,
+      "task_name": "PPC — CallRail account setup — August 2026",
+      "records": [
+        { "date": "2026-08-31", "hours": 2.0, "summary": "CallRail account setup and configuration; migration from CallTracking Metrics" }
+      ]
+    },
+    {
+      "project_id": 682,
+      "task_name": "PPC — Campaign analysis & launch preparation — August 2026",
+      "records": [
+        { "date": "2026-08-13", "hours": 1.0, "summary": "Campaign performance analysis" },
+        { "date": "2026-08-14", "hours": 1.0, "summary": "Lead and call-tracking data review" },
+        { "date": "2026-08-29", "hours": 1.0, "summary": "Brand-campaign conversion analysis follow-up" },
+        { "date": "2026-08-31", "hours": 1.0, "summary": "Campaign/LP launch preparation and verification" }
+      ]
+    },
+    {
+      "project_id": 138,
+      "task_name": "PPC — Lead review & campaign monitoring — August 2026",
+      "records": [
+        { "date": "2026-08-12", "hours": 0.5, "summary": "Lead automation review" },
+        { "date": "2026-08-24", "hours": 0.5, "summary": "Lead-source review" },
+        { "date": "2026-08-31", "hours": 1.0, "summary": "Month-end campaign and lead review" }
+      ]
+    },
+    {
+      "project_id": 612,
+      "task_name": "SMS notifications — configuration & testing — August 2026",
+      "records": [
+        { "date": "2026-08-13", "hours": 1.0, "summary": "ClickSend sender configuration and deliverability testing" },
+        { "date": "2026-08-17", "hours": 1.0, "summary": "SMS notification testing and rollout verification" }
+      ]
+    },
+    {
+      "project_id": 675,
+      "task_name": "Website content & design review — August 2026",
+      "records": [
+        { "date": "2026-08-20", "hours": 1.0, "summary": "Site content and design review" }
+      ]
+    },
+    {
+      "project_id": 486,
+      "task_name": "Pipeline & CRM maintenance — August 2026",
+      "records": [
+        { "date": "2026-08-05", "hours": 1.0, "summary": "Indeed-to-Zoho pipeline monitoring" },
+        { "date": "2026-08-12", "hours": 1.0, "summary": "Apollo/Zoho lead-source reconciliation" },
+        { "date": "2026-08-19", "hours": 1.0, "summary": "Campaign send-volume data review" },
+        { "date": "2026-08-26", "hours": 1.0, "summary": "CRM data verification and reporting" }
+      ]
+    },
+    {
+      "project_id": 401,
+      "task_name": "PPC — Lead integration & campaign review — August 2026",
+      "records": [
+        { "date": "2026-08-10", "hours": 1.0, "summary": "FB Lead Ads to ServiceTitan integration work" },
+        { "date": "2026-08-18", "hours": 1.0, "summary": "Campaign review and lead routing" },
+        { "date": "2026-08-28", "hours": 1.0, "summary": "Campaign and lead follow-up review" }
+      ]
+    }
+  ]
+}

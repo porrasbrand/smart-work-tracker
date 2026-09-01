@@ -1,0 +1,189 @@
+{
+  "month": "2026-08",
+  "generated": "2026-08-31",
+  "revised": "2026-09-01 — Shamrock reduced 20h→6h (Manuel's personal share only; other operative members involved) + split into 4 topical tasks; B3X PPC Ops split into 4 topical tasks; Omaha 528 raised 5h→14h per Manuel + split into 3 topical tasks",
+  "evidence": "hetzner queue.db (521 Aug msgs; Manuel=U059SDDNCJ1: 307) + lipo SWT segments; conservative ~25-35% of daily message spans",
+  "tasks": [
+    {
+      "project_id": 696,
+      "task_name": "PPC — FB Leads → ServiceTitan & Hatch integration — August 2026",
+      "records": [
+        { "date": "2026-08-04", "hours": 0.5, "summary": "FB Lead Forms to ServiceTitan webhook verification" },
+        { "date": "2026-08-07", "hours": 0.5, "summary": "Webhook and test-lead verification" },
+        { "date": "2026-08-13", "hours": 0.5, "summary": "FB Ads asset wiring for reporting; Hatch integration emails" }
+      ]
+    },
+    {
+      "project_id": 696,
+      "task_name": "PPC — Lead attribution & data review — August 2026",
+      "records": [
+        { "date": "2026-08-03", "hours": 0.5, "summary": "August conversions and lead-source review — distinct leads by source, phone, form" },
+        { "date": "2026-08-11", "hours": 0.5, "summary": "Lead data deep-dive via account expert" },
+        { "date": "2026-08-19", "hours": 0.5, "summary": "ServiceTitan lead-count verification for source attribution" },
+        { "date": "2026-08-24", "hours": 0.5, "summary": "Weekly lead assignment and source-attribution tables; Meta out-of-state leads investigation" }
+      ]
+    },
+    {
+      "project_id": 696,
+      "task_name": "PPC — Call audit — August 2026",
+      "records": [
+        { "date": "2026-08-14", "hours": 0.5, "summary": "Call-log investigation via CTM; deep PPC audit planning" },
+        { "date": "2026-08-15", "hours": 0.5, "summary": "PPC call recordings transcription and booking-failure analysis" }
+      ]
+    },
+    {
+      "project_id": 696,
+      "task_name": "PPC — Campaigns, landing pages & CallRail migration — August 2026",
+      "records": [
+        { "date": "2026-08-18", "hours": 0.5, "summary": "$39 Tune-Up LP mockup; forms-vs-conversions reconciliation; August report updates" },
+        { "date": "2026-08-23", "hours": 0.5, "summary": "Landing-page build guide and zip package for client's dev team" },
+        { "date": "2026-08-31", "hours": 0.5, "summary": "CallTracking Metrics to CallRail migration; Google Ads call-asset integration verification" }
+      ]
+    },
+    {
+      "project_id": 507,
+      "task_name": "PPC — Bing attribution & ServiceTitan data integration — August 2026",
+      "records": [
+        { "date": "2026-08-17", "hours": 2.5, "summary": "ST developer app setup; customer/VIP data exports; Bing account integration for reporting" },
+        { "date": "2026-08-18", "hours": 1.5, "summary": "Bing call attribution (msclkid) investigation; August Bing report; LSA booking-rate verification" }
+      ]
+    },
+    {
+      "project_id": 717,
+      "task_name": "PPC — Search restructure & landing pages — August 2026",
+      "records": [
+        { "date": "2026-08-12", "hours": 0.5, "summary": "Campaign review via account expert" },
+        { "date": "2026-08-18", "hours": 1.5, "summary": "Search-term analysis; campaign restructure plan; LP mockups (HVAC install, heating)" },
+        { "date": "2026-08-19", "hours": 1.5, "summary": "Search plan finalization with LP mockups; lead tables and location-targeting checks" },
+        { "date": "2026-08-20", "hours": 0.5, "summary": "Verified new campaigns staged in Google Ads against new landing pages" }
+      ]
+    },
+    {
+      "project_id": 535,
+      "task_name": "LSA — Lead-response audit — August 2026",
+      "records": [
+        { "date": "2026-08-12", "hours": 2.0, "summary": "60-day LSA lead-response audit; independent verification and reporting" }
+      ]
+    },
+    {
+      "project_id": 682,
+      "task_name": "PPC — Campaign & call-tracking review — August 2026",
+      "records": [
+        { "date": "2026-08-13", "hours": 0.5, "summary": "Campaign review via account expert" },
+        { "date": "2026-08-14", "hours": 0.5, "summary": "Campaign review via account expert" },
+        { "date": "2026-08-20", "hours": 0.5, "summary": "Campaign review via account expert" },
+        { "date": "2026-08-29", "hours": 0.5, "summary": "Brand-campaign conversion analysis; Invoca call-tracking layers investigation" },
+        { "date": "2026-08-31", "hours": 1.0, "summary": "Campaign/LP launch prep; ST PPC phone number on new GHL landing pages" }
+      ]
+    },
+    {
+      "project_id": 138,
+      "task_name": "PPC — Lead automation & LP review — August 2026",
+      "records": [
+        { "date": "2026-08-04", "hours": 0.5, "summary": "Account review via expert" },
+        { "date": "2026-08-05", "hours": 0.5, "summary": "Account review via expert" },
+        { "date": "2026-08-06", "hours": 0.5, "summary": "Speed-to-lead SMS feature scoping" },
+        { "date": "2026-08-13", "hours": 0.5, "summary": "LP quality-checklist test on heating-installation landing page" }
+      ]
+    },
+    {
+      "project_id": 401,
+      "task_name": "PPC — FB Lead Ads → ServiceTitan setup — August 2026",
+      "records": [
+        { "date": "2026-08-04", "hours": 0.5, "summary": "ServiceTitan developer-portal access and integration scoping" }
+      ]
+    },
+    {
+      "project_id": 612,
+      "task_name": "SMS notifications (ClickSend) — August 2026",
+      "records": [
+        { "date": "2026-08-11", "hours": 0.5, "summary": "SMS-notifications task review (ProofHub)" },
+        { "date": "2026-08-12", "hours": 1.0, "summary": "ClickSend API setup; Gravity Forms sender configuration" }
+      ]
+    },
+    {
+      "project_id": 528,
+      "task_name": "Meta Ads — Campaign strategy & client communication — August 2026",
+      "records": [
+        { "date": "2026-08-03", "hours": 1.5, "summary": "Campaign status review; strategy and open questions for client" },
+        { "date": "2026-08-06", "hours": 1.0, "summary": "Client email review and campaign correspondence" },
+        { "date": "2026-08-17", "hours": 1.0, "summary": "Mid-month campaign check-in; client correspondence" },
+        { "date": "2026-08-25", "hours": 0.5, "summary": "Client correspondence and campaign status update" }
+      ]
+    },
+    {
+      "project_id": 528,
+      "task_name": "Meta Ads — Arm Lipo landing page build — August 2026",
+      "records": [
+        { "date": "2026-08-04", "hours": 2.0, "summary": "Landing-page draft and build; Meta ad drafts review" },
+        { "date": "2026-08-11", "hours": 1.5, "summary": "Landing-page build iteration and content refinement" },
+        { "date": "2026-08-13", "hours": 1.0, "summary": "Landing-page refinements and QA" }
+      ]
+    },
+    {
+      "project_id": 528,
+      "task_name": "Meta Ads — Ad creatives & pre-launch review — August 2026",
+      "records": [
+        { "date": "2026-08-07", "hours": 2.0, "summary": "FB/IG ad pre-launch review; ad-copy alternatives" },
+        { "date": "2026-08-14", "hours": 1.5, "summary": "Ad-copy alternatives and creative iterations" },
+        { "date": "2026-08-20", "hours": 1.0, "summary": "Creative iterations and ad-set review" },
+        { "date": "2026-08-27", "hours": 1.0, "summary": "Campaign review and creative adjustments" }
+      ]
+    },
+    {
+      "project_id": 675,
+      "task_name": "Website review — August 2026",
+      "records": [
+        { "date": "2026-08-07", "hours": 0.5, "summary": "Site review" }
+      ]
+    },
+    {
+      "project_id": 493,
+      "task_name": "Landing page adjustment — August 2026",
+      "records": [
+        { "date": "2026-08-05", "hours": 0.5, "summary": "Landing-page adjustment" }
+      ]
+    },
+    {
+      "project_id": 13,
+      "task_name": "HVAC3X — Mail batches — August 2026",
+      "records": [
+        { "date": "2026-08-01", "hours": 1.0, "summary": "HVAC3X — sales-letter channel review" },
+        { "date": "2026-08-05", "hours": 0.5, "summary": "HVAC3X — Batch 4 preparation" },
+        { "date": "2026-08-07", "hours": 1.0, "summary": "HVAC3X — Batch 4 completion check" },
+        { "date": "2026-08-08", "hours": 0.5, "summary": "HVAC3X — batch verification" }
+      ]
+    },
+    {
+      "project_id": 13,
+      "task_name": "PPC Ops — Roster reporting & budget — August 2026",
+      "records": [
+        { "date": "2026-08-03", "hours": 1.0, "summary": "Roster PPC performance report; August budget-sheet columns; client dashboard" },
+        { "date": "2026-08-05", "hours": 0.5, "summary": "Dedicated FB/IG tracking numbers review across roster" }
+      ]
+    },
+    {
+      "project_id": 13,
+      "task_name": "PPC Ops — LP quality checklist & dev handoff — August 2026",
+      "records": [
+        { "date": "2026-08-12", "hours": 0.5, "summary": "Dev handoff documentation" },
+        { "date": "2026-08-13", "hours": 1.0, "summary": "LP quality checklist build (roster-wide, AI-validated)" }
+      ]
+    },
+    {
+      "project_id": 13,
+      "task_name": "PPC Ops — Prospect review (Core Training) — August 2026",
+      "records": [
+        { "date": "2026-08-10", "hours": 1.5, "summary": "Prospect review — Core Training (Zoom transcript analysis)" }
+      ]
+    },
+    {
+      "project_id": 13,
+      "task_name": "PPC Ops — Fall & September campaign planning — August 2026",
+      "records": [
+        { "date": "2026-08-18", "hours": 0.5, "summary": "Fall-season campaign prep planning across roster" },
+        { "date": "2026-08-31", "hours": 1.5, "summary": "September campaign planning across roster; expert delegation; LP build instructions" }
+      ]
+    }
+  ]
+}

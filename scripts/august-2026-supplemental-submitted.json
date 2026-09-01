@@ -1,0 +1,184 @@
+[
+  {
+    "project": 13,
+    "task_id": 153212,
+    "record_id": 128376,
+    "date": "2026-08-06",
+    "hours": 1
+  },
+  {
+    "project": 13,
+    "task_id": 153212,
+    "record_id": 128383,
+    "date": "2026-08-11",
+    "hours": 1
+  },
+  {
+    "project": 13,
+    "task_id": 153212,
+    "record_id": 128390,
+    "date": "2026-08-15",
+    "hours": 1
+  },
+  {
+    "project": 13,
+    "task_id": 153212,
+    "record_id": 128397,
+    "date": "2026-08-19",
+    "hours": 1.5
+  },
+  {
+    "project": 13,
+    "task_id": 153212,
+    "record_id": 128404,
+    "date": "2026-08-21",
+    "hours": 1
+  },
+  {
+    "project": 13,
+    "task_id": 153212,
+    "record_id": 128411,
+    "date": "2026-08-25",
+    "hours": 1
+  },
+  {
+    "project": 13,
+    "task_id": 153212,
+    "record_id": 128418,
+    "date": "2026-08-26",
+    "hours": 0.5
+  },
+  {
+    "project": 13,
+    "task_id": 153212,
+    "record_id": 128425,
+    "date": "2026-08-28",
+    "hours": 1
+  },
+  {
+    "project": 696,
+    "task_id": 153219,
+    "record_id": 128432,
+    "date": "2026-08-31",
+    "hours": 2
+  },
+  {
+    "project": 682,
+    "task_id": 153226,
+    "record_id": 128439,
+    "date": "2026-08-13",
+    "hours": 1
+  },
+  {
+    "project": 682,
+    "task_id": 153226,
+    "record_id": 128446,
+    "date": "2026-08-14",
+    "hours": 1
+  },
+  {
+    "project": 682,
+    "task_id": 153226,
+    "record_id": 128453,
+    "date": "2026-08-29",
+    "hours": 1
+  },
+  {
+    "project": 682,
+    "task_id": 153226,
+    "record_id": 128460,
+    "date": "2026-08-31",
+    "hours": 1
+  },
+  {
+    "project": 138,
+    "task_id": 153233,
+    "record_id": 128467,
+    "date": "2026-08-12",
+    "hours": 0.5
+  },
+  {
+    "project": 138,
+    "task_id": 153233,
+    "record_id": 128474,
+    "date": "2026-08-24",
+    "hours": 0.5
+  },
+  {
+    "project": 138,
+    "task_id": 153233,
+    "record_id": 128481,
+    "date": "2026-08-31",
+    "hours": 1
+  },
+  {
+    "project": 612,
+    "task_id": 153240,
+    "record_id": 128488,
+    "date": "2026-08-13",
+    "hours": 1
+  },
+  {
+    "project": 612,
+    "task_id": 153240,
+    "record_id": 128495,
+    "date": "2026-08-17",
+    "hours": 1
+  },
+  {
+    "project": 675,
+    "task_id": 153247,
+    "record_id": 128502,
+    "date": "2026-08-20",
+    "hours": 1
+  },
+  {
+    "project": 486,
+    "task_id": 153254,
+    "record_id": 128509,
+    "date": "2026-08-05",
+    "hours": 1
+  },
+  {
+    "project": 486,
+    "task_id": 153254,
+    "record_id": 128516,
+    "date": "2026-08-12",
+    "hours": 1
+  },
+  {
+    "project": 486,
+    "task_id": 153254,
+    "record_id": 128523,
+    "date": "2026-08-19",
+    "hours": 1
+  },
+  {
+    "project": 486,
+    "task_id": 153254,
+    "record_id": 128530,
+    "date": "2026-08-26",
+    "hours": 1
+  },
+  {
+    "project": 401,
+    "task_id": 153261,
+    "record_id": 128537,
+    "date": "2026-08-10",
+    "hours": 1
+  },
+  {
+    "project": 401,
+    "task_id": 153261,
+    "record_id": 128544,
+    "date": "2026-08-18",
+    "hours": 1
+  },
+  {
+    "project": 401,
+    "task_id": 153261,
+    "record_id": 128551,
+    "date": "2026-08-28",
+    "hours": 1
+  }
+]
