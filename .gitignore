@@ -42,3 +42,9 @@ temp/
 # SQLite temporary files
 *.db-shm
 *.db-wal
+
+# month-end evidence dumps (raw prompts/digests/ProofHub may contain pasted secrets) — keep local
+evidence/*.tsv
+evidence/*digest*
+evidence/proofhub-*.json
+evidence/*auto-alloc*

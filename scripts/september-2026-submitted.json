@@ -1,0 +1,1085 @@
+{
+  "verified_at": "2026-10-02T10:43:54.356Z",
+  "records": 132,
+  "hours": 125,
+  "tasks": 32,
+  "per_project": {
+    "13": 29,
+    "138": 11,
+    "401": 5.5,
+    "493": 4.5,
+    "507": 8,
+    "521": 1,
+    "528": 32,
+    "535": 6.5,
+    "598": 2,
+    "612": 1,
+    "682": 3.5,
+    "696": 12,
+    "717": 9
+  },
+  "parts": [
+    "main (interrupted, 81)",
+    "part2 (28)",
+    "part3 Adi (5)",
+    "part4 Omaha top-up (18)"
+  ],
+  "items": [
+    {
+      "project": 13,
+      "record_id": 130406,
+      "task_id": 154773,
+      "date": "2026-09-30",
+      "hours": 1.5,
+      "summary": "ppc-dashboard date ranges + YoY; roster-health monthly KPI report; pace-check adds Facebook; client-monthly-pull"
+    },
+    {
+      "project": 13,
+      "record_id": 130462,
+      "task_id": 154787,
+      "date": "2026-09-29",
+      "hours": 1,
+      "summary": "GHL booked-review tracing; where to refocus the account; reports + handoff + monitor logs 22-29 Sep"
+    },
+    {
+      "project": 13,
+      "record_id": 131239,
+      "task_id": 155368,
+      "date": "2026-09-28",
+      "hours": 0.5,
+      "summary": "Form fields updated on bizsuccesscg.com/systemize; button/CSS fixes"
+    },
+    {
+      "project": 13,
+      "record_id": 130483,
+      "task_id": 154801,
+      "date": "2026-09-28",
+      "hours": 1,
+      "summary": "mtv-butler: daily 06:00 standup + /b3x/open-tasks/ page; 'Ball with' column"
+    },
+    {
+      "project": 13,
+      "record_id": 130399,
+      "task_id": 154773,
+      "date": "2026-09-28",
+      "hours": 1,
+      "summary": "perf-7d per-channel performance renderer; roster LSA document sweep + handoff to Tanzeela"
+    },
+    {
+      "project": 13,
+      "record_id": 131232,
+      "task_id": 155368,
+      "date": "2026-09-26",
+      "hours": 2,
+      "summary": "WordPress landing page designed from the GHL mockup (bizsuccesscg.com/systemize) — layout, form, buttons matched to the funnel design"
+    },
+    {
+      "project": 13,
+      "record_id": 131225,
+      "task_id": 155368,
+      "date": "2026-09-26",
+      "hours": 1,
+      "summary": "Systemize page restored after editor wipe; GHL copy synced to WordPress; thank-you page; Meta pixel with consent gating; Slack update to Bill/Phil"
+    },
+    {
+      "project": 13,
+      "record_id": 131204,
+      "task_id": 155361,
+      "date": "2026-09-26",
+      "hours": 1,
+      "summary": "Team coordination: Adi funnel + open tasks review"
+    },
+    {
+      "project": 13,
+      "record_id": 131218,
+      "task_id": 155368,
+      "date": "2026-09-25",
+      "hours": 1.5,
+      "summary": "GHL temporary funnel reviewed; Mailchimp audience/tags/journey + domain authentication; Gravity Forms Mailchimp add-on"
+    },
+    {
+      "project": 13,
+      "record_id": 130476,
+      "task_id": 154801,
+      "date": "2026-09-25",
+      "hours": 0.5,
+      "summary": "Open-tasks page rebuilt (18 open, 9 done-but-open); PH handover comment"
+    },
+    {
+      "project": 13,
+      "record_id": 130441,
+      "task_id": 154780,
+      "date": "2026-09-24",
+      "hours": 0.5,
+      "summary": "Routing by client ownership; open-PH dedupe; Gmail read-only wiring for richard@"
+    },
+    {
+      "project": 13,
+      "record_id": 130392,
+      "task_id": 154773,
+      "date": "2026-09-24",
+      "hours": 1,
+      "summary": "Budget doctrine revised (under-delivery is a failure); pace-check flags under-delivery; Fall greenlight re-verified across the roster"
+    },
+    {
+      "project": 13,
+      "record_id": 131197,
+      "task_id": 155361,
+      "date": "2026-09-23",
+      "hours": 1,
+      "summary": "Team coordination: 10DLC, Hatch, client-comms rollout"
+    },
+    {
+      "project": 13,
+      "record_id": 130455,
+      "task_id": 154787,
+      "date": "2026-09-23",
+      "hours": 0.5,
+      "summary": "Dan's Slack/Google-doc inquiry reviewed; PPC→ST tracking check"
+    },
+    {
+      "project": 13,
+      "record_id": 130434,
+      "task_id": 154780,
+      "date": "2026-09-23",
+      "hours": 0.5,
+      "summary": "Morning digest into each #int- channel; permalink fix; classifier model chosen"
+    },
+    {
+      "project": 13,
+      "record_id": 130448,
+      "task_id": 154787,
+      "date": "2026-09-22",
+      "hours": 1.5,
+      "summary": "cc-xprt-b3x expert + Slack channel created; raw data pull on campaigns/conversions/goals; roadmap test-drive doc for Dan"
+    },
+    {
+      "project": 13,
+      "record_id": 130469,
+      "task_id": 154794,
+      "date": "2026-09-20",
+      "hours": 2,
+      "summary": "Marketing report for the referred prospect; visual upgrade; Utah SERP captures; published on design.breakthrough3x.com"
+    },
+    {
+      "project": 13,
+      "record_id": 131190,
+      "task_id": 155361,
+      "date": "2026-09-19",
+      "hours": 1,
+      "summary": "Team coordination: Vision tracking + forms"
+    },
+    {
+      "project": 13,
+      "record_id": 130427,
+      "task_id": 154780,
+      "date": "2026-09-18",
+      "hours": 1.5,
+      "summary": "Pipeline built: Slack ingest, extraction benchmark, backfill over New Wave traffic, six PH task lists created; Zoom dashboard shows Slack items"
+    },
+    {
+      "project": 13,
+      "record_id": 131211,
+      "task_id": 155368,
+      "date": "2026-09-17",
+      "hours": 0.5,
+      "summary": "Dan's request: add Adi to the Zoom sessions; call-transcript question"
+    },
+    {
+      "project": 13,
+      "record_id": 130420,
+      "task_id": 154780,
+      "date": "2026-09-17",
+      "hours": 1,
+      "summary": "Dan's brief recovered; New Wave pilot design + assignee mapping from 986 PH tasks"
+    },
+    {
+      "project": 13,
+      "record_id": 131183,
+      "task_id": 155361,
+      "date": "2026-09-16",
+      "hours": 1,
+      "summary": "Team coordination: Dan's LSA question + roadmap reviews"
+    },
+    {
+      "project": 13,
+      "record_id": 130413,
+      "task_id": 154780,
+      "date": "2026-09-14",
+      "hours": 0.5,
+      "summary": "Owner map for client-comms routing derived from ProofHub; v1 digest (New Wave)"
+    },
+    {
+      "project": 13,
+      "record_id": 131176,
+      "task_id": 155361,
+      "date": "2026-09-11",
+      "hours": 1,
+      "summary": "Team coordination: campaign launches + LP reviews"
+    },
+    {
+      "project": 13,
+      "record_id": 131169,
+      "task_id": 155361,
+      "date": "2026-09-08",
+      "hours": 1,
+      "summary": "Team coordination: New Wave + Northern launches"
+    },
+    {
+      "project": 13,
+      "record_id": 130385,
+      "task_id": 154773,
+      "date": "2026-09-04",
+      "hours": 1,
+      "summary": "September budget plan revised in the sheet; pace-check provisional carry-forward"
+    },
+    {
+      "project": 13,
+      "record_id": 131162,
+      "task_id": 155361,
+      "date": "2026-09-03",
+      "hours": 1,
+      "summary": "Team coordination: Fall campaign priorities"
+    },
+    {
+      "project": 13,
+      "record_id": 130490,
+      "task_id": 154808,
+      "date": "2026-09-01",
+      "hours": 1,
+      "summary": "August 2026 hours reconstructed and submitted to ActiveCollab (73.5h across 13 projects)"
+    },
+    {
+      "project": 13,
+      "record_id": 130378,
+      "task_id": 154773,
+      "date": "2026-09-01",
+      "hours": 0.5,
+      "summary": "Raise-Hands email tracking page: number verification update"
+    },
+    {
+      "project": 696,
+      "record_id": 130014,
+      "task_id": 154675,
+      "date": "2026-09-29",
+      "hours": 0.5,
+      "summary": "CallRail 10DLC SMS alerts verified live; PH #3072 comment + channel note"
+    },
+    {
+      "project": 696,
+      "record_id": 130007,
+      "task_id": 154675,
+      "date": "2026-09-24",
+      "hours": 0.5,
+      "summary": "Hatch web-form handoff for Vince; 762-Media blocker documented (PH #3072)"
+    },
+    {
+      "project": 696,
+      "record_id": 130000,
+      "task_id": 154675,
+      "date": "2026-09-23",
+      "hours": 0.5,
+      "summary": "10DLC registration run sheet for Bill; policy-URL check; reply to Phil drafted"
+    },
+    {
+      "project": 696,
+      "record_id": 129993,
+      "task_id": 154668,
+      "date": "2026-09-22",
+      "hours": 1.5,
+      "summary": "LP drafts finalised (AZ ROC licence, $74/mo anchor + disclaimer); hand-over guide for Jacob's team; go-live message to Dan/Tom"
+    },
+    {
+      "project": 696,
+      "record_id": 129986,
+      "task_id": 154668,
+      "date": "2026-09-17",
+      "hours": 0.5,
+      "summary": "Claim sweep on both LPs: testimonials, financing claims, image payload halved"
+    },
+    {
+      "project": 696,
+      "record_id": 129965,
+      "task_id": 154661,
+      "date": "2026-09-17",
+      "hours": 1.5,
+      "summary": "16 Sep Tom Spall call folded into both roadmaps; Keyword Planner check; client emails close licence/NATE/SRP questions"
+    },
+    {
+      "project": 696,
+      "record_id": 129958,
+      "task_id": 154661,
+      "date": "2026-09-16",
+      "hours": 1.5,
+      "summary": "Client-facing roadmap: Dan review corrections, seasonal framing, proof-read pass, verify-published-figures script"
+    },
+    {
+      "project": 696,
+      "record_id": 129951,
+      "task_id": 154661,
+      "date": "2026-09-15",
+      "hours": 1.5,
+      "summary": "266-call ST corpus analysis; roadmap cut to a hands-on short version; monthly budget allocation review"
+    },
+    {
+      "project": 696,
+      "record_id": 129979,
+      "task_id": 154668,
+      "date": "2026-09-14",
+      "hours": 0.5,
+      "summary": "Mockups for /lp/package-unit-replacement/ and /lp/system-replacement/; mobile pass"
+    },
+    {
+      "project": 696,
+      "record_id": 129944,
+      "task_id": 154661,
+      "date": "2026-09-14",
+      "hours": 1,
+      "summary": "Equipment breakdown from ServiceTitan; HVAC Install resolved; Bing keyword/ad audit; strategy rewrite"
+    },
+    {
+      "project": 696,
+      "record_id": 129972,
+      "task_id": 154668,
+      "date": "2026-09-10",
+      "hours": 0.5,
+      "summary": "LP direction for ductless, package-unit and system-replacement pages"
+    },
+    {
+      "project": 696,
+      "record_id": 129937,
+      "task_id": 154661,
+      "date": "2026-09-08",
+      "hours": 1,
+      "summary": "Internal + client-facing fall plan; $10K budget reframe; corrections from the independent external review"
+    },
+    {
+      "project": 696,
+      "record_id": 129930,
+      "task_id": 154661,
+      "date": "2026-09-04",
+      "hours": 1,
+      "summary": "Fall roadmap kickoff: ServiceTitan revenue analysis, lost-to-rank diagnosis, keyword cut list"
+    },
+    {
+      "project": 138,
+      "record_id": 130077,
+      "task_id": 154689,
+      "date": "2026-09-24",
+      "hours": 0.5,
+      "summary": "Transition sequence note to Tanzeela drafted"
+    },
+    {
+      "project": 138,
+      "record_id": 130070,
+      "task_id": 154689,
+      "date": "2026-09-22",
+      "hours": 2.5,
+      "summary": "All PMax/Search calls transcribed (zero of ten PMax calls were leads); keep/pause verdict per campaign; Heating-only Phase 1 inside $329/day; internal roadmap published"
+    },
+    {
+      "project": 138,
+      "record_id": 130063,
+      "task_id": 154682,
+      "date": "2026-09-08",
+      "hours": 0.5,
+      "summary": "Client-facing report on design.breakthrough3x.com: Geothermal section, proof-read against Zoom transcripts"
+    },
+    {
+      "project": 138,
+      "record_id": 130056,
+      "task_id": 154682,
+      "date": "2026-09-07",
+      "hours": 2,
+      "summary": "Call-tracking review (Hudl ad number, ServiceTitan call sources/medium); [PPC] campaign setup review"
+    },
+    {
+      "project": 138,
+      "record_id": 130049,
+      "task_id": 154682,
+      "date": "2026-09-06",
+      "hours": 1,
+      "summary": "Campaign build walkthrough; Twin Cities geo-list corrected to the Olivia, MN service area"
+    },
+    {
+      "project": 138,
+      "record_id": 130042,
+      "task_id": 154682,
+      "date": "2026-09-05",
+      "hours": 1,
+      "summary": "Fall campaign documentation; geothermal repair LP built; first-fold captures + UX fixes on all LPs"
+    },
+    {
+      "project": 138,
+      "record_id": 130035,
+      "task_id": 154682,
+      "date": "2026-09-04",
+      "hours": 1.5,
+      "summary": "Fall plan revised: Geothermal campaign required by client (per Phil); search-term history pulled"
+    },
+    {
+      "project": 138,
+      "record_id": 130028,
+      "task_id": 154682,
+      "date": "2026-09-03",
+      "hours": 1.5,
+      "summary": "Service/revenue analysis from ServiceTitan; campaign restructure plan; note to Tanzeela"
+    },
+    {
+      "project": 138,
+      "record_id": 130021,
+      "task_id": 154682,
+      "date": "2026-09-01",
+      "hours": 0.5,
+      "summary": "Furnace tune-up LP review with Vince; Invoca codes removed; LPs cleared"
+    },
+    {
+      "project": 717,
+      "record_id": 130140,
+      "task_id": 154696,
+      "date": "2026-09-14",
+      "hours": 0.5,
+      "summary": "LPs: CTA language aligned to 'Evaluation'; reviews surfaced higher"
+    },
+    {
+      "project": 717,
+      "record_id": 130133,
+      "task_id": 154696,
+      "date": "2026-09-13",
+      "hours": 0.5,
+      "summary": "Campaigns found enabled live — authorization traced with the expert"
+    },
+    {
+      "project": 717,
+      "record_id": 130126,
+      "task_id": 154696,
+      "date": "2026-09-12",
+      "hours": 1,
+      "summary": "Account-wide audit of campaigns 2-8; rebate claims corrected; Phil's #int-new-wave answer applied; Campaign 1 ad-group review"
+    },
+    {
+      "project": 717,
+      "record_id": 130119,
+      "task_id": 154696,
+      "date": "2026-09-11",
+      "hours": 1,
+      "summary": "Near-me ad groups repointed to heating LP; daily budgets set to v2 allocation; service-area wording + alt-text fixes"
+    },
+    {
+      "project": 717,
+      "record_id": 130112,
+      "task_id": 154696,
+      "date": "2026-09-10",
+      "hours": 2,
+      "summary": "Readiness scorecard; $36 CPC ceiling; Heat Pump ads repointed to /lp/heat-pump/; location settings vs client doc; LP image fixes"
+    },
+    {
+      "project": 717,
+      "record_id": 130105,
+      "task_id": 154696,
+      "date": "2026-09-09",
+      "hours": 1,
+      "summary": "Campaigns 5-8 built; landing-page audit (redirecting final URLs); compliance audit vs client rules; note to Tanzeela"
+    },
+    {
+      "project": 717,
+      "record_id": 130098,
+      "task_id": 154696,
+      "date": "2026-09-08",
+      "hours": 1.5,
+      "summary": "Agency handoff doc superseded; Search campaigns 1-4 built (paused); budget-sync mapping"
+    },
+    {
+      "project": 717,
+      "record_id": 130091,
+      "task_id": 154696,
+      "date": "2026-09-03",
+      "hours": 1,
+      "summary": "Client rules consolidated from ProofHub + agency handoff PDF; campaign/ad-group inventory"
+    },
+    {
+      "project": 717,
+      "record_id": 130084,
+      "task_id": 154696,
+      "date": "2026-09-02",
+      "hours": 0.5,
+      "summary": "ServiceTitan tenant/API credentials located for the expert"
+    },
+    {
+      "project": 528,
+      "record_id": 131316,
+      "task_id": 155382,
+      "date": "2026-09-30",
+      "hours": 0.5,
+      "summary": "Arm October creatives: 6 'bat wings' variants rendered, 3 chosen; 3 arm ads rebuilt and activated at $45/day"
+    },
+    {
+      "project": 528,
+      "record_id": 131274,
+      "task_id": 155375,
+      "date": "2026-09-30",
+      "hours": 0.5,
+      "summary": "/ppc/arm-liposuction/ (7867) built with $159/mo financing line and Reg Z footnote"
+    },
+    {
+      "project": 528,
+      "record_id": 131113,
+      "task_id": 155347,
+      "date": "2026-09-30",
+      "hours": 0.5,
+      "summary": "Sculptra patient list (57 leads) pulled for Dr. Jennifer; October arm creatives reviewed"
+    },
+    {
+      "project": 528,
+      "record_id": 131365,
+      "task_id": 155396,
+      "date": "2026-09-29",
+      "hours": 0.5,
+      "summary": "'Imagen October Ad Lineup' page: 24 Instagram previews, 20 RSA mockups, 10 LP captures, decisions table"
+    },
+    {
+      "project": 528,
+      "record_id": 131155,
+      "task_id": 155354,
+      "date": "2026-09-29",
+      "hours": 1,
+      "summary": "October launch coordination with the office"
+    },
+    {
+      "project": 528,
+      "record_id": 131309,
+      "task_id": 155382,
+      "date": "2026-09-28",
+      "hours": 0.5,
+      "summary": "Fall Refresh photo variants + Sculptra A/B/C rotation test (incl. 7-second motion video)"
+    },
+    {
+      "project": 528,
+      "record_id": 131267,
+      "task_id": 155375,
+      "date": "2026-09-28",
+      "hours": 0.5,
+      "summary": "/ppc/sculptra-bbl/ (7865) built — Sculptra BBL ads had no PPC page; off-label claims excluded"
+    },
+    {
+      "project": 528,
+      "record_id": 131106,
+      "task_id": 155347,
+      "date": "2026-09-28",
+      "hours": 1.5,
+      "summary": "October Marketing Ideas thread actioned (Arm Lipo special, Sculptra BBL evidence for Dr. Jennifer); /ppc/sculptra-bbl/ LP built; October reply sent"
+    },
+    {
+      "project": 528,
+      "record_id": 131085,
+      "task_id": 155340,
+      "date": "2026-09-28",
+      "hours": 0.5,
+      "summary": "Step 8 prepared (FatRemoval pauses, negatives, tCPA $95); CO2 RSA policy limitation diagnosed"
+    },
+    {
+      "project": 528,
+      "record_id": 131358,
+      "task_id": 155396,
+      "date": "2026-09-25",
+      "hours": 0.5,
+      "summary": "September PPC report v2 (Sep 1-24 vs Aug 1-24): leads, conversions, CPL, leakage, recommendations"
+    },
+    {
+      "project": 528,
+      "record_id": 131078,
+      "task_id": 155340,
+      "date": "2026-09-25",
+      "hours": 0.5,
+      "summary": "September PPC report v2 (Sep 1-24: $11,858 spend, 232 leads, blended $51 CPL)"
+    },
+    {
+      "project": 528,
+      "record_id": 131148,
+      "task_id": 155354,
+      "date": "2026-09-23",
+      "hours": 1,
+      "summary": "Booking-link + client follow-ups"
+    },
+    {
+      "project": 528,
+      "record_id": 131330,
+      "task_id": 155389,
+      "date": "2026-09-22",
+      "hours": 0.5,
+      "summary": "Zenoti → Podium booking link rewrite snippet 7847 deployed and verified"
+    },
+    {
+      "project": 528,
+      "record_id": 131302,
+      "task_id": 155382,
+      "date": "2026-09-22",
+      "hours": 1,
+      "summary": "Fall Refresh CO2 campaign 52583033731568: 2 offer cards designed, instant form, 2 ads scheduled Oct 1"
+    },
+    {
+      "project": 528,
+      "record_id": 131260,
+      "task_id": 155375,
+      "date": "2026-09-22",
+      "hours": 1,
+      "summary": "/ppc/fractional-co2/ (7859) built education-first with flyer terms; client photos uploaded"
+    },
+    {
+      "project": 528,
+      "record_id": 131071,
+      "task_id": 155340,
+      "date": "2026-09-22",
+      "hours": 0.5,
+      "summary": "Dr. Jennifer's booking link: Zenoti → Podium rewrite snippet deployed"
+    },
+    {
+      "project": 528,
+      "record_id": 131141,
+      "task_id": 155354,
+      "date": "2026-09-19",
+      "hours": 1,
+      "summary": "October planning coordination"
+    },
+    {
+      "project": 528,
+      "record_id": 131099,
+      "task_id": 155347,
+      "date": "2026-09-17",
+      "hours": 0.5,
+      "summary": "Client answer → October Fall Refresh brief (CO2RE $500 off + PRP, Sculptra); flyer terms recorded"
+    },
+    {
+      "project": 528,
+      "record_id": 131092,
+      "task_id": 155347,
+      "date": "2026-09-16",
+      "hours": 0.5,
+      "summary": "Offer-end email to Stephanie (extend / CO2 / back to $500); Lipo 360 v1 ad paused"
+    },
+    {
+      "project": 528,
+      "record_id": 131134,
+      "task_id": 155354,
+      "date": "2026-09-15",
+      "hours": 1,
+      "summary": "Offer-end planning call prep + client email"
+    },
+    {
+      "project": 528,
+      "record_id": 131295,
+      "task_id": 155382,
+      "date": "2026-09-13",
+      "hours": 0.5,
+      "summary": "Refresh test read; winners locked (BBL photo B, Body Lipo v2 card); old B/A + reel ads paused"
+    },
+    {
+      "project": 528,
+      "record_id": 131351,
+      "task_id": 155396,
+      "date": "2026-09-12",
+      "hours": 0.5,
+      "summary": "September PPC report v1 (Sep 1-11) with KPI tiles, charts and recorded voice brief"
+    },
+    {
+      "project": 528,
+      "record_id": 131064,
+      "task_id": 155340,
+      "date": "2026-09-12",
+      "hours": 1,
+      "summary": "September ads status review; Meta winners locked in; Step 7 applied; tCPA bid strategy prepared ($110, applied Sep 13)"
+    },
+    {
+      "project": 528,
+      "record_id": 131057,
+      "task_id": 155340,
+      "date": "2026-09-11",
+      "hours": 0.5,
+      "summary": "Cellulaze ads rebuilt with FDA-cleared wording"
+    },
+    {
+      "project": 528,
+      "record_id": 131127,
+      "task_id": 155354,
+      "date": "2026-09-09",
+      "hours": 1,
+      "summary": "Campaign review + client follow-up"
+    },
+    {
+      "project": 528,
+      "record_id": 131288,
+      "task_id": 155382,
+      "date": "2026-09-08",
+      "hours": 1,
+      "summary": "Body Lipo + BBL refresh: 6 creatives designed and built with Meta previews; test-all-three activation"
+    },
+    {
+      "project": 528,
+      "record_id": 131344,
+      "task_id": 155396,
+      "date": "2026-09-07",
+      "hours": 0.5,
+      "summary": "Ad-claims audit across all Google RSAs, Meta ads and LPs (YMYL)"
+    },
+    {
+      "project": 528,
+      "record_id": 131050,
+      "task_id": 155340,
+      "date": "2026-09-07",
+      "hours": 0.5,
+      "summary": "Meta ad-policy compliance review of running campaigns"
+    },
+    {
+      "project": 528,
+      "record_id": 131043,
+      "task_id": 155333,
+      "date": "2026-09-06",
+      "hours": 1,
+      "summary": "Steps 4-5 applied (CoolSculpting budget, RSA rewrites); doctor's Lipo 360 + Tummy Tuck answer incorporated"
+    },
+    {
+      "project": 528,
+      "record_id": 131120,
+      "task_id": 155354,
+      "date": "2026-09-05",
+      "hours": 1,
+      "summary": "Client email + offer coordination"
+    },
+    {
+      "project": 528,
+      "record_id": 131323,
+      "task_id": 155389,
+      "date": "2026-09-04",
+      "hours": 1.5,
+      "summary": "GTM-WTK39X2 restored site-wide; 6 Gravity Forms confirmations fixed; /ppc/thank-you-consultation/ (7834) built; CTM script + phone-normalize snippet 7836; every tag verified headless"
+    },
+    {
+      "project": 528,
+      "record_id": 131036,
+      "task_id": 155333,
+      "date": "2026-09-04",
+      "hours": 1.5,
+      "summary": "30-day deep read → optimisation plan; Step 2 applied (2 ad groups + 14 keywords paused, 23 competitor negatives); conversion tracking found dead since Aug 11 → GTM restored, 6 form confirmations + FB pixel fixed"
+    },
+    {
+      "project": 528,
+      "record_id": 131337,
+      "task_id": 155396,
+      "date": "2026-09-03",
+      "hours": 0.5,
+      "summary": "'Imagen September Ad Review' page: Meta previews, RSA mockups, mobile LP captures"
+    },
+    {
+      "project": 528,
+      "record_id": 131281,
+      "task_id": 155382,
+      "date": "2026-09-03",
+      "hours": 0.5,
+      "summary": "Lipo 360 September card designed (HTML→PNG); campaign 52578584692568, instant form, ads v1/v2 launched"
+    },
+    {
+      "project": 528,
+      "record_id": 131253,
+      "task_id": 155375,
+      "date": "2026-09-03",
+      "hours": 1,
+      "summary": "/ppc/cellulaze/ (7819) and evergreen /ppc/coolsculpting-omaha/ (7830) built; CoolSculpting ad groups repointed"
+    },
+    {
+      "project": 528,
+      "record_id": 131029,
+      "task_id": 155333,
+      "date": "2026-09-03",
+      "hours": 2,
+      "summary": "Lipo360_Midsection ad group built (12 keywords, RSA, 12 routing negatives) and launched; Cellulaze + evergreen CoolSculpting LPs live; live-note + tummy-tuck question sent to Stephanie/Dr. Jen"
+    },
+    {
+      "project": 528,
+      "record_id": 131022,
+      "task_id": 155333,
+      "date": "2026-09-02",
+      "hours": 1,
+      "summary": "/ppc/lipo-360/ updated with confirmed terms and published; LP clone recipe worked out after the Aug 11 site rebuild"
+    },
+    {
+      "project": 528,
+      "record_id": 131246,
+      "task_id": 155375,
+      "date": "2026-09-01",
+      "hours": 1,
+      "summary": "/ppc/lipo-360/ (7821) rebuilt as a clone of the baked arm LP after the Aug 11 site rebuild; clone recipe + wpautop/CSS-scoping traps documented"
+    },
+    {
+      "project": 528,
+      "record_id": 131015,
+      "task_id": 155333,
+      "date": "2026-09-01",
+      "hours": 1.5,
+      "summary": "90-day search-term analysis; offer collision resolved by intent segmentation; Dr. Jennifer's offer terms confirmed; reply to Stephanie"
+    },
+    {
+      "project": 535,
+      "record_id": 130175,
+      "task_id": 154703,
+      "date": "2026-09-29",
+      "hours": 1,
+      "summary": "Runbook restructured; Vince's section simplified and highlighted"
+    },
+    {
+      "project": 535,
+      "record_id": 130168,
+      "task_id": 154703,
+      "date": "2026-09-19",
+      "hours": 2,
+      "summary": "Forms→ActiveCampaign audit: 14 pages / shared form traced, missing-leads count, end-to-end verification on both branches"
+    },
+    {
+      "project": 535,
+      "record_id": 130161,
+      "task_id": 154703,
+      "date": "2026-09-18",
+      "hours": 2.5,
+      "summary": "CallRail→CTM chronological log, full number map, two-destination problem, GBP switch-don't-port; technical runbook + export bundle for Vince; PH #3096 created"
+    },
+    {
+      "project": 535,
+      "record_id": 130154,
+      "task_id": 154703,
+      "date": "2026-09-14",
+      "hours": 0.5,
+      "summary": "Call-tracking ownership traced (transcripts, PH tasks); CTM migration progress check"
+    },
+    {
+      "project": 535,
+      "record_id": 130147,
+      "task_id": 154703,
+      "date": "2026-09-11",
+      "hours": 0.5,
+      "summary": "SMS test transcripts reviewed; budget change halted (wrong-client guard)"
+    },
+    {
+      "project": 507,
+      "record_id": 130217,
+      "task_id": 154717,
+      "date": "2026-09-30",
+      "hours": 1,
+      "summary": "Search optimisation guide for Tanzeela, externally reviewed and published"
+    },
+    {
+      "project": 507,
+      "record_id": 130210,
+      "task_id": 154717,
+      "date": "2026-09-21",
+      "hours": 1,
+      "summary": "Heating campaign built dark + weather-triggered (Stockton bid, Elk Grove cut); client-facing Fall 2026 plan drafted on the Shamrock pattern"
+    },
+    {
+      "project": 507,
+      "record_id": 130203,
+      "task_id": 154710,
+      "date": "2026-09-21",
+      "hours": 2.5,
+      "summary": "Reports 17-24: heating demand curve (55F trigger), installs 60% of revenue, Keyword Planner verdict, Phase B structure from 58,682 search terms; roadmap v4; withdrawn findings recorded"
+    },
+    {
+      "project": 507,
+      "record_id": 130196,
+      "task_id": 154710,
+      "date": "2026-09-20",
+      "hours": 2.5,
+      "summary": "Evidence base: 36-month ST extractor, LSA Q3 break attribution, lead-source truth (LSA 3.8% of jobs), ROAS reconciled to $0.00; roadmap v2/v3"
+    },
+    {
+      "project": 507,
+      "record_id": 130189,
+      "task_id": 154710,
+      "date": "2026-09-17",
+      "hours": 0.5,
+      "summary": "Internal Fall 2026 roadmap published; furnace tune-up price check; GS Slack sweep"
+    },
+    {
+      "project": 507,
+      "record_id": 130182,
+      "task_id": 154710,
+      "date": "2026-09-16",
+      "hours": 0.5,
+      "summary": "Client context captured from expert; ServiceTitan wired; Bing sheet write-back fixed"
+    },
+    {
+      "project": 493,
+      "record_id": 130252,
+      "task_id": 154731,
+      "date": "2026-09-30",
+      "hours": 1,
+      "summary": "Handover plan + baseline; revised after external review (day-1 Search triage, GBP suspension risk)"
+    },
+    {
+      "project": 493,
+      "record_id": 130245,
+      "task_id": 154724,
+      "date": "2026-09-23",
+      "hours": 1.5,
+      "summary": "ServiceTitan tenant wired into the expert; GTM DNI tag for the paid tracking number; call parser fixed"
+    },
+    {
+      "project": 493,
+      "record_id": 130238,
+      "task_id": 154724,
+      "date": "2026-09-22",
+      "hours": 1,
+      "summary": "Conversions audit with two external reviews; 'tracking ruled out' finding corrected"
+    },
+    {
+      "project": 493,
+      "record_id": 130231,
+      "task_id": 154724,
+      "date": "2026-09-15",
+      "hours": 0.5,
+      "summary": "Phone-swap question checked against Nicole's setup"
+    },
+    {
+      "project": 493,
+      "record_id": 130224,
+      "task_id": 154724,
+      "date": "2026-09-14",
+      "hours": 0.5,
+      "summary": "Dan's Echelon data question: safe reply drafted after G4A access"
+    },
+    {
+      "project": 401,
+      "record_id": 130287,
+      "task_id": 154738,
+      "date": "2026-09-30",
+      "hours": 1,
+      "summary": "Full Search + LSA audit (externally reviewed); Tanzeela action guide published and revised around Search performance"
+    },
+    {
+      "project": 401,
+      "record_id": 130280,
+      "task_id": 154738,
+      "date": "2026-09-28",
+      "hours": 0.5,
+      "summary": "LSA insurance-expiry warning posted to Phil"
+    },
+    {
+      "project": 401,
+      "record_id": 130273,
+      "task_id": 154738,
+      "date": "2026-09-18",
+      "hours": 0.5,
+      "summary": "Fall roadmap v2 (internal): LSA two-phase failure, capacity audit; daily LSA monitor built and backtested"
+    },
+    {
+      "project": 401,
+      "record_id": 130266,
+      "task_id": 154738,
+      "date": "2026-09-16",
+      "hours": 2,
+      "summary": "Dan's urgent LSA question: August LSA drop forensics (verification/COI, LSA leads by month, Search trend); message to Dan rewritten with final numbers"
+    },
+    {
+      "project": 401,
+      "record_id": 130259,
+      "task_id": 154738,
+      "date": "2026-09-02",
+      "hours": 1.5,
+      "summary": "Fall roadmap 2026 built and published; furnace tune-up campaign review (AC assets removed, heating sitelinks, callout claims substantiated); API scopes upgraded"
+    },
+    {
+      "project": 682,
+      "record_id": 130322,
+      "task_id": 154745,
+      "date": "2026-09-28",
+      "hours": 0.5,
+      "summary": "PH task review; SMS-number request to Phil placed as task comment"
+    },
+    {
+      "project": 682,
+      "record_id": 130315,
+      "task_id": 154745,
+      "date": "2026-09-18",
+      "hours": 0.5,
+      "summary": "LP/campaign checks with the expert"
+    },
+    {
+      "project": 682,
+      "record_id": 130308,
+      "task_id": 154745,
+      "date": "2026-09-15",
+      "hours": 1,
+      "summary": "$149-offer LP: GHL page code staged on ai.breakthrough3x.com; three GHL landing pages revised"
+    },
+    {
+      "project": 682,
+      "record_id": 130301,
+      "task_id": 154745,
+      "date": "2026-09-03",
+      "hours": 0.5,
+      "summary": "LP follow-ups and checks"
+    },
+    {
+      "project": 682,
+      "record_id": 130294,
+      "task_id": 154745,
+      "date": "2026-09-01",
+      "hours": 1,
+      "summary": "Furnace tune-up + heating repair LP reviews with Vince; go-live confirmed"
+    },
+    {
+      "project": 598,
+      "record_id": 130343,
+      "task_id": 154752,
+      "date": "2026-09-25",
+      "hours": 1,
+      "summary": "/revwood-offer/ built in Elementor and published; form redirect verified; GTM/Analytics/Meta tags; FloorLaunch fixes on PH #3060"
+    },
+    {
+      "project": 598,
+      "record_id": 130336,
+      "task_id": 154752,
+      "date": "2026-09-22",
+      "hours": 0.5,
+      "summary": "Added to the PPC roster/registry; expert Slack channel wired"
+    },
+    {
+      "project": 598,
+      "record_id": 130329,
+      "task_id": 154752,
+      "date": "2026-09-02",
+      "hours": 0.5,
+      "summary": "RevWood offer LP + offer-block options published for review; Zoom matcher fix (ProofHub project, Jerrod)"
+    },
+    {
+      "project": 612,
+      "record_id": 130357,
+      "task_id": 154759,
+      "date": "2026-09-29",
+      "hours": 0.5,
+      "summary": "PH #3117 CallRail setup task created for Vince and pushed to #mtv-group"
+    },
+    {
+      "project": 612,
+      "record_id": 130350,
+      "task_id": 154759,
+      "date": "2026-09-15",
+      "hours": 0.5,
+      "summary": "CTM/call-tracking history traced from transcripts; questions for Dr Wagner on CTM access"
+    },
+    {
+      "project": 521,
+      "record_id": 130371,
+      "task_id": 154766,
+      "date": "2026-09-28",
+      "hours": 0.5,
+      "summary": "Pearce LSA stop (18 Sep) investigated; correction posted"
+    },
+    {
+      "project": 521,
+      "record_id": 130364,
+      "task_id": 154766,
+      "date": "2026-09-17",
+      "hours": 0.5,
+      "summary": "Dan/Bill request in #int-pearce-hvac: PH task created; message to Vince"
+    }
+  ]
+}

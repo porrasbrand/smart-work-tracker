@@ -1,0 +1,211 @@
+{
+  "tasks": [
+    {
+      "project_id": 13,
+      "task_name": "PH #3111 — Adi Klevit / Business Success Consulting Group — Systemize lead campaign to website (WP LP from GHL mockup, Mailchimp, Meta pixel) — September 2026",
+      "task_id": null,
+      "records": [
+        {
+          "date": "2026-09-17",
+          "hours": 0.5,
+          "summary": "Dan's request: add Adi to the Zoom sessions; call-transcript question"
+        },
+        {
+          "date": "2026-09-25",
+          "hours": 1.5,
+          "summary": "GHL temporary funnel reviewed; Mailchimp audience/tags/journey + domain authentication; Gravity Forms Mailchimp add-on"
+        },
+        {
+          "date": "2026-09-26",
+          "hours": 1,
+          "summary": "Systemize page restored after editor wipe; GHL copy synced to WordPress; thank-you page; Meta pixel with consent gating; Slack update to Bill/Phil"
+        },
+        {
+          "date": "2026-09-26",
+          "hours": 2,
+          "summary": "WordPress landing page designed from the GHL mockup (bizsuccesscg.com/systemize) — layout, form, buttons matched to the funnel design"
+        },
+        {
+          "date": "2026-09-28",
+          "hours": 0.5,
+          "summary": "Form fields updated on bizsuccesscg.com/systemize; button/CSS fixes"
+        }
+      ]
+    },
+    {
+      "project_id": 528,
+      "task_name": "Omaha — Lipo 360 September offer: strategy, Google/Meta build + launch (Sep 3) — September 2026",
+      "task_id": null,
+      "records": [
+        {
+          "date": "2026-09-01",
+          "hours": 1.5,
+          "summary": "90-day search-term analysis; offer collision resolved by intent segmentation; Dr. Jennifer's offer terms confirmed; reply to Stephanie"
+        },
+        {
+          "date": "2026-09-02",
+          "hours": 1,
+          "summary": "/ppc/lipo-360/ updated with confirmed terms and published; LP clone recipe worked out after the Aug 11 site rebuild"
+        },
+        {
+          "date": "2026-09-03",
+          "hours": 2,
+          "summary": "Lipo360_Midsection ad group built (12 keywords, RSA, 12 routing negatives) and launched; Cellulaze + evergreen CoolSculpting LPs live; live-note + tummy-tuck question sent to Stephanie/Dr. Jen"
+        },
+        {
+          "date": "2026-09-04",
+          "hours": 1.5,
+          "summary": "30-day deep read → optimisation plan; Step 2 applied (2 ad groups + 14 keywords paused, 23 competitor negatives); conversion tracking found dead since Aug 11 → GTM restored, 6 form confirmations + FB pixel fixed"
+        },
+        {
+          "date": "2026-09-06",
+          "hours": 1,
+          "summary": "Steps 4-5 applied (CoolSculpting budget, RSA rewrites); doctor's Lipo 360 + Tummy Tuck answer incorporated"
+        }
+      ]
+    },
+    {
+      "project_id": 528,
+      "task_name": "Omaha — Google/Meta optimisation, conversion tracking + September PPC report — September 2026",
+      "task_id": null,
+      "records": [
+        {
+          "date": "2026-09-07",
+          "hours": 0.5,
+          "summary": "Meta ad-policy compliance review of running campaigns"
+        },
+        {
+          "date": "2026-09-11",
+          "hours": 0.5,
+          "summary": "Cellulaze ads rebuilt with FDA-cleared wording"
+        },
+        {
+          "date": "2026-09-12",
+          "hours": 1,
+          "summary": "September ads status review; Meta winners locked in; Step 7 applied; tCPA bid strategy prepared ($110, applied Sep 13)"
+        },
+        {
+          "date": "2026-09-22",
+          "hours": 0.5,
+          "summary": "Dr. Jennifer's booking link: Zenoti → Podium rewrite snippet deployed"
+        },
+        {
+          "date": "2026-09-25",
+          "hours": 0.5,
+          "summary": "September PPC report v2 (Sep 1-24: $11,858 spend, 232 leads, blended $51 CPL)"
+        },
+        {
+          "date": "2026-09-28",
+          "hours": 0.5,
+          "summary": "Step 8 prepared (FatRemoval pauses, negatives, tCPA $95); CO2 RSA policy limitation diagnosed"
+        }
+      ]
+    },
+    {
+      "project_id": 528,
+      "task_name": "Omaha — October 'Fall Refresh' (CO2 / Sculptra) planning + client comms — September 2026",
+      "task_id": null,
+      "records": [
+        {
+          "date": "2026-09-16",
+          "hours": 0.5,
+          "summary": "Offer-end email to Stephanie (extend / CO2 / back to $500); Lipo 360 v1 ad paused"
+        },
+        {
+          "date": "2026-09-17",
+          "hours": 0.5,
+          "summary": "Client answer → October Fall Refresh brief (CO2RE $500 off + PRP, Sculptra); flyer terms recorded"
+        },
+        {
+          "date": "2026-09-28",
+          "hours": 1.5,
+          "summary": "October Marketing Ideas thread actioned (Arm Lipo special, Sculptra BBL evidence for Dr. Jennifer); /ppc/sculptra-bbl/ LP built; October reply sent"
+        },
+        {
+          "date": "2026-09-30",
+          "hours": 0.5,
+          "summary": "Sculptra patient list (57 leads) pulled for Dr. Jennifer; October arm creatives reviewed"
+        }
+      ]
+    },
+    {
+      "project_id": 528,
+      "task_name": "Omaha — Client calls, email + campaign coordination (Stephanie / Dr. Jennifer) — September 2026",
+      "task_id": null,
+      "records": [
+        {
+          "date": "2026-09-05",
+          "hours": 1,
+          "summary": "Client email + offer coordination"
+        },
+        {
+          "date": "2026-09-09",
+          "hours": 1,
+          "summary": "Campaign review + client follow-up"
+        },
+        {
+          "date": "2026-09-15",
+          "hours": 1,
+          "summary": "Offer-end planning call prep + client email"
+        },
+        {
+          "date": "2026-09-19",
+          "hours": 1,
+          "summary": "October planning coordination"
+        },
+        {
+          "date": "2026-09-23",
+          "hours": 1,
+          "summary": "Booking-link + client follow-ups"
+        },
+        {
+          "date": "2026-09-29",
+          "hours": 1,
+          "summary": "October launch coordination with the office"
+        }
+      ]
+    },
+    {
+      "project_id": 13,
+      "task_name": "B3X — Team coordination: calls, Slack + email with Dan, Phil, Tanzeela, Vince — September 2026",
+      "task_id": null,
+      "records": [
+        {
+          "date": "2026-09-03",
+          "hours": 1,
+          "summary": "Team coordination: Fall campaign priorities"
+        },
+        {
+          "date": "2026-09-08",
+          "hours": 1,
+          "summary": "Team coordination: New Wave + Northern launches"
+        },
+        {
+          "date": "2026-09-11",
+          "hours": 1,
+          "summary": "Team coordination: campaign launches + LP reviews"
+        },
+        {
+          "date": "2026-09-16",
+          "hours": 1,
+          "summary": "Team coordination: Dan's LSA question + roadmap reviews"
+        },
+        {
+          "date": "2026-09-19",
+          "hours": 1,
+          "summary": "Team coordination: Vision tracking + forms"
+        },
+        {
+          "date": "2026-09-23",
+          "hours": 1,
+          "summary": "Team coordination: 10DLC, Hatch, client-comms rollout"
+        },
+        {
+          "date": "2026-09-26",
+          "hours": 1,
+          "summary": "Team coordination: Adi funnel + open tasks review"
+        }
+      ]
+    }
+  ]
+}

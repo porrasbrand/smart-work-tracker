@@ -1,0 +1,103 @@
+# Imagen / Omaha — September 2026 work inventory and human-time estimate
+
+Prepared 2026-10-02 by the ai-omaha session on Manuel's request (via lipo-360). Read-only: nothing in the accounts, pages or mail was changed to produce this.
+
+**Sources.** Session memory, `CLAUDE.md` September log, `campaigns/*.md` and `*-ids.json`, `reports/`, `scripts/` (file mtimes), `logs/oct1-launch.log`. Nothing has been committed to git since Aug 10, so dates come from file modification times and the session log, not commits. Items I could not re-verify from a file are marked *(from session log)*. Artifact ids are the claude.ai artifact URLs' first segment.
+
+**Estimate basis.** Hours are what ONE experienced PPC/marketing specialist, working alone by hand in the Google Ads, Meta, WordPress, GTM and Gmail UIs, would plausibly need to produce the same deliverable at the same quality, including their own QA. 'Build' = hands-on execution; 'Analysis' = investigation, strategy, writing the reasoning. They are judgments, not measurements; I have rounded to the half hour and leaned conservative. Waiting, meetings and approvals are excluded from the table and listed separately in section 3.
+
+
+## 1 + 2. Deliverables with human-equivalent time
+
+| # | Date | Area | Deliverable (what exactly) | Evidence | Build h | Analysis h | Rationale |
+|---|---|---|---|---|---:|---:|---|
+| 1 | Sep 1–2 | Landing page | Rebuilt `/ppc/lipo-360/` (page 7821) as a true clone of the baked arm LP; discovered the post-rebuild architecture (baked partials ignore post_content, wpautop trap, legacy `.parent-pageid-24919` CSS scoping) and documented the recipe | `campaigns/lp-source/lipo-360-ppc-lp.html`, `campaigns/lp-rebuild-september-2026.md`, `scripts/clone-ppc-lp.js` | 4.0 | 3.0 | Page build ~4h by hand; the reverse-engineering of a rebuilt theme with no developer access is a half-day of investigation |
+| 2 | Sep 1–3 | Landing page | Built `/ppc/cellulaze/` (7819) from the same recipe; Yoast noindex via metabox script | `campaigns/lp-source/cellulaze-ppc-lp.html`, `scripts/wp-metabox-post.js` | 2.5 | 0.0 | Second clone of a known recipe |
+| 3 | Sep 3 | Landing page | Built evergreen `/ppc/coolsculpting-omaha/` (7830) after `/ppc/coolsculpting/` surfaced a hidden baked partial; repointed all CoolSculpting ad groups | `scripts/build-coolsculpting-evergreen-lp.js`, `scripts/repoint-coolsculpting-ads.js`, new RSA 823231032441 | 2.5 | 0.5 | Clone + 4 ad-group URL changes + one new RSA |
+| 4 | Sep 3 | Google Ads | September Lipo 360 ad group `Lipo360_Midsection` (202893977227): 8 keywords w/ policy exemptions, RSA 823274406667, enabled; legacy `360` campaign negative found and removed (zero-impression bug) | `campaigns/google-lipo360-sept-2026-ids.json`, `scripts/enable-lipo360-adgroup.js`, `launch-lipo360-google.js` | 1.5 | 0.5 | Ad group + RSA ~1h in the UI; the negative-keyword conflict is a diagnosis step |
+| 5 | Sep 3 | Meta Ads | `IMAGEN - Lipo 360 September` campaign (52578584692568) $90/day: offer card designed (HTML→PNG), instant form, ad v1 + v2 (tummy-tuck line removed on Manuel's call), launched | `mockups/lipo360-september-card.html`, `media/lipo360-september-card-1080.png`, `campaigns/meta-lipo360-sept-2026-ids.json`, `scripts/build-lipo360-meta.js`, `launch-september-meta.js`, `fix-lipo360-meta-copy.js` | 3.0 | 0.5 | Card design 1.5h, campaign/form/ads 1h, copy revision 0.5h |
+| 6 | Sep 3 | Client email | Live-note + tummy-tuck question to Stephanie/Dr. Jennifer (sent by Manuel); front-desk offer-combinability reply draft | `campaigns/lp-approval-email-lipo360-september-2026-draft.md`, `campaigns/reply-stephanie-september-2026-draft.md` | 1.0 | 0.0 | Two short client emails |
+| 7 | Sep 3 | Report/artifact | 'Imagen September Ad Review' page: Meta previews, Google RSA mockups, mobile LP captures (Playwright) | artifact cd93b4b0, scratchpad `build-review.js` | 2.0 | 0.0 | Screenshots + page assembly |
+| 8 | Sep 3–4 | Report/artifact | 'Imagen Active Campaigns' status table with KPIs (clicks/share, CPL, Google-counted conv), Keep/Modify/Pause column and the deep analysis behind it; refreshed several times through Sep 13 | artifact 1e3aa46c, scratchpad `imagen-active-campaigns.html` | 3.0 | 4.0 | Data pulls across two platforms + a full account review; the analysis is the bulk |
+| 9 | Sep 4 | Tracking | Diagnosed Google conversion tracking dead since Aug 11; restored GTM-WTK39X2 site-wide (WPCode caps repair), fixed all 6 Gravity Forms confirmations (dead page 24794), built thank-you page 7834 `/ppc/thank-you-consultation/`, added CTM script, phone-normalize PHP snippet 7836 (8411→8473), verified every tag headless with real UA | `campaigns/lp-source/ppc-thank-you.html`, `services/wp-snippets/phone-normalize.php`, CLAUDE.md Sep 4 block | 5.0 | 4.0 | A full tracking forensic + repair across GTM, WP, GF and CTM is a long day for one specialist; verification alone is 1–2h |
+| 10 | Sep 4 | Strategy | Google optimization plan Steps 1–7 (pauses, negatives, phrase match, budgets, RSA rewrites, junk keywords, bid strategy) written from search-terms and ad-group data | `campaigns/google-optimization-plan-sept-2026.md` | 0.5 | 3.0 | Search-term mining and prioritisation |
+| 11 | Sep 4 | Google Ads | Step 2 applied (ad-group pauses + negatives, incl. the 'Competitors - Omaha' list growth) and Step 3 (5 broad keywords → phrase twins) | `scripts/apply-step2-sept-2026.js`, `apply-step3-phrase-match.js` | 2.0 | 0.5 | Bulk edits with policy exemptions; each validated then applied |
+| 12 | Sep 6 | Google Ads | Step 4 (CoolSculpting $30/day), Step 5 (5 new RSAs drafted + created beside old ones), Step 6 (47 off-topic keywords paused); tummy-tuck keywords + original RSA restored after Dr. Jennifer's OK | `scripts/apply-step4-coolsculpting-budget.js`, `apply-step5-step6.js`, `restore-lipo360-tummytuck-google.js`, `campaigns/step5-rsa-drafts-sept-2026.json`, `step6-junk-keywords-sept-2026.json` | 3.0 | 1.5 | Writing 5 RSAs (15 headlines + 4 descriptions each) is ~2h; keyword triage ~1h |
+| 13 | Sep 6–13 | Meta Ads | Body Lipo + BBL creative refresh: 6 creatives (text card, photo A, photo B per campaign) designed and built with real Meta previews, images-vs-text debate with data, 'test all three' activation, Sep 13 winner lock (BBL photo B kept; Body Lipo v2 text card rebuilt on a new form), old B/A + reel ads paused | `scripts/build-meta-refresh-bodylipo-bbl.js`, `build-meta-refresh-photo-variants.js`, `activate-meta-refresh-test.js`, `lock-meta-winners.js`, `media/bbl-*`, `media/bodylipo-*`, `campaigns/meta-refresh-bodylipo-bbl-sept-2026-ids.json`, artifact 78770e49 | 6.0 | 2.0 | 6 designs + 6 ad builds + previews ~5h; test read and lock ~1h; debate/analysis ~2h |
+| 14 | Sep 7 | Compliance | Full ad-claims audit across all Google RSAs, Meta ads and LPs (FIX / CONFIRM / TONE / WATCH buckets) | `reports/ad-claims-audit-2026-09-07.html`, artifact 6ffda05d | 1.0 | 4.0 | Reading every live asset against YMYL rules is a half day |
+| 15 | Sep 11 | Meta Ads + LP | Cellulaze 'FDA-approved' → 'FDA-cleared': LP 7819 edited, 4 cards regenerated, 4 ads rebuilt (v2), old ads paused | `scripts/rebuild-cellulaze-fda-cleared.js`, `media/cellulaze-card-*-v2-1080.png`, `campaigns/meta-cellulaze-education-aug-2026-ids.json` | 2.0 | 0.0 | Immutable creatives mean 4 rebuilds, not 4 edits |
+| 16 | Sep 12 | Report/artifact | September PPC report v1 (Sep 1–11): KPI tiles, charts, ad-group tables, old-vs-new RSA comparison, leakage terms; plus a recorded voice brief (edge-tts) linked from the page | `reports/september-ppc-report-2026-09-12.html`, `reports/audio/imagen-september-brief.mp3` + transcript, artifact 5da03d58 | 3.0 | 3.0 | Data pulls + charts ~3h; interpretation ~3h; a human would script/record the voice note in ~1h (included in build) |
+| 17 | Sep 12–13 | Google Ads | Bid strategy: OM_Liposuction_Search → Maximize Conversions tCPA $110; Calls-from-ads value 3→1; honest assessment of 'why wait a week' written first | `scripts/apply-bid-strategy-tcpa.js` | 0.5 | 1.0 | Small change, real decision |
+| 18 | Sep 13 | Google Ads | Step 7: Competitors list → 64, generic list + med spa terms, 3 lipo campaign negatives, Lipo_Results paused | `scripts/apply-step7-negatives.js` | 0.5 | 0.5 | Second-tier leakage sweep |
+| 19 | Sep 16–20 | Strategy | 'Retire the old POOR RSAs' request: proof pulled, verdict = hold (old Lipo_Core converts cheaper); tCPA step-down plan; Lipo 360 v1 ad paused; Sep 20 checkpoint | CLAUDE.md log, `campaigns/google-optimization-plan-sept-2026.md` | 0.5 | 1.5 | Analysis that prevented a bad change |
+| 20 | Sep 16 | Client email | Offer-end options email (Lipo 360 extend / CO2 / back to $500) drafted; fact-check email drafted (rev 3, later dropped by Manuel's rule) | `campaigns/email-stephanie-factcheck-sept-2026-draft.md` | 1.0 | 0.0 | Two drafts |
+| 21 | Sep 22 | Tracking/site | Zenoti → Podium booking link site-wide via WPCode PHP snippet 7847; reply draft to Dr. Jennifer | `services/wp-snippets/booking-link-podium.php`, `campaigns/reply-drjen-booking-link-sept-2026-draft.md` | 0.5 | 0.0 | Snippet + verification |
+| 22 | Sep 22 | Landing page | Built `/ppc/fractional-co2/` (7859) education-first with flyer terms verbatim; uploaded client photos (media 7856–7858); a wrong testimonial caught and replaced within minutes | `campaigns/lp-source/fractional-co2-ppc-lp.html`, `campaigns/october-2026-fall-refresh-brief.md` | 3.0 | 0.5 | New page with new copy and images |
+| 23 | Sep 22 | Google Ads | `OM_FractionalCO2_Search` campaign 24272956077 ($20/day, 10 keywords, RSA 825644555407) built paused | `scripts/build-co2-google.js`, `campaigns/google-co2-oct-2026-ids.json` | 1.0 | 0.0 | Small campaign |
+| 24 | Sep 22 | Meta Ads | `IMAGEN - Fall Refresh CO2 (Oct)` campaign 52583033731568 $90/day: 2 offer cards designed, instant form, 2 ads, ad set scheduled Oct 1 | `mockups/co2-fall-refresh-card.html`, `sculptra-fall-refresh-card.html`, `media/*fall-refresh-card-1080.png`, `scripts/build-co2-meta.js`, `campaigns/meta-fall-refresh-oct-2026-ids.json` | 2.5 | 0.0 | 2 designs + campaign build |
+| 25 | Sep 22 | Report/artifact | 'Imagen Fall Refresh Launch' review page + October brief with the client's flyer terms and open questions | artifact 97c0f1e1, `campaigns/october-2026-fall-refresh-brief.md` | 1.0 | 1.0 | Review page + planning doc |
+| 26 | Sep 25 | Automation | `scripts/oct1-launch.js` one-shot (Google pause/budget, Meta sunset + Fall Refresh activation, LP 7821 offer neutralisation, read-back) + crontab entry; dry-run verified; extended Sep 28/30 for the new ads and the CO2 drop. Ran clean Oct 1 00:10 CT (log verified Oct 2) | `scripts/oct1-launch.js`, `logs/oct1-launch.log` | 2.5 | 0.0 | A human would do these ~15 changes by hand on Oct 1 morning (~1.5h) rather than automate; automation counted at its own cost |
+| 27 | Sep 25 | Report/artifact | September PPC report v2 (Sep 1–24 vs Aug 1–24): daily-lead chart, weekly conversion chart, CPL chart, ad-group and old-vs-new tables, second-wave leakage, recommendations | `reports/september-ppc-report-2026-09-25.html`, artifact 5da03d58 | 2.0 | 2.0 | Refresh of an existing structure with new reads |
+| 28 | Sep 28 | Analysis | Sculptra 'why does it work' investigation for Dr. Jennifer: every ad since Feb (lifetime + monthly), placement split, age split, lead-per-click vs other campaigns, financing math (Reg Z triggering terms) | `campaigns/october-2026-fall-refresh-brief.md` (evidence table), CLAUDE.md | 0.0 | 2.5 | Genuine analysis; the kind of question that takes an afternoon |
+| 29 | Sep 28 | Client email | Reply to Stephanie + Dr. Jennifer: 10 revisions to reach a concise, fact-checked version (sent by Manuel Sep 28) | `campaigns/reply-stephanie-october-2026-draft.md` | 2.0 | 0.0 | Drafting + repeated tightening |
+| 30 | Sep 28 | Google Ads | Step 8 prepared and dry-run (5 FatRemoval broad pauses, 13 negatives, optional tCPA $95) — NOT applied, awaiting Manuel | `scripts/apply-step8-sept-2026.js` | 0.5 | 0.5 | Ready to apply |
+| 31 | Sep 28 | Compliance | Found the Google CO2 RSA FULLY_LIMITED in the US (PRP = speculative treatment) before launch; led to dropping Google CO2 on Sep 30 | CLAUDE.md Sep 28 block | 0.0 | 0.5 | Policy check most people skip |
+| 32 | Sep 28–30 | Report/artifact | 'Imagen October Ad Lineup' page: 24 live Instagram previews, 20 Google RSA mockups with assets/keywords/30-day spend, 10 mobile LP captures, decisions table, test board, arm drafts; rebuilt 6 times as the plan moved | `reports/october-ad-lineup-2026-09-28.html`, artifact 8f68a045, scratchpad `oct/*.js`, `oct/build.py` | 4.0 | 0.5 | Large evidence page; capture tooling reused |
+| 33 | Sep 28 | Landing page | Built `/ppc/sculptra-bbl/` (7865): the Sculptra BBL ad had no PPC page (form thank-you went to the fat-transfer page); copy from the site's own Sculptra section, off-label claims deliberately left out; `/ppc/bbl/` empty shell set to draft | `scripts/build-sculptra-bbl-lp.js`, `campaigns/lp-source/sculptra-bbl-ppc-lp.html` | 2.5 | 0.5 | Clone + copy adaptation + claim vetting |
+| 34 | Sep 28 | Meta Ads | Fall Refresh photo variants: 2 photo cards designed and 2 ads built (new Sculptra form → new LP) | `mockups/*fall-refresh-photo-card.html`, `scripts/build-fall-refresh-photo-ads.js` | 1.5 | 0.0 | 2 designs + 2 ads |
+| 35 | Sep 28 | Meta Ads | Sculptra rotation test A/B/C: new form, control + copy variant + 7-second motion video (ffmpeg) uploaded as a video ad; activation wired into the Oct 1 script | `scripts/build-sculptra-test-oct-2026.js`, `media/videos/sculptra-bbl-motion-photoB.mp4`, `campaigns/meta-sculptra-test-oct-2026-ids.json` | 2.0 | 0.5 | Test design + 3 builds + a video render |
+| 36 | Sep 30 | Client email | Dr. Jennifer's inline answers read; 57 Sculptra leads exported from both Meta forms to CSV (git-ignored); reply drafted with CSV + 3 arm creatives attached (sent by Manuel) | `data/leads/` (ignored), `campaigns/reply-drjen-sculptra-list-2026-09-30-draft.md` | 0.5 | 0.0 | Export + short email |
+| 37 | Sep 30 | Meta creative | Arm lipo October creatives per Dr. Jennifer ('bats as imagery, no wording'): 6 variants rendered (card $155/$159, close-up, flex, raised arm, lifestyle), 3 chosen; two rejected on honest grounds (did not read as arms) | `mockups/arm-bats-*.html`, `media/arm-bats-*-1080.png` | 2.5 | 0.5 | Concept + 6 renders + review loop |
+| 38 | Sep 30 | Landing page | Built `/ppc/arm-liposuction/` (7867): August arm page + '$159/mo' line with the Reg Z footnote in both hero ledes, payment section and form; '5-Star Rated' dropped | `scripts/build-arm-financing-lp.js`, `campaigns/lp-source/arm-liposuction-ppc-lp.html` | 1.5 | 0.5 | Clone + compliance placement check on two viewports |
+| 39 | Sep 30 | Meta Ads + budget | Flat move executed: new arm form, 3 arm ads rebuilt and ACTIVATED ($45/day), Cellulaze paused, Google CO2 removed from the launch script; August arm ad caught resurrecting and hard-paused | `scripts/build-arm-october-test.js`, `activate-arm-october.js`, `campaigns/meta-arm-oct-2026-ids.json` | 1.0 | 0.5 | Activation + a trap caught in time |
+| 40 | Sep (ongoing) | Documentation | CLAUDE.md session log, LP rebuild doc, strategy docs, ID files kept current so the next session boots into the right state; a lost Sep 13–28 block re-added Sep 28 | `CLAUDE.md`, `campaigns/*.md`, `campaigns/*-ids.json` | 3.0 | 0.0 | Equivalent to a specialist's change log / handover notes |
+| | | | **TOTAL** | | **78.0** | **39.5** | **117.5 h combined** |
+
+### Totals
+
+| | Hours |
+|---|---:|
+| Hands-on build | 78.0 |
+| Analysis / strategy | 39.5 |
+| **Total human-equivalent** | **117.5** |
+
+At 6 productive hours a day that is about **20 working days**, i.e. roughly 0.9 months of one full-time specialist, compressed into September.
+
+### Counts behind the table (verifiable)
+
+| Type | Count | Where |
+|---|---:|---|
+| Landing pages built or rebuilt (live, noindex) | 7 | `/ppc/lipo-360/` 7821 · `/ppc/cellulaze/` 7819 · `/ppc/coolsculpting-omaha/` 7830 · `/ppc/thank-you-consultation/` 7834 · `/ppc/fractional-co2/` 7859 · `/ppc/sculptra-bbl/` 7865 · `/ppc/arm-liposuction/` 7867 |
+| Meta campaigns created | 2 | Lipo 360 September 52578584692568 · Fall Refresh CO2 52583033731568 |
+| Meta ads built (new creatives) | 27 | Lipo 360 v1+v2 (2) · Body Lipo/BBL refresh (6) + Body Lipo v2 (1) · Cellulaze v2 (4) · Fall Refresh cards (2) + photos (2) · Sculptra test (3) · Arm Oct (3 final; 3 earlier builds deleted) · *(count from id files)* |
+| Meta instant forms created | 7 | Lipo 360 · Body Lipo v2 · BBL refresh · Fall Refresh · Fall Refresh Sculptra · Sculptra test · Arm Oct |
+| Ad creatives designed (HTML→PNG/MP4) | ~24 renders | `media/` Sep files + 1 video |
+| Google ad groups created/enabled | 2 | Lipo360_Midsection 202893977227 · Fractional_CO2 203515422394 (campaign 24272956077) |
+| Google RSAs written | 8 | Lipo 360 (1) · Cool_Cost (1) · Step 5 (5) · CO2 (1) |
+| Google keywords added | ~30 | Lipo 360 (8 + 4 tummy tuck + 2 phrase twins) · CO2 (10) · phrase twins Step 3 (5) *(approx.)* |
+| Google keywords paused | ~60 | Step 2 ad-group pauses · Step 6 (47) · Step 3 (5 broad) · Step 7 (Lipo_Results) |
+| Negative keywords added | ~90 | Steps 2, 3, 7 (Competitors list 32→64, generic list, campaign negatives) *(approx.; Step 8's 13 not yet applied)* |
+| Bid/budget changes | 4 | tCPA $110 · conv value 3→1 · CoolSculpting $30 · lipo $260→$240 (Oct 1) |
+| Tracking fixes | 6 | GTM restored · 6 GF confirmations · thank-you page · CTM script · phone-normalize snippet 7836 · Podium booking snippet 7847 |
+| Client emails drafted | 8 | Sep 3 (2) · Sep 6 ack · Sep 16 (2) · Sep 22 · Sep 28 · Sep 30 — all sent by Manuel, none by the session |
+| Reports / review pages | 7 | Ad review (Sep 3) · Active campaigns (Sep 3–13) · Claims audit (Sep 7) · PPC report v1 + voice (Sep 12) · Fall Refresh launch (Sep 22) · PPC report v2 (Sep 25) · October lineup (Sep 28–30) |
+| Scripts written | 33 | `scripts/*.js` with September mtimes (list in `ls -lt scripts`) |
+| Strategy / planning docs | 4 | Lipo 360 strategy · Google optimization plan · LP rebuild doc · October brief |
+
+## 3. What a human would also have had to do (not counted above)
+
+- **Client meetings and calls.** A specialist would normally have had at least a kickoff for September, a mid-month review and an October planning call with Stephanie/Dr. Jennifer: 3 × 45–60 min plus prep, about 4 h. Everything here went through email and Manuel.
+- **Waiting on approvals.** Lipo 360 terms (Sep 1), tummy-tuck answer (Sep 4), October direction (Sep 17), booking link (Sep 22), Cherry terms (Sep 28). A human carries these as open loops and re-chases them; elapsed time, not effort, but typically 1–2 h of follow-up emails and reminders over a month.
+- **Internal approvals with Manuel.** Every Google write, every launch, every email went through him. A human in the same seat would spend time in those back-and-forths too; roughly 10–15 short exchanges, 3–4 h.
+- **Ad review waits.** Meta and Google reviews ran in the background; a human would check back manually several times a day for the first days of each launch, 2–3 h of fragmented attention over the month.
+- **Learning the rebuilt site.** The Aug 11 theme rebuild with no developer access would have cost a human a half-day to a day of trial and error before the first page worked; I have counted 3 h of analysis in row 1, a human could easily spend more.
+- **Context switching and re-familiarisation.** A specialist handling this account alongside others would lose time re-loading context between sessions; the documentation rows (CLAUDE.md, ID files) are what replaces that here.
+- **Tool setup.** Playwright, API credentials, screenshot and preview tooling, headless tag verification: a human would set these up once (a day) or do the equivalent by hand each time (slower). Not counted.
+- **Weekends and evenings.** Several items (Sep 6, Sep 28, Sep 30 evening) were done on days or at hours a human would not normally work; no premium applied.
+
+## Caveats
+
+- Hours are estimates of effort for an equivalent human, not a log of machine time.
+- Early-September rows (Sep 1–3) are reconstructed from the session summary and file timestamps; the detail is right to the best of my knowledge but the exact day may be off by one.
+- Counts marked *(approx.)* are from the optimization plan and scripts rather than a fresh API read, to keep this task read-only.
+- Not included: anything before Sep 1 (August arm/Cellulaze builds) or after Sep 30 (the Oct 1 launch ran automatically and is referenced only as evidence that row 26 worked).

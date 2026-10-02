@@ -1,0 +1,128 @@
+[
+  {
+    "project": 528,
+    "task_id": 155375,
+    "record_id": 131246,
+    "date": "2026-09-01",
+    "hours": 1
+  },
+  {
+    "project": 528,
+    "task_id": 155375,
+    "record_id": 131253,
+    "date": "2026-09-03",
+    "hours": 1
+  },
+  {
+    "project": 528,
+    "task_id": 155375,
+    "record_id": 131260,
+    "date": "2026-09-22",
+    "hours": 1
+  },
+  {
+    "project": 528,
+    "task_id": 155375,
+    "record_id": 131267,
+    "date": "2026-09-28",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155375,
+    "record_id": 131274,
+    "date": "2026-09-30",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155382,
+    "record_id": 131281,
+    "date": "2026-09-03",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155382,
+    "record_id": 131288,
+    "date": "2026-09-08",
+    "hours": 1
+  },
+  {
+    "project": 528,
+    "task_id": 155382,
+    "record_id": 131295,
+    "date": "2026-09-13",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155382,
+    "record_id": 131302,
+    "date": "2026-09-22",
+    "hours": 1
+  },
+  {
+    "project": 528,
+    "task_id": 155382,
+    "record_id": 131309,
+    "date": "2026-09-28",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155382,
+    "record_id": 131316,
+    "date": "2026-09-30",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155389,
+    "record_id": 131323,
+    "date": "2026-09-04",
+    "hours": 1.5
+  },
+  {
+    "project": 528,
+    "task_id": 155389,
+    "record_id": 131330,
+    "date": "2026-09-22",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155396,
+    "record_id": 131337,
+    "date": "2026-09-03",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155396,
+    "record_id": 131344,
+    "date": "2026-09-07",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155396,
+    "record_id": 131351,
+    "date": "2026-09-12",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155396,
+    "record_id": 131358,
+    "date": "2026-09-25",
+    "hours": 0.5
+  },
+  {
+    "project": 528,
+    "task_id": 155396,
+    "record_id": 131365,
+    "date": "2026-09-29",
+    "hours": 0.5
+  }
+]

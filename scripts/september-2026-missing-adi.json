@@ -1,0 +1,36 @@
+{
+  "tasks": [
+    {
+      "project_id": 13,
+      "task_name": "PH #3111 \u2014 Adi Klevit / Business Success CG \u2014 Systemize lead campaign: WP LP from GHL mockup, Mailchimp, Meta pixel \u2014 Sep 2026",
+      "task_id": null,
+      "records": [
+        {
+          "date": "2026-09-17",
+          "hours": 0.5,
+          "summary": "Dan's request: add Adi to the Zoom sessions; call-transcript question"
+        },
+        {
+          "date": "2026-09-25",
+          "hours": 1.5,
+          "summary": "GHL temporary funnel reviewed; Mailchimp audience/tags/journey + domain authentication; Gravity Forms Mailchimp add-on"
+        },
+        {
+          "date": "2026-09-26",
+          "hours": 1,
+          "summary": "Systemize page restored after editor wipe; GHL copy synced to WordPress; thank-you page; Meta pixel with consent gating; Slack update to Bill/Phil"
+        },
+        {
+          "date": "2026-09-26",
+          "hours": 2,
+          "summary": "WordPress landing page designed from the GHL mockup (bizsuccesscg.com/systemize) \u2014 layout, form, buttons matched to the funnel design"
+        },
+        {
+          "date": "2026-09-28",
+          "hours": 0.5,
+          "summary": "Form fields updated on bizsuccesscg.com/systemize; button/CSS fixes"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "month": "2026-09",
+  "generated": "2026-10-02",
+  "note": "Omaha top-up per Manuel: 1.5h/day Mon-Fri = 32h total; +12.5h on top of 19.5h already in AC; tasks from evidence/omaha-september-2026-work-inventory.md",
+  "tasks": [
+    {
+      "project_id": 528,
+      "task_name": "Omaha \u2014 PPC landing pages: lipo-360 rebuild, Cellulaze, CoolSculpting, Fractional CO2, Sculptra BBL, Arm \u2014 Sep 2026",
+      "records": [
+        {
+          "date": "2026-09-01",
+          "hours": 1.0,
+          "summary": "/ppc/lipo-360/ (7821) rebuilt as a clone of the baked arm LP after the Aug 11 site rebuild; clone recipe + wpautop/CSS-scoping traps documented"
+        },
+        {
+          "date": "2026-09-03",
+          "hours": 1.0,
+          "summary": "/ppc/cellulaze/ (7819) and evergreen /ppc/coolsculpting-omaha/ (7830) built; CoolSculpting ad groups repointed"
+        },
+        {
+          "date": "2026-09-22",
+          "hours": 1.0,
+          "summary": "/ppc/fractional-co2/ (7859) built education-first with flyer terms; client photos uploaded"
+        },
+        {
+          "date": "2026-09-28",
+          "hours": 0.5,
+          "summary": "/ppc/sculptra-bbl/ (7865) built \u2014 Sculptra BBL ads had no PPC page; off-label claims excluded"
+        },
+        {
+          "date": "2026-09-30",
+          "hours": 0.5,
+          "summary": "/ppc/arm-liposuction/ (7867) built with $159/mo financing line and Reg Z footnote"
+        }
+      ]
+    },
+    {
+      "project_id": 528,
+      "task_name": "Omaha \u2014 Meta creative design + ad builds: Body Lipo/BBL refresh, Fall Refresh CO2, Sculptra test, Arm October \u2014 Sep 2026",
+      "records": [
+        {
+          "date": "2026-09-03",
+          "hours": 0.5,
+          "summary": "Lipo 360 September card designed (HTML\u2192PNG); campaign 52578584692568, instant form, ads v1/v2 launched"
+        },
+        {
+          "date": "2026-09-08",
+          "hours": 1.0,
+          "summary": "Body Lipo + BBL refresh: 6 creatives designed and built with Meta previews; test-all-three activation"
+        },
+        {
+          "date": "2026-09-13",
+          "hours": 0.5,
+          "summary": "Refresh test read; winners locked (BBL photo B, Body Lipo v2 card); old B/A + reel ads paused"
+        },
+        {
+          "date": "2026-09-22",
+          "hours": 1.0,
+          "summary": "Fall Refresh CO2 campaign 52583033731568: 2 offer cards designed, instant form, 2 ads scheduled Oct 1"
+        },
+        {
+          "date": "2026-09-28",
+          "hours": 0.5,
+          "summary": "Fall Refresh photo variants + Sculptra A/B/C rotation test (incl. 7-second motion video)"
+        },
+        {
+          "date": "2026-09-30",
+          "hours": 0.5,
+          "summary": "Arm October creatives: 6 'bat wings' variants rendered, 3 chosen; 3 arm ads rebuilt and activated at $45/day"
+        }
+      ]
+    },
+    {
+      "project_id": 528,
+      "task_name": "Omaha \u2014 Conversion tracking repair + verification: GTM, Gravity Forms, thank-you page, phone number, Podium booking link \u2014 Sep 2026",
+      "records": [
+        {
+          "date": "2026-09-04",
+          "hours": 1.5,
+          "summary": "GTM-WTK39X2 restored site-wide; 6 Gravity Forms confirmations fixed; /ppc/thank-you-consultation/ (7834) built; CTM script + phone-normalize snippet 7836; every tag verified headless"
+        },
+        {
+          "date": "2026-09-22",
+          "hours": 0.5,
+          "summary": "Zenoti \u2192 Podium booking link rewrite snippet 7847 deployed and verified"
+        }
+      ]
+    },
+    {
+      "project_id": 528,
+      "task_name": "Omaha \u2014 Reports + review pages: September ad review, claims audit, PPC reports v1/v2, October ad lineup \u2014 Sep 2026",
+      "records": [
+        {
+          "date": "2026-09-03",
+          "hours": 0.5,
+          "summary": "'Imagen September Ad Review' page: Meta previews, RSA mockups, mobile LP captures"
+        },
+        {
+          "date": "2026-09-07",
+          "hours": 0.5,
+          "summary": "Ad-claims audit across all Google RSAs, Meta ads and LPs (YMYL)"
+        },
+        {
+          "date": "2026-09-12",
+          "hours": 0.5,
+          "summary": "September PPC report v1 (Sep 1-11) with KPI tiles, charts and recorded voice brief"
+        },
+        {
+          "date": "2026-09-25",
+          "hours": 0.5,
+          "summary": "September PPC report v2 (Sep 1-24 vs Aug 1-24): leads, conversions, CPL, leakage, recommendations"
+        },
+        {
+          "date": "2026-09-29",
+          "hours": 0.5,
+          "summary": "'Imagen October Ad Lineup' page: 24 Instagram previews, 20 RSA mockups, 10 LP captures, decisions table"
+        }
+      ]
+    }
+  ]
+}
