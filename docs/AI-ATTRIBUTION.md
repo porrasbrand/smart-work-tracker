@@ -35,7 +35,7 @@ The AI reads your actual messages from Claude sessions:
 ```
 "Ok I added ZIP files for each client..."
 "Add Bing Ads to Theta Pro report YES"
-"@remote consult-gemini validate-1st-choice-report..."
+"@remote consult-gemini validate-acme-hvac-report..."
 ```
 
 ### 2. Project Extraction
